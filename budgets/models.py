@@ -37,6 +37,7 @@ class BudgetsCategory(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_category'
+        verbose_name_plural = 'budgets categories'
 
 
 class BudgetsExpenditure(models.Model):
