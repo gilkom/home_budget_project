@@ -1,0 +1,29 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+    <p>Expenses:</p>
+
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Amount</td>
+            <td>Date</td>
+            <td>Description</td>
+            <td>Category</td>
+            <td>User</td>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td> <a href="{% url 'budgets:expenditure' expense.expenditure_id %}">{{ expense.expenditure_id }}</a></td>
+            <td> {{ expense.expenditure_amount }}</td>
+            <td> {{ expense.expenditure_date }}</td>
+            <td> {{ expense.description }}</td>
+            <td> {{ expense.category_id_budgets_category }}</td>
+            <td> {{ expense.id_budgets_saver }}</td>
+        </tr>
+        {% empty %}
+            <p>No expenses yet. Add the first one...</p>
+        {% endfor %}
+    </table>
+
+{% endblock content %}
