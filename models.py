@@ -77,24 +77,70 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Balance(models.Model):
-    email_saver = models.OneToOneField('Saver', models.DO_NOTHING, db_column='email_saver', primary_key=True)
-    period_id_period = models.ForeignKey('Period', models.DO_NOTHING, db_column='period_id_period')
+class BudgetsBalance(models.Model):
     amount = models.FloatField()
+    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING, db_column='period_id_budgets_period')
+    id_budgets_saver = models.OneToOneField('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver', primary_key=True)
 
     class Meta:
         managed = False
-        db_table = 'balance'
-        unique_together = (('email_saver', 'period_id_period'),)
+        db_table = 'budgets_balance'
+        unique_together = (('id_budgets_saver', 'period_id_budgets_period'),)
 
 
-class Category(models.Model):
-    category_id = models.SmallIntegerField(primary_key=True)
+class BudgetsCategory(models.Model):
+    category_id = models.SmallAutoField(primary_key=True)
     category_name = models.CharField(max_length=20)
 
     class Meta:
         managed = False
-        db_table = 'category'
+        db_table = 'budgets_category'
+
+
+class BudgetsExpenditure(models.Model):
+    expenditure_id = models.BigAutoField(primary_key=True)
+    expenditure_amount = models.FloatField()
+    expenditure_date = models.DateField()
+    description = models.CharField(max_length=300, blank=True, null=True)
+    category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING, db_column='category_id_budgets_category', blank=True, null=True)
+    id_budgets_saver = models.ForeignKey('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'budgets_expenditure'
+
+
+class BudgetsMonthlyGoal(models.Model):
+    goal = models.FloatField()
+    category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING, db_column='category_id_budgets_category')
+    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING, db_column='period_id_budgets_period')
+    id_budgets_saver = models.OneToOneField('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver', primary_key=True)
+
+    class Meta:
+        managed = False
+        db_table = 'budgets_monthly_goal'
+        unique_together = (('id_budgets_saver', 'category_id_budgets_category', 'period_id_budgets_period'),)
+
+
+class BudgetsPeriod(models.Model):
+    period_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+    start_day = models.DateField()
+    end_day = models.DateField()
+    id_budgets_saver = models.ForeignKey('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'budgets_period'
+
+
+class BudgetsSaver(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'budgets_saver'
 
 
 class DjangoAdminLog(models.Model):
@@ -140,50 +186,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class Expenditure(models.Model):
-    expenditure_id = models.SmallIntegerField(primary_key=True)
-    email_saver = models.ForeignKey('Saver', models.DO_NOTHING, db_column='email_saver', blank=True, null=True)
-    category_id_category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_id_category', blank=True, null=True)
-    expenditure_amount = models.FloatField()
-    expenditure_date = models.DateField()
-    description = models.CharField(max_length=300, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'expenditure'
-
-
-class MonthlyGoal(models.Model):
-    email_saver = models.OneToOneField('Saver', models.DO_NOTHING, db_column='email_saver', primary_key=True)
-    category_id_category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_id_category')
-    period_id_period = models.ForeignKey('Period', models.DO_NOTHING, db_column='period_id_period')
-    goal = models.FloatField()
-
-    class Meta:
-        managed = False
-        db_table = 'monthly_goal'
-        unique_together = (('email_saver', 'category_id_category', 'period_id_period'),)
-
-
-class Period(models.Model):
-    period_id = models.SmallIntegerField(primary_key=True)
-    email_saver = models.ForeignKey('Saver', models.DO_NOTHING, db_column='email_saver', blank=True, null=True)
-    name = models.CharField(max_length=30)
-    start_day = models.DateField()
-    end_day = models.DateField()
-
-    class Meta:
-        managed = False
-        db_table = 'period'
-
-
-class Saver(models.Model):
-    email = models.CharField(primary_key=True, max_length=30)
-    name = models.CharField(max_length=30)
-    password = models.CharField(max_length=256)
-
-    class Meta:
-        managed = False
-        db_table = 'saver'
