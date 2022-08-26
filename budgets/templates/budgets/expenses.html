@@ -3,6 +3,16 @@
 {% block content %}
     <p>Expenses:</p>
 
+    <p>Add a new expenditure:</p>
+
+    <form action="{% url 'budgets:expenses' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Add new</button>
+    </form>
+
+
+
     <table>
         <tr>
             <td>Id</td>
