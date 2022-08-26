@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 
 # Create your models here.
@@ -42,7 +43,7 @@ class BudgetsCategory(models.Model):
 
 class BudgetsExpenditure(models.Model):
     expenditure_id = models.BigAutoField(primary_key=True)
-    expenditure_amount = models.FloatField()
+    expenditure_amount = models.FloatField(validators=[MinValueValidator(0)])
     expenditure_date = models.DateField()
     description = models.CharField(max_length=300, blank=True, null=True)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
