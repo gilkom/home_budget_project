@@ -45,7 +45,8 @@ class BudgetsExpenditure(models.Model):
     expenditure_amount = models.FloatField()
     expenditure_date = models.DateField()
     description = models.CharField(max_length=300, blank=True, null=True)
-    category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING, db_column='category_id_budgets_category')
+    category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
+                                                     db_column='category_id_budgets_category')
     id_budgets_saver = models.ForeignKey('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver')
 
 

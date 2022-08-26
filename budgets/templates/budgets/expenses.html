@@ -2,17 +2,15 @@
 
 {% block content %}
     <p>Expenses:</p>
-
-    <p>Add a new expenditure:</p>
+    <p>------------------------------------------------------------------------</p>
+    <p>Add expense:</p>
 
     <form action="{% url 'budgets:expenses' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="submit">Add new</button>
+        <button name="submit">Add expense</button>
     </form>
-
-
-
+    <p>------------------------------------------------------------------------</p>
     <table>
         <tr>
             <td>Id</td>
