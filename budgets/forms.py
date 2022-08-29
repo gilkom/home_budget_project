@@ -17,3 +17,9 @@ class ExpenditureForm(forms.ModelForm):
                   'id_budgets_saver': 'User'}
 
 
+class ExpenditureEditForm(forms.ModelForm):
+    class Meta:
+        model = BudgetsExpenditure
+        fields = ('expenditure_amount', 'expenditure_date', 'description', 'category_id_budgets_category')
+        labels = {'expenditure_amount': 'Amount', 'expenditure_date': 'Date',
+                  'category_id_budgets_category': 'Category'}

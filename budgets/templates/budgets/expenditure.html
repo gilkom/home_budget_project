@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <p>Expenditure id: {{ expenditure.expenditure_id }}</p>
-    <p>Amount: {{ expenditure.expenditure_id }}</p>
-    <p>Date: {{ expenditure.date }}</p>
-    <p>Description: {{ expenditure.description }}</p>
-    <p>Category: {{ expenditure.category_id_budgets_category }}</p>
-    <p>User: {{ expenditure.id_budgets_saver }} </p>
+    <p>Edit expense:</p>
+    <form action="{% url 'budgets:expenditure' expenditure.expenditure_id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
 
 {% endblock content %}
