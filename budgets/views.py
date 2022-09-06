@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from .forms import ExpenditureForm, ExpenditureEditForm
@@ -14,14 +15,16 @@ def index(request):
 @login_required
 def expenses(request):
     """Displaying all expenses from current period."""
-    expenses = BudgetsExpenditure.objects.all().order_by('expenditure_id')
+    expenses = BudgetsExpenditure.objects.filter(owner=request.user).order_by('expenditure_id')
 
     if request.method != 'POST':
-        form = ExpenditureForm()
+        form = ExpenditureForm(request=request)
     else:
-        form = ExpenditureForm(data=request.POST)
+        form = ExpenditureForm(data=request.POST, request=request)
         if form.is_valid():
-            form.save()
+            new_expense = form.save(commit=False)
+            new_expense.owner = request.user
+            new_expense.save()
             return redirect('budgets:expenses')
 
     context = {'form': form, 'expenses': expenses}
@@ -31,6 +34,9 @@ def expenses(request):
 def expenditure(request, expenditure_id):
     """Displaying, editing and deleting details of a specified expense."""
     expenditure = BudgetsExpenditure.objects.get(expenditure_id=expenditure_id)
+
+    if expenditure.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         form = ExpenditureEditForm(instance=expenditure)
