@@ -43,4 +43,3 @@ def expenditure(request, expenditure_id):
     context = {'expenditure': expenditure, 'form': form}
     return render(request, 'budgets/expenditure.html', context)
 
-

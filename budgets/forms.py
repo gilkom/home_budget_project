@@ -12,9 +12,9 @@ class ExpenditureForm(forms.ModelForm):
     class Meta:
         model = BudgetsExpenditure
         fields = ('expenditure_amount', 'expenditure_date', 'description', 'category_id_budgets_category',
-                  'id_budgets_saver')
+                  'owner')
         labels = {'expenditure_amount': 'Amount', 'category_id_budgets_category': 'Category',
-                  'id_budgets_saver': 'User'}
+                  'owner': 'User'}
 
 
 class ExpenditureEditForm(forms.ModelForm):

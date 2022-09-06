@@ -14,10 +14,12 @@ from django.db import models
 from django.db import models
 
 
+
+
 class BudgetsBalance(models.Model):
-    amount = models.FloatField()
+    amount = models.DecimalField(max_digits=8, decimal_places=2)
     period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING, db_column='period_id_budgets_period')
-    id_budgets_saver = models.OneToOneField('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver', primary_key=True)
+    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner', primary_key=True)
 
     def __str__(self):
         return f"Balance: {self.amount}"
@@ -25,12 +27,13 @@ class BudgetsBalance(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_balance'
-        unique_together = (('id_budgets_saver', 'period_id_budgets_period'),)
+        unique_together = (('owner', 'period_id_budgets_period'),)
 
 
 class BudgetsCategory(models.Model):
     category_id = models.SmallAutoField(primary_key=True)
     category_name = models.CharField(max_length=20)
+    owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
     def __str__(self):
         return self.category_name
@@ -48,7 +51,7 @@ class BudgetsExpenditure(models.Model):
     description = models.CharField(max_length=300, blank=True, null=True)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')
-    id_budgets_saver = models.ForeignKey('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver')
+    owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
 
     def __str__(self):
@@ -60,13 +63,12 @@ class BudgetsExpenditure(models.Model):
 
 
 class BudgetsMonthlyGoal(models.Model):
-    goal = models.FloatField()
+    goal = models.DecimalField(max_digits=8, decimal_places=2)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')
     period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING,
                                                  db_column='period_id_budgets_period')
-    id_budgets_saver = models.OneToOneField('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver',
-                                            primary_key=True)
+    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner', primary_key=True)
 
 
     def __str__(self):
@@ -75,7 +77,7 @@ class BudgetsMonthlyGoal(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_monthly_goal'
-        unique_together = (('id_budgets_saver', 'category_id_budgets_category', 'period_id_budgets_period'),)
+        unique_together = (('owner', 'category_id_budgets_category', 'period_id_budgets_period'),)
 
 
 class BudgetsPeriod(models.Model):
@@ -83,7 +85,7 @@ class BudgetsPeriod(models.Model):
     name = models.CharField(max_length=30)
     start_day = models.DateField()
     end_day = models.DateField()
-    id_budgets_saver = models.ForeignKey('BudgetsSaver', models.DO_NOTHING, db_column='id_budgets_saver')
+    owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
 
     def __str__(self):
@@ -92,15 +94,4 @@ class BudgetsPeriod(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_period'
-
-
-class BudgetsSaver(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-    class Meta:
-        managed = False
-        db_table = 'budgets_saver'
 

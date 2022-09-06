@@ -1,7 +1,7 @@
-INSERT INTO budgets_saver values(
-        1, 3);
-INSERT INTO budgets_saver values(
-        2, 4);
+-- INSERT INTO budgets_saver values(
+--        1, 3);
+-- INSERT INTO budgets_saver values(
+--       2, 4);
 -----------------------------------------
 insert into budgets_period values(
 	1, 'Sierpień', '01-08-2022', '31-08-2022', 1);
@@ -27,15 +27,15 @@ insert into budgets_balance values(
 --------------------------------------------
 
 insert into budgets_category values(
-	1, 'Jedzenie');
+	1, 'Jedzenie', 1);
 insert into budgets_category values(
-	2, 'Mieszkanie');
+	2, 'Mieszkanie', 1);
 insert into budgets_category values(
-	3, 'Pozostałe');
+	3, 'Pozostałe', 1);
 insert into budgets_category values(
-	4, 'Motoryzacja');
+	4, 'Motoryzacja', 2);
 insert into budgets_category values(
-	5, 'Kosmetyki');
+	5, 'Kosmetyki', 2);
 	
 	
 	
@@ -62,17 +62,17 @@ insert into budgets_monthly_goal values(
 	--------------------------------
 	
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
-								category_id_budgets_category,id_budgets_saver) values(
+								category_id_budgets_category,owner) values(
 	15, '20-08-2022', null, 1, 1);
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
-								category_id_budgets_category,id_budgets_saver) values(
+								category_id_budgets_category,owner) values(
 	2076.45 , '20-08-2022', null, 1, 2);
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
-								category_id_budgets_category,id_budgets_saver) values(
+								category_id_budgets_category,owner) values(
 	76, '20-08-2022', 'Lokówka', 2, 1);
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
-								category_id_budgets_category,id_budgets_saver) values(
+								category_id_budgets_category,owner) values(
 	89.50, '20-08-2022', null, 3, 2);
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
-								category_id_budgets_category,id_budgets_saver) values(
+								category_id_budgets_category,owner) values(
 	89.50, '20-08-2022', null, 4, 1);
