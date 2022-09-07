@@ -10,4 +10,6 @@ urlpatterns = [
     # Displaying all expenses list
     path('expenses/', views.expenses, name='expenses'),
     path('expenses/<int:expenditure_id>/', views.expenditure, name='expenditure'),
+    path('categories/', views.categories, name='categories'),
+    path('periods/', views.periods, name='periods'),
 ]

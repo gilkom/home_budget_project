@@ -1,0 +1,38 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+<p>Periods:</p>
+    <p>------------------------------------------------------------------------</p>
+    <p>Add period:</p>
+
+    <form action="{% url 'budgets:periods' %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button name="submit">Add period</button>
+    </form>
+ <p>------------------------------------------------------------------------</p>
+
+<table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Start_day</td>
+            <td>End_day</td>
+            <td>Owner</td>
+        </tr>
+        {% for period in periods %}
+        <tr>
+            <td> {{ period.period_id }}</td>
+            <td> {{ period.name }}</td>
+            <td> {{ period.start_day }}</td>
+            <td> {{ period.end_day }}</td>
+            <td> {{ period.owner }}</td>
+        </tr>
+        {% empty %}
+            <p>No periods yet. Add the first one...</p>
+        {% endfor %}
+    </table>
+
+
+
+{% endblock content %}

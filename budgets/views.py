@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from .forms import ExpenditureForm, ExpenditureEditForm
+from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm
 from .models import *
 
 # Create your views here.
@@ -39,9 +39,9 @@ def expenditure(request, expenditure_id):
         raise Http404
 
     if request.method != 'POST':
-        form = ExpenditureEditForm(instance=expenditure)
+        form = ExpenditureEditForm(instance=expenditure, request=request)
     else:
-        form = ExpenditureEditForm(instance=expenditure, data=request.POST)
+        form = ExpenditureEditForm(instance=expenditure, data=request.POST, request=request)
         if form.is_valid():
             form.save()
             return redirect('budgets:expenses')
@@ -49,3 +49,38 @@ def expenditure(request, expenditure_id):
     context = {'expenditure': expenditure, 'form': form}
     return render(request, 'budgets/expenditure.html', context)
 
+
+@login_required()
+def categories(request):
+    categories = BudgetsCategory.objects.filter(owner=request.user).order_by('category_id')
+
+    if request.method != 'POST':
+        form = CategoryForm()
+    else:
+        form = CategoryForm(data=request.POST)
+        if form.is_valid():
+            new_category = form.save(commit=False)
+            new_category.owner = request.user
+            new_category.save()
+            return redirect('budgets:categories')
+
+    context = {'form': form, 'categories': categories}
+    return render(request, 'budgets/categories.html', context)
+
+
+@login_required()
+def periods(request):
+    periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('period_id')
+
+    if request.method != 'POST':
+        form = PeriodForm()
+    else:
+        form = PeriodForm(data=request.POST)
+        if form.is_valid():
+            new_period = form.save(commit=False)
+            new_period.owner = request.user
+            new_period.save()
+            return redirect('budgets:periods')
+
+    context = {'form': form, 'periods': periods}
+    return render(request, 'budgets/periods.html', context)

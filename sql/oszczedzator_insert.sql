@@ -3,14 +3,14 @@
 -- INSERT INTO budgets_saver values(
 --       2, 4);
 -----------------------------------------
-insert into budgets_period values(
-	1, 'Sierpień', '01-08-2022', '31-08-2022', 1);
-insert into budgets_period values(
-	2, 'Wrzesień', '01-08-2022', '31-08-2022', 1);
-insert into budgets_period values(
-	3, 'Sierpień', '10-08-2022', '10-09-2022', 2);
-insert into budgets_period values(
-	4, 'Wrzesień', '01-09-2022', '30-09-2022', 2);
+insert into budgets_period(name, start_day, end_day, owner) values(
+	'Sierpień', '01-08-2022', '31-08-2022', 1);
+insert into budgets_period(name, start_day, end_day, owner) values(
+	'Wrzesień', '01-08-2022', '31-08-2022', 1);
+insert into budgets_period(name, start_day, end_day, owner) values(
+	'Sierpień', '10-08-2022', '10-09-2022', 2);
+insert into budgets_period(name, start_day, end_day, owner) values(
+	'Wrzesień', '01-09-2022', '30-09-2022', 2);
 	
 --------------------------------	
 
@@ -26,16 +26,13 @@ insert into budgets_balance values(
 	
 --------------------------------------------
 
-insert into budgets_category values(
-	1, 'Jedzenie', 1);
-insert into budgets_category values(
-	2, 'Mieszkanie', 1);
-insert into budgets_category values(
-	3, 'Pozostałe', 1);
-insert into budgets_category values(
-	4, 'Motoryzacja', 2);
-insert into budgets_category values(
-	5, 'Kosmetyki', 2);
+insert into budgets_category(category_name, owner) values(
+	'Food', 1);
+insert into budgets_category(category_name, owner) values(
+	'Housing', 1);
+insert into budgets_category(category_name, owner) values(
+	'Other', 1);
+
 	
 	
 	

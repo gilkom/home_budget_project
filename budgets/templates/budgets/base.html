@@ -1,6 +1,8 @@
 <p>
     <a href="{% url 'budgets:index' %}">Budgets</a>
     <a href="{% url 'budgets:expenses' %}">Expenses</a>
+    <a href="{% url 'budgets:categories' %}">Categories</a>
+    <a href="{% url 'budgets:periods' %}">Periods</a>
     {% if user.is_authenticated %}
         Welcome, {{ user.username }}.
         <a href="{% url 'users:logout' %}">Log out</a>

@@ -1,0 +1,34 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+<p>Categories:</p>
+    <p>------------------------------------------------------------------------</p>
+    <p>Add category:</p>
+
+    <form action="{% url 'budgets:categories' %}" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button name="submit">Add category</button>
+    </form>
+ <p>------------------------------------------------------------------------</p>
+
+<table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Owner</td>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <td> {{ category.category_id }}</td>
+            <td> {{ category.category_name }}</td>
+            <td> {{ category.owner }}</td>
+        </tr>
+        {% empty %}
+            <p>No categories yet. Add the first one...</p>
+        {% endfor %}
+    </table>
+
+
+
+{% endblock content %}
