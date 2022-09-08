@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm
+from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, BalanceForm, MonthlyGoalForm
 from .models import *
 
 # Create your views here.
@@ -73,14 +73,29 @@ def periods(request):
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('period_id')
 
     if request.method != 'POST':
-        form = PeriodForm()
+        pform = PeriodForm()
+        bform = BalanceForm()
+        mform = MonthlyGoalForm()
     else:
-        form = PeriodForm(data=request.POST)
-        if form.is_valid():
-            new_period = form.save(commit=False)
+        pform = PeriodForm(data=request.POST, instance=BudgetsPeriod())
+        bform = BalanceForm(data=request.POST, instance=BudgetsBalance())
+        mform = MonthlyGoalForm(data=request.POST, instance=BudgetsMonthlyGoal())
+        if pform.is_valid() and bform.is_valid() and mform.is_valid():
+            new_period = pform.save(commit=False)
             new_period.owner = request.user
             new_period.save()
+
+            new_balance = bform.save(commit=False)
+            new_balance.owner = request.user
+            new_balance.period_id_budgets_period = new_period
+            new_balance.save()
+
+            new_monthly_goal = mform.save(commit=False)
+            new_monthly_goal.owner = request.user
+            new_monthly_goal.period_id_budgets_period = new_period
+            new_monthly_goal.save()
+
             return redirect('budgets:periods')
 
-    context = {'form': form, 'periods': periods}
+    context = {'pform': pform, 'bform': bform, 'mform': mform, 'periods': periods}
     return render(request, 'budgets/periods.html', context)

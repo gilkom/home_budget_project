@@ -2,7 +2,7 @@ from datetime import datetime, date
 
 from django import forms
 
-from budgets.models import BudgetsExpenditure, BudgetsPeriod, BudgetsCategory
+from budgets.models import BudgetsExpenditure, BudgetsPeriod, BudgetsCategory, BudgetsBalance, BudgetsMonthlyGoal
 
 
 class ExpenditureForm(forms.ModelForm):
@@ -58,4 +58,18 @@ class PeriodForm(forms.ModelForm):
 
     class Meta:
         model = BudgetsPeriod
-        fields = ('name', 'start_day', 'end_day', 'owner',)
+        fields = ('name', 'start_day', 'end_day',)
+
+
+class BalanceForm(forms.ModelForm):
+
+    class Meta:
+        model = BudgetsBalance
+        fields = ('amount',)
+
+
+class MonthlyGoalForm(forms.ModelForm):
+
+    class Meta:
+        model = BudgetsMonthlyGoal
+        fields = ('category_id_budgets_category', 'goal',)
