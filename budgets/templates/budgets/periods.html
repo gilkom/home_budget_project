@@ -8,8 +8,6 @@
     <form action="{% url 'budgets:periods' %}" method="post">
           {% csrf_token %}
           {{ pform.as_p }}
-          {{ bform.as_p }}
-          {{ mform.as_p }}
           <button name="submit">Add period</button>
     </form>
  <p>------------------------------------------------------------------------</p>

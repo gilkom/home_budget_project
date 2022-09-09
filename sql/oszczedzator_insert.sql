@@ -2,6 +2,7 @@
 --        1, 3);
 -- INSERT INTO budgets_saver values(
 --       2, 4);
+
 -----------------------------------------
 insert into budgets_period(name, start_day, end_day, owner) values(
 	'Sierpień', '01-08-2022', '31-08-2022', 1);

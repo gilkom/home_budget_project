@@ -51,10 +51,10 @@ class CategoryForm(forms.ModelForm):
 
 class PeriodForm(forms.ModelForm):
 
-    start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
-                                       label='Date')
-    end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
-                                       label='Date')
+    start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
+                                       'value': date.today().strftime("%Y-%m-%d")}), label='Date')
+    end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
+                                       'value': date.today().strftime("%Y-%m-%d")}), label='Date')
 
     class Meta:
         model = BudgetsPeriod
@@ -65,7 +65,7 @@ class BalanceForm(forms.ModelForm):
 
     class Meta:
         model = BudgetsBalance
-        fields = ('amount',)
+        exclude = ('owner', 'period_id_budgets_period',)
 
 
 class MonthlyGoalForm(forms.ModelForm):
