@@ -1,4 +1,5 @@
 from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
 
 from django import forms
 
@@ -53,8 +54,12 @@ class PeriodForm(forms.ModelForm):
 
     start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
                                        'value': date.today().strftime("%Y-%m-%d")}), label='Date')
+
+    # setting default end date to a month from today
+    end_date = date.today() + relativedelta(months=1)
+    current_end_date = end_date.strftime('%Y-%m-%d')
     end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
-                                       'value': date.today().strftime("%Y-%m-%d")}), label='Date')
+                                       'value': current_end_date}), label='Date')
 
     class Meta:
         model = BudgetsPeriod

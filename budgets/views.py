@@ -70,7 +70,7 @@ def categories(request):
 
 @login_required()
 def periods(request):
-    periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('period_id')
+    periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')
 
     if request.method != 'POST':
         pform = PeriodForm()

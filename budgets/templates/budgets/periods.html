@@ -19,6 +19,7 @@
             <td>Start_day</td>
             <td>End_day</td>
             <td>Owner</td>
+            <td>Action</td>
         </tr>
         {% for period in periods %}
         <tr>
@@ -27,6 +28,7 @@
             <td> {{ period.start_day }}</td>
             <td> {{ period.end_day }}</td>
             <td> {{ period.owner }}</td>
+            <td> button with settings </td>
         </tr>
         {% empty %}
             <p>No periods yet. Add the first one...</p>
