@@ -8,6 +8,8 @@
     <form action="{% url 'budgets:period_settings' period.period_id%}" method="post">
           {% csrf_token %}
           {{ pform.as_p }}
+            <p>Edit your balance:</p>
+          {{ bform.as_p }}
           <button name="submit">Save period</button>
     </form>
  <p>------------------------------------------------------------------------</p>

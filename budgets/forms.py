@@ -78,15 +78,15 @@ class PeriodEditForm(forms.ModelForm):
         fields = ('name', 'start_day', 'end_day',)
 
 
-class BalanceForm(forms.ModelForm):
+class BalanceEditForm(forms.ModelForm):
 
     class Meta:
         model = BudgetsBalance
-        exclude = ('owner', 'period_id_budgets_period',)
+        fields = ('amount', )
 
 
-class MonthlyGoalForm(forms.ModelForm):
+class MonthlyGoalEditForm(forms.ModelForm):
 
     class Meta:
         model = BudgetsMonthlyGoal
-        fields = ('category_id_budgets_category', 'goal',)
+        fields = '__all__'

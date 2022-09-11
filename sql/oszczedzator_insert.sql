@@ -15,13 +15,13 @@ insert into budgets_period(name, start_day, end_day, owner) values(
 	
 --------------------------------	
 
-insert into budgets_balance values(
+insert into budgets_balance(amount, period_id_budgets_period, owner) values(
 	3845.5, 1, 1);
-insert into budgets_balance values(
+insert into budgets_balance(amount, period_id_budgets_period, owner) values(
 	4787.50, 2, 1);
-insert into budgets_balance values(
+insert into budgets_balance(amount, period_id_budgets_period, owner) values(
 	8531.41, 3, 2);
-insert into budgets_balance values(
+insert into budgets_balance(amount, period_id_budgets_period, owner) values(
 	8432.54, 4, 2);
 	
 	
@@ -39,22 +39,22 @@ insert into budgets_category(category_name, owner) values(
 	
 --------------------------
 
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 1, 1, 1);
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 1, 2, 1);
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 3, 3, 1);
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 3, 4, 1);
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 2, 1, 2);
-insert into budgets_monthly_goal values(
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
 	600, 2, 2, 2);
-insert into budgets_monthly_goal values(
-	600, 4, 3, 2);
-insert into budgets_monthly_goal values(
-	600, 5, 4, 2);
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
+	600, 3, 3, 2);
+insert into budgets_monthly_goal(goal, category_id_budgets_category, period_id_budgets_period, owner) values(
+	600, 3, 4, 2);
 	
 	
 	--------------------------------
@@ -73,4 +73,4 @@ insert into budgets_expenditure(expenditure_amount, expenditure_date, descriptio
 	89.50, '20-08-2022', null, 3, 2);
 insert into budgets_expenditure(expenditure_amount, expenditure_date, description, 
 								category_id_budgets_category,owner) values(
-	89.50, '20-08-2022', null, 4, 1);
+	89.50, '20-08-2022', null, 3, 1);

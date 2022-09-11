@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Model, Q
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, BalanceForm, MonthlyGoalForm, \
-    PeriodEditForm
+from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm
 from .models import *
 
 # Create your views here.
@@ -95,16 +95,20 @@ def periods(request):
 @login_required()
 def period_settings(request, period_id):
     """Settings view for period and its balance and categories."""
+    balance = BudgetsBalance.objects.get(period_id_budgets_period=period_id)
     period = BudgetsPeriod.objects.get(period_id=period_id)
 
     if request.method != 'POST':
         pform = PeriodEditForm(instance=period)
+        bform = BalanceEditForm(instance=balance)
     else:
         pform = PeriodEditForm(instance=period, data=request.POST)
-        if pform.is_valid():
+        bform = BalanceEditForm(instance=balance, data=request.POST)
+        if bform.is_valid() and pform.is_valid():
             pform.save()
+            bform.save()
             return redirect('budgets:periods')
 
-    context = {'period': period, 'pform': pform}
+    context = {'period': period, 'pform': pform, 'bform': bform, }
     return render(request, 'budgets/period_settings.html', context)
 

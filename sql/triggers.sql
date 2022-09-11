@@ -25,7 +25,7 @@ CREATE OR REPLACE FUNCTION trigger_insert_period_balance()
    LANGUAGE PLPGSQL
 AS $$
 BEGIN
-	INSERT INTO budgets_balance values(0, NEW.period_id, NEW.owner);
+	INSERT INTO budgets_balance(amount, period_id_budgets_period, owner) values(0, NEW.period_id, NEW.owner);
    	RETURN NEW;
 END;
 $$

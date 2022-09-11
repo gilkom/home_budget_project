@@ -17,9 +17,10 @@ from django.db import models
 
 
 class BudgetsBalance(models.Model):
+    balance_id = models.BigAutoField(primary_key=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING, db_column='period_id_budgets_period')
-    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner', primary_key=True)
+    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner')
 
     def __str__(self):
         return f"Balance: {self.amount}"
@@ -27,11 +28,10 @@ class BudgetsBalance(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_balance'
-        unique_together = (('owner', 'period_id_budgets_period'),)
 
 
 class BudgetsCategory(models.Model):
-    category_id = models.SmallAutoField(primary_key=True)
+    category_id = models.BigAutoField(primary_key=True)
     category_name = models.CharField(max_length=20)
     owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
@@ -63,12 +63,13 @@ class BudgetsExpenditure(models.Model):
 
 
 class BudgetsMonthlyGoal(models.Model):
+    monthly_goal_id = models.BigAutoField(primary_key=True)
     goal = models.DecimalField(max_digits=8, decimal_places=2)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')
     period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING,
                                                  db_column='period_id_budgets_period')
-    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner', primary_key=True)
+    owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner')
 
 
     def __str__(self):
@@ -77,11 +78,10 @@ class BudgetsMonthlyGoal(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_monthly_goal'
-        unique_together = (('owner', 'category_id_budgets_category', 'period_id_budgets_period'),)
 
 
 class BudgetsPeriod(models.Model):
-    period_id = models.AutoField(primary_key=True)
+    period_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=30)
     start_day = models.DateField()
     end_day = models.DateField()
