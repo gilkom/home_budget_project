@@ -1,0 +1,17 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+<p>Periods settings:</p>
+    <p>------------------------------------------------------------------------</p>
+    <p>Edit period:</p>
+
+    <form action="{% url 'budgets:period_settings' period.period_id%}" method="post">
+          {% csrf_token %}
+          {{ pform.as_p }}
+          <button name="submit">Save period</button>
+    </form>
+ <p>------------------------------------------------------------------------</p>
+
+
+
+{% endblock content %}
