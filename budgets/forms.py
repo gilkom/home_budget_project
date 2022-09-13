@@ -89,4 +89,4 @@ class MonthlyGoalEditForm(forms.ModelForm):
 
     class Meta:
         model = BudgetsMonthlyGoal
-        fields = '__all__'
+        fields = ('category_id_budgets_category', 'goal', )

@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Model, Q
+from django.forms import formset_factory
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm
+from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm, \
+    MonthlyGoalEditForm
 from .models import *
 
 # Create your views here.
@@ -97,10 +99,14 @@ def period_settings(request, period_id):
     """Settings view for period and its balance and categories."""
     balance = BudgetsBalance.objects.get(period_id_budgets_period=period_id)
     period = BudgetsPeriod.objects.get(period_id=period_id)
+    category = BudgetsCategory.objects.filter(owner=request.user)
 
     if request.method != 'POST':
         pform = PeriodEditForm(instance=period)
         bform = BalanceEditForm(instance=balance)
+        mformset = formset_factory(MonthlyGoalEditForm, extra=len(category))
+        print(f"len-cat:{len(category)}")
+        formset = mformset(initial = [{'category_name': x.category_name} for x in category])
     else:
         pform = PeriodEditForm(instance=period, data=request.POST)
         bform = BalanceEditForm(instance=balance, data=request.POST)
@@ -109,6 +115,6 @@ def period_settings(request, period_id):
             bform.save()
             return redirect('budgets:periods')
 
-    context = {'period': period, 'pform': pform, 'bform': bform, }
+    context = {'period': period, 'pform': pform, 'bform': bform, 'formset': formset}
     return render(request, 'budgets/period_settings.html', context)
 
