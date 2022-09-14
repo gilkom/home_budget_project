@@ -99,22 +99,24 @@ def period_settings(request, period_id):
     """Settings view for period and its balance and categories."""
     balance = BudgetsBalance.objects.get(period_id_budgets_period=period_id)
     period = BudgetsPeriod.objects.get(period_id=period_id)
-    category = BudgetsCategory.objects.filter(owner=request.user)
+    monthly_goal = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period_id)
 
     if request.method != 'POST':
         pform = PeriodEditForm(instance=period)
         bform = BalanceEditForm(instance=balance)
-        mformset = formset_factory(MonthlyGoalEditForm, extra=len(category))
-        print(f"len-cat:{len(category)}")
-        formset = mformset(initial = [{'category_name': x.category_name} for x in category])
+        mform = MonthlyGoalEditForm(request=request)
+
     else:
         pform = PeriodEditForm(instance=period, data=request.POST)
         bform = BalanceEditForm(instance=balance, data=request.POST)
-        if bform.is_valid() and pform.is_valid():
+        mform = MonthlyGoalEditForm(data=request.POST)
+
+        if bform.is_valid() and pform.is_valid() and mform.is_valid():
             pform.save()
             bform.save()
+            mform.save()
             return redirect('budgets:periods')
 
-    context = {'period': period, 'pform': pform, 'bform': bform, 'formset': formset}
+    context = {'period': period, 'pform': pform, 'bform': bform, 'mform': mform, 'monthly_goal': monthly_goal}
     return render(request, 'budgets/period_settings.html', context)
 

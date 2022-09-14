@@ -37,3 +37,5 @@ CREATE TRIGGER insert_period_balance_ai
 	EXECUTE PROCEDURE trigger_insert_period_balance();
 
 ------------------------------------------------------------------------------------
+
+
