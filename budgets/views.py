@@ -79,18 +79,24 @@ def periods(request):
 
     if request.method != 'POST':
         pform = PeriodForm()
+        bform = BalanceEditForm()
     else:
         pform = PeriodForm(request.POST)
+        bform = BalanceEditForm(request.POST)
 
-        if pform.is_valid():
+        if pform.is_valid() and bform.is_valid():
 
             new_period = pform.save(commit=False)
             new_period.owner = request.user
             new_period.save()
+            new_balance = bform.save(commit=False)
+            new_balance.owner = request.user
+            new_balance.period_id_budgets_period = new_period
+            new_balance.save()
 
             return redirect('budgets:periods')
 
-    context = {'pform': pform, 'periods': periods}
+    context = {'pform': pform, 'bform': bform, 'periods': periods}
     return render(request, 'budgets/periods.html', context)
 
 
@@ -99,24 +105,20 @@ def period_settings(request, period_id):
     """Settings view for period and its balance and categories."""
     balance = BudgetsBalance.objects.get(period_id_budgets_period=period_id)
     period = BudgetsPeriod.objects.get(period_id=period_id)
-    monthly_goal = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period_id)
 
     if request.method != 'POST':
         pform = PeriodEditForm(instance=period)
         bform = BalanceEditForm(instance=balance)
-        mform = MonthlyGoalEditForm(request=request)
 
     else:
         pform = PeriodEditForm(instance=period, data=request.POST)
         bform = BalanceEditForm(instance=balance, data=request.POST)
-        mform = MonthlyGoalEditForm(data=request.POST)
 
-        if bform.is_valid() and pform.is_valid() and mform.is_valid():
+        if bform.is_valid() and pform.is_valid():
             pform.save()
             bform.save()
-            mform.save()
             return redirect('budgets:periods')
 
-    context = {'period': period, 'pform': pform, 'bform': bform, 'mform': mform, 'monthly_goal': monthly_goal}
+    context = {'period': period, 'pform': pform, 'bform': bform}
     return render(request, 'budgets/period_settings.html', context)
 
