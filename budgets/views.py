@@ -122,3 +122,24 @@ def period_settings(request, period_id):
     context = {'period': period, 'pform': pform, 'bform': bform}
     return render(request, 'budgets/period_settings.html', context)
 
+
+@login_required()
+def goals(request, period_id):
+    goals = BudgetsMonthlyGoal.objects.filter(owner=request.user)
+    period = BudgetsPeriod.objects.get(period_id=period_id)
+
+    if request.method != 'POST':
+        form = MonthlyGoalEditForm(request=request)
+    else:
+        form = MonthlyGoalEditForm(data=request.POST, request=request)
+
+        if form.is_valid():
+            new_goal = form.save(commit=False)
+            new_goal.period_id_budgets_period = period
+            new_goal.owner = request.user
+            new_goal.save()
+            return redirect('budgets:goals', period_id=period_id)
+
+    context = {'form': form, 'goals': goals, 'period': period}
+    return render(request, 'budgets/goals.html', context)
+

@@ -1,0 +1,31 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+    <p>Period goals:</p>
+    <p>------------------------------------------------------------------------</p>
+    <p>Add goal:</p>
+
+    <form action="{% url 'budgets:goals' period.period_id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Add category goal</button>
+    </form>
+    <p>------------------------------------------------------------------------</p>
+  <table>
+        <tr>
+            <td>Id</td>
+            <td>Goal</td>
+            <td>Category</td>
+        </tr>
+        {% for goal in goals %}
+        <tr>
+            <td> {{ goal.monthly_goal_id }}</a></td>
+            <td> {{ goal.goal }}</td>
+            <td> {{ goal.category_id_budgets_category }}</td>
+        </tr>
+        {% empty %}
+            <p>No categories added yet. Add the first one...</p>
+        {% endfor %}
+    </table>
+
+{% endblock content %}

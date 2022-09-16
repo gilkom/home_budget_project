@@ -13,4 +13,5 @@ urlpatterns = [
     path('categories/', views.categories, name='categories'),
     path('periods/', views.periods, name='periods'),
     path('periods/<int:period_id>/', views.period_settings, name='period_settings'),
+    path('periods/goals/<int:period_id>/', views.goals, name='goals'),
 ]
