@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.db.models import Model, Q
 from django.forms import formset_factory
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm, \
@@ -127,7 +128,6 @@ def period_settings(request, period_id):
 def goals(request, period_id):
     goals = BudgetsMonthlyGoal.objects.filter(owner=request.user)
     period = BudgetsPeriod.objects.get(period_id=period_id)
-
     if request.method != 'POST':
         form = MonthlyGoalEditForm(request=request)
     else:
@@ -138,7 +138,9 @@ def goals(request, period_id):
             new_goal.period_id_budgets_period = period
             new_goal.owner = request.user
             new_goal.save()
+
             return redirect('budgets:goals', period_id=period_id)
+
 
     context = {'form': form, 'goals': goals, 'period': period}
     return render(request, 'budgets/goals.html', context)

@@ -143,3 +143,8 @@ ALTER SEQUENCE budgets_period_period_id_seq RESTART WITH 1;
 ALTER SEQUENCE budgets_balance_balance_id_seq RESTART WITH 1;
 ALTER SEQUENCE budgets_monthly_goal_monthly_goal_id_seq RESTART WITH 1;
 
+
+---------------------------------------
+
+alter table budgets_monthly_goal
+add unique (category_id_budgets_category, period_id_budgets_period, owner);

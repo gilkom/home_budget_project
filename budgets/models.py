@@ -78,6 +78,7 @@ class BudgetsMonthlyGoal(models.Model):
     class Meta:
         managed = False
         db_table = 'budgets_monthly_goal'
+        unique_together = ('category_id_budgets_category', 'period_id_budgets_period', 'owner')
 
 
 class BudgetsPeriod(models.Model):

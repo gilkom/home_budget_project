@@ -94,6 +94,7 @@ class MonthlyGoalEditForm(forms.ModelForm):
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
             owner=self.request.user)
 
+
     class Meta:
         model = BudgetsMonthlyGoal
         fields = ('category_id_budgets_category', 'goal', )
