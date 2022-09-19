@@ -13,5 +13,7 @@ urlpatterns = [
     path('categories/', views.categories, name='categories'),
     path('periods/', views.periods, name='periods'),
     path('periods/<int:period_id>/', views.period_settings, name='period_settings'),
-    path('periods/goals/<int:period_id>/', views.goals, name='goals'),
+    path('periods/<int:period_id>/goals/', views.goals, name='goals'),
+    path('periods/<int:period_id>/goals/<int:goal_id>', views.goal_settings, name='goal_settings'),
+    path('periods/<int:period_id>/goal_delete/<int:goal_id>', views.goal_delete, name='goal_delete'),
 ]

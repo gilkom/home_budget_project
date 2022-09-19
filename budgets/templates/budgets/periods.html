@@ -3,7 +3,7 @@
 {% block content %}
 <p>Periods:</p>
     <p>------------------------------------------------------------------------</p>
-    <p>Add period:</p>
+    <p>Create a new period:</p>
 
     <form action="{% url 'budgets:periods' %}" method="post">
           {% csrf_token %}
@@ -19,7 +19,6 @@
             <td>Name</td>
             <td>Start_day</td>
             <td>End_day</td>
-            <td>Owner</td>
             <td></td>
             <td></td>
         </tr>
@@ -29,9 +28,8 @@
             <td> {{ period.name }}</td>
             <td> {{ period.start_day }}</td>
             <td> {{ period.end_day }}</td>
-            <td> {{ period.owner }}</td>
-            <td> <a href="{% url 'budgets:goals' period.period_id %}"> <button type="button"> Period Goals </button></a></td>
-            <td> <a href="{% url 'budgets:period_settings' period.period_id %}"> <button type="button"> Edit Period</button></a></td>
+            <td> <a href="{% url 'budgets:goals' period.period_id %}"> <button type="button"> Set Goals </button></a></td>
+            <td> <a href="{% url 'budgets:period_settings' period.period_id %}"> <button type="button"> Edit</button></a></td>
         </tr>
         {% empty %}
             <p>No periods yet. Add the first one...</p>

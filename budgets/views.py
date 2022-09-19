@@ -7,7 +7,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm, \
-    MonthlyGoalEditForm
+    MonthlyGoalForm, MonthlyGoalEditForm
 from .models import *
 
 # Create your views here.
@@ -129,10 +129,11 @@ def period_settings(request, period_id):
 def goals(request, period_id):
     goals = BudgetsMonthlyGoal.objects.filter(Q(owner=request.user) & Q(period_id_budgets_period=period_id))
     period = BudgetsPeriod.objects.get(period_id=period_id)
+
     if request.method != 'POST':
-        form = MonthlyGoalEditForm(request=request)
+        form = MonthlyGoalForm(request=request)
     else:
-        form = MonthlyGoalEditForm(data=request.POST, request=request)
+        form = MonthlyGoalForm(data=request.POST, request=request)
         if form.is_valid():
 
             new_goal = form.save(commit=False)
@@ -149,3 +150,27 @@ def goals(request, period_id):
     context = {'form': form, 'goals': goals, 'period': period}
     return render(request, 'budgets/goals.html', context)
 
+@login_required()
+def goal_settings(request, period_id, goal_id):
+
+    period = BudgetsPeriod.objects.get(period_id=period_id)
+    goal = BudgetsMonthlyGoal.objects.get(monthly_goal_id=goal_id)
+
+    if request.method != 'POST':
+        form = MonthlyGoalEditForm(instance=goal)
+    else:
+        form = MonthlyGoalEditForm(instance=goal, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('budgets:goals', period_id=period_id)
+
+    context = {'period': period, 'form': form, 'goal': goal}
+    return render(request, 'budgets/goal_settings.html', context)
+
+
+@login_required()
+def goal_delete(request, period_id, goal_id):
+    goal = BudgetsMonthlyGoal.objects.get(monthly_goal_id=goal_id)
+    goal.delete()
+    return redirect('budgets:goals', period_id=period_id)

@@ -3,7 +3,7 @@
 {% block content %}
     <p>Period goals:</p>
     <p>------------------------------------------------------------------------</p>
-    <p>Add goal:</p>
+    <p>Create a new goal:</p>
 
     <form action="{% url 'budgets:goals' period.period_id %}" method='post'>
         {% csrf_token %}
@@ -23,12 +23,16 @@
             <td>Id</td>
             <td>Goal</td>
             <td>Category</td>
+            <td></td>
+            <td></td>
         </tr>
         {% for goal in goals %}
         <tr>
             <td> {{ goal.monthly_goal_id }}</a></td>
             <td> {{ goal.goal }}</td>
             <td> {{ goal.category_id_budgets_category }}</td>
+            <td> <a href="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}"> <button type="button"> Edit</button></a></td>
+            <td> <a href="{% url 'budgets:goal_delete' period.period_id goal.monthly_goal_id %}"> <button type="button"> Delete</button></a></td>
         </tr>
         {% empty %}
             <p>No categories added yet. Add the first one...</p>

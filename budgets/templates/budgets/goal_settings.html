@@ -1,0 +1,12 @@
+{% extends 'budgets/base.html' %}
+
+{% block content %}
+
+    <p>Edit Goal:</p>
+    <form action="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
+
+{% endblock content %}
