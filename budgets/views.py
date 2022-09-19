@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Model, Q
@@ -126,18 +127,21 @@ def period_settings(request, period_id):
 
 @login_required()
 def goals(request, period_id):
-    goals = BudgetsMonthlyGoal.objects.filter(owner=request.user)
+    goals = BudgetsMonthlyGoal.objects.filter(Q(owner=request.user) & Q(period_id_budgets_period=period_id))
     period = BudgetsPeriod.objects.get(period_id=period_id)
     if request.method != 'POST':
         form = MonthlyGoalEditForm(request=request)
     else:
         form = MonthlyGoalEditForm(data=request.POST, request=request)
-
         if form.is_valid():
+
             new_goal = form.save(commit=False)
             new_goal.period_id_budgets_period = period
             new_goal.owner = request.user
-            new_goal.save()
+            try:
+                new_goal.save()
+            except IntegrityError:
+                messages.error(request, 'This category is already added...')
 
             return redirect('budgets:goals', period_id=period_id)
 

@@ -10,6 +10,13 @@
         {{ form.as_p }}
         <button name="submit">Add category goal</button>
     </form>
+    {% if messages %}
+    <ul class="alert alert-danger" style="list-style: none;">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
     <p>------------------------------------------------------------------------</p>
   <table>
         <tr>

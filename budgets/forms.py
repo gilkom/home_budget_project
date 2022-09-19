@@ -2,6 +2,7 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 
 from django import forms
+from django.db.models import Q
 
 from budgets.models import BudgetsExpenditure, BudgetsPeriod, BudgetsCategory, BudgetsBalance, BudgetsMonthlyGoal
 
@@ -87,13 +88,13 @@ class BalanceEditForm(forms.ModelForm):
 
 class MonthlyGoalEditForm(forms.ModelForm):
 
+
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")  # store value of request
         print(self.request.user)
         super().__init__(*args, **kwargs)
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
             owner=self.request.user)
-
 
     class Meta:
         model = BudgetsMonthlyGoal
