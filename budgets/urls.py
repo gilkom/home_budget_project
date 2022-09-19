@@ -12,6 +12,7 @@ urlpatterns = [
     path('expenses/<int:expenditure_id>/', views.expenditure, name='expenditure'),
     path('categories/', views.categories, name='categories'),
     path('periods/', views.periods, name='periods'),
+    path('period_delete/<int:period_id>', views.period_delete, name='period_delete'),
     path('periods/<int:period_id>/', views.period_settings, name='period_settings'),
     path('periods/<int:period_id>/goals/', views.goals, name='goals'),
     path('periods/<int:period_id>/goals/<int:goal_id>', views.goal_settings, name='goal_settings'),

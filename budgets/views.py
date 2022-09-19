@@ -103,6 +103,13 @@ def periods(request):
 
 
 @login_required()
+def period_delete(request, period_id):
+    period = BudgetsPeriod.objects.get(period_id=period_id)
+    period.delete()
+    return redirect('budgets:periods')
+
+
+@login_required()
 def period_settings(request, period_id):
     """Settings view for period and its balance and categories."""
     balance = BudgetsBalance.objects.get(period_id_budgets_period=period_id)

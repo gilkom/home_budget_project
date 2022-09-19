@@ -30,6 +30,7 @@
             <td> {{ period.end_day }}</td>
             <td> <a href="{% url 'budgets:goals' period.period_id %}"> <button type="button"> Set Goals </button></a></td>
             <td> <a href="{% url 'budgets:period_settings' period.period_id %}"> <button type="button"> Edit</button></a></td>
+            <td> <a href="{% url 'budgets:period_delete' period.period_id %}"> <button type="button">Delete</button></a></td>
         </tr>
         {% empty %}
             <p>No periods yet. Add the first one...</p>
