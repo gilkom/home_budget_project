@@ -75,6 +75,19 @@ def categories(request):
 
 
 @login_required()
+def category_delete(request, category_id):
+    print(f"catasdfasd------{category_id}")
+    category = BudgetsCategory.objects.get(category_id=category_id)
+    print(f"catasdfasd------{category}")
+    print(f"blaaaaaaaaaaaaaaaaaaaaaaaaa")
+    try:
+        category.delete()
+    except IntegrityError:
+        messages.error(request, 'This category is used. It cannot be removed.')
+    return redirect('budgets:categories')
+
+
+@login_required()
 def periods(request):
 
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')

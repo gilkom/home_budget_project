@@ -19,7 +19,7 @@ from django.db import models
 class BudgetsBalance(models.Model):
     balance_id = models.BigAutoField(primary_key=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
-    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING, db_column='period_id_budgets_period')
+    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', on_delete=models.CASCADE, db_column='period_id_budgets_period')
     owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner')
 
     def __str__(self):
@@ -67,7 +67,7 @@ class BudgetsMonthlyGoal(models.Model):
     goal = models.DecimalField(max_digits=8, decimal_places=2)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')
-    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', models.DO_NOTHING,
+    period_id_budgets_period = models.ForeignKey('BudgetsPeriod', on_delete=models.CASCADE,
                                                  db_column='period_id_budgets_period')
     owner = models.OneToOneField(User, models.DO_NOTHING, db_column='owner')
 

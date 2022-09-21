@@ -10,19 +10,32 @@
           {{ form.as_p }}
           <button name="submit">Add category</button>
     </form>
+
  <p>------------------------------------------------------------------------</p>
+
+    {% if messages %}
+    <ul class="alert alert-danger" style="list-style: none;">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
 
 <table>
         <tr>
             <td>Id</td>
             <td>Name</td>
             <td>Owner</td>
+            <td></td>
         </tr>
         {% for category in categories %}
         <tr>
             <td> {{ category.category_id }}</td>
             <td> {{ category.category_name }}</td>
             <td> {{ category.owner }}</td>
+            <td> <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button">Delete</button></a></td>
+
         </tr>
         {% empty %}
             <p>No categories yet. Add the first one...</p>

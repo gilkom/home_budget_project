@@ -15,22 +15,5 @@
     </form>
  <p>------------------------------------------------------------------------</p>
 
-    <table>
-        <tr>
-            <td>Id</td>
-            <td>Goal</td>
-            <td>Category</td>
-        </tr>
-        {% for m_goal in monthly_goal %}
-        <tr>
-            <td> {{ m_goal.monthly_goal_id }}</a></td>
-            <td> {{ m_goal.goal }}</td>
-            <td> {{ m_goal.category_id_budgets_category }}</td>
-        </tr>
-        {% empty %}
-            <p>No categories added yet. Add the first one...</p>
-        {% endfor %}
-    </table>
-
 
 {% endblock content %}
