@@ -1,7 +1,7 @@
 {% extends "budgets/base.html" %}
 
 {% block content %}
-<p>Categories:</p>
+<p>List of Categories:</p>
     <p>------------------------------------------------------------------------</p>
     <p>Add category:</p>
 
@@ -24,16 +24,12 @@
 
 <table>
         <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Owner</td>
+            <td>Name:</td>
             <td></td>
         </tr>
         {% for category in categories %}
         <tr>
-            <td> {{ category.category_id }}</td>
             <td> {{ category.category_name }}</td>
-            <td> {{ category.owner }}</td>
             <td> <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button">Delete</button></a></td>
 
         </tr>

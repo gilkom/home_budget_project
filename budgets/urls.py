@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Displaying all expenses list
     path('expenses/', views.expenses, name='expenses'),
+    path('expense_delete/<int:expenditure_id>/', views.expense_delete, name='expense_delete'),
     path('expenses/<int:expenditure_id>/', views.expenditure, name='expenditure'),
     path('categories/', views.categories, name='categories'),
     path('category_delete/<int:category_id>', views.category_delete, name='category_delete'),

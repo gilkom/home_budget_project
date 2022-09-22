@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -34,6 +36,14 @@ def expenses(request):
 
     context = {'form': form, 'expenses': expenses}
     return render(request, 'budgets/expenses.html', context)
+
+
+@login_required()
+def expense_delete(request, expenditure_id):
+    expense = BudgetsExpenditure.objects.get(expenditure_id=expenditure_id)
+    expense.delete()
+
+    return redirect('budgets:expenses')
 
 
 @login_required()
@@ -76,10 +86,7 @@ def categories(request):
 
 @login_required()
 def category_delete(request, category_id):
-    print(f"catasdfasd------{category_id}")
     category = BudgetsCategory.objects.get(category_id=category_id)
-    print(f"catasdfasd------{category}")
-    print(f"blaaaaaaaaaaaaaaaaaaaaaaaaa")
     try:
         category.delete()
     except IntegrityError:
@@ -91,6 +98,7 @@ def category_delete(request, category_id):
 def periods(request):
 
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')
+    balances = BudgetsBalance.objects.filter(owner=request.user).select_related('period_id_budgets_period').order_by('-period_id_budgets_period')
 
     if request.method != 'POST':
         pform = PeriodForm()
@@ -111,7 +119,7 @@ def periods(request):
 
             return redirect('budgets:periods')
 
-    context = {'pform': pform, 'bform': bform, 'periods': periods}
+    context = {'pform': pform, 'bform': bform, 'periods': periods, 'balances': balances}
     return render(request, 'budgets/periods.html', context)
 
 
