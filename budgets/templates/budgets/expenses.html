@@ -1,5 +1,5 @@
 {% extends "budgets/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <p>Expenses:</p>
     <p>------------------------------------------------------------------------</p>
@@ -7,7 +7,7 @@
 
     <form action="{% url 'budgets:expenses' %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button name="submit">Add expense</button>
     </form>
     <p>------------------------------------------------------------------------</p>
