@@ -11,25 +11,21 @@
         <button name="submit">Add expense</button>
     </form>
     <p>------------------------------------------------------------------------</p>
-
     <table>
         <tr>
-            <td>Id</td>
-            <td>Amount</td>
             <td>Date</td>
-            <td>Description</td>
+            <td>Amount</td>
             <td>Category</td>
-            <td>User</td>
+            <td>Description</td>
             <td></td>
         </tr>
         {% for expense in expenses %}
         <tr>
-            <td> <a href="{% url 'budgets:expenditure' expense.expenditure_id %}">{{ expense.expenditure_id }}</a></td>
+            <td> {{ expense.expenditure_date|date:"d, m, Y"}}</td>
             <td> {{ expense.expenditure_amount }}</td>
-            <td> {{ expense.expenditure_date }}</td>
-            <td> {{ expense.description }}</td>
             <td> {{ expense.category_id_budgets_category }}</td>
-            <td> {{ expense.owner }}</td>
+            <td> {{ expense.description }}</td>
+            <td> <a href="{% url 'budgets:expenditure' expense.expenditure_id %}"> <button type="button"> Edit</button></a></td>
             <td> <a href="{% url 'budgets:expense_delete' expense.expenditure_id %}"><button type="button">Delete</button></a></td>
         </tr>
         {% empty %}

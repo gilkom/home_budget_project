@@ -1,5 +1,7 @@
+from datetime import date
 from itertools import chain
 
+from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -22,7 +24,16 @@ def index(request):
 @login_required
 def expenses(request):
     """Displaying all expenses from current period."""
-    expenses = BudgetsExpenditure.objects.filter(owner=request.user).order_by('expenditure_id')
+    period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
+
+    if period.start_day <= date.today() <= period.end_day:
+        expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
+                                                 Q(expenditure_date__range=[period.start_day, period.end_day])).order_by('-expenditure_date')
+    else:
+        expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
+                                                     Q(expenditure_date__range=[date.today(),
+                                                                                date.today() + relativedelta(months=1)])).order_by(
+            '-expenditure_date')
 
     if request.method != 'POST':
         form = ExpenditureForm(request=request)
@@ -34,7 +45,7 @@ def expenses(request):
             new_expense.save()
             return redirect('budgets:expenses')
 
-    context = {'form': form, 'expenses': expenses}
+    context = {'form': form, 'expenses': expenses, 'range': range}
     return render(request, 'budgets/expenses.html', context)
 
 
