@@ -11,6 +11,12 @@
         <button name="submit">Add expense</button>
     </form>
     <p>------------------------------------------------------------------------</p>
+    {{ expenses_df|safe }}
+    <b>Chart</b>
+    <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="img1">
+    <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1">
+
+
     <table>
         <tr>
             <td>Date</td>

@@ -1,18 +1,15 @@
-from datetime import date
-from itertools import chain
-
-from dateutil.relativedelta import relativedelta
+import pandas
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.db.models import Model, Q
-from django.forms import formset_factory
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from .forms import ExpenditureForm, ExpenditureEditForm, CategoryForm, PeriodForm, PeriodEditForm, BalanceEditForm, \
     MonthlyGoalForm, MonthlyGoalEditForm
 from .models import *
+from .utils import *
+
 
 # Create your views here.
 
@@ -21,22 +18,29 @@ def index(request):
     """Main page for budgets app."""
     return render(request, 'budgets/index.html')
 
+
 @login_required
 def expenses(request):
     """Displaying all expenses from current period."""
     period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
-
-    if period.start_day <= date.today() <= period.end_day:
-        expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
-                                                 Q(expenditure_date__range=[period.start_day, period.end_day])).order_by('-expenditure_date')
-    else:
-        expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
-                                                     Q(expenditure_date__range=[date.today(),
-                                                                                date.today() + relativedelta(months=1)])).order_by(
-            '-expenditure_date')
+    expenses = select_date_range(period, request)
+    expenses_df = None
+    pie_chart = None
+    bar_chart = None
 
     if request.method != 'POST':
         form = ExpenditureForm(request=request)
+
+        if len(expenses) > 0:
+            expenses_df = pandas.DataFrame(expenses.values())
+            expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
+                                'expenditure_date': 'date', 'category_id_budgets_category_id': 'category'},
+                               axis=1, inplace=True)
+            pie_chart = get_pie_chart(expenses_df)
+            bar_chart = get_bar_chart(expenses_df)
+            expenses_df = expenses_df.to_html()
+
+
     else:
         form = ExpenditureForm(data=request.POST, request=request)
         if form.is_valid():
@@ -45,7 +49,8 @@ def expenses(request):
             new_expense.save()
             return redirect('budgets:expenses')
 
-    context = {'form': form, 'expenses': expenses, 'range': range}
+    context = {'form': form, 'expenses': expenses, 'pie_chart': pie_chart, 'bar_chart': bar_chart,
+                'expenses_df': expenses_df}
     return render(request, 'budgets/expenses.html', context)
 
 
@@ -107,9 +112,9 @@ def category_delete(request, category_id):
 
 @login_required()
 def periods(request):
-
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')
-    balances = BudgetsBalance.objects.filter(owner=request.user).select_related('period_id_budgets_period').order_by('-period_id_budgets_period')
+    balances = BudgetsBalance.objects.filter(owner=request.user).select_related('period_id_budgets_period').order_by(
+        '-period_id_budgets_period')
 
     if request.method != 'POST':
         pform = PeriodForm()
@@ -119,7 +124,6 @@ def periods(request):
         bform = BalanceEditForm(request.POST)
 
         if pform.is_valid() and bform.is_valid():
-
             new_period = pform.save(commit=False)
             new_period.owner = request.user
             new_period.save()
@@ -185,13 +189,12 @@ def goals(request, period_id):
 
             return redirect('budgets:goals', period_id=period_id)
 
-
     context = {'form': form, 'goals': goals, 'period': period}
     return render(request, 'budgets/goals.html', context)
 
+
 @login_required()
 def goal_settings(request, period_id, goal_id):
-
     period = BudgetsPeriod.objects.get(period_id=period_id)
     goal = BudgetsMonthlyGoal.objects.get(monthly_goal_id=goal_id)
 
