@@ -2,18 +2,25 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <p>Expenses:</p>
-    <p>------------------------------------------------------------------------</p>
-    <p>Add expense:</p>
+    <p>--------------------------------------------------------------------</p>
+   <div class="grid-container">
 
-    <form action="{% url 'budgets:expenses' %}" method='post'>
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button name="submit">Add expense</button>
-    </form>
-    <p>------------------------------------------------------------------------</p>
-    {{ expenses_df|safe }}
-    <b>Chart</b>
-    <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="img1">
+    <div class="grid-child purple">
+            <p>Add expense:</p>
+
+            <form action="{% url 'budgets:expenses' %}" method='post'>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <br>
+                <button name="submit">Add expense</button>
+            </form>
+        </div>
+         <div class="grid-child green">
+            <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="pie_chart_categories">
+        </div>
+    </div>
+    <p>--------------------------------------------------------------------</p>
+
     <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1">
 
 

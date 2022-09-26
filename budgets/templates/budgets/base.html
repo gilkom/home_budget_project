@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <p>
     <a href="{% url 'budgets:index' %}">Budgets</a>
     <a href="{% url 'budgets:expenses' %}">Expenses</a>

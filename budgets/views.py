@@ -24,7 +24,9 @@ def expenses(request):
     """Displaying all expenses from current period."""
     period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
     expenses = select_date_range(period, request)
+    categories = BudgetsCategory.objects.filter(owner=request.user)
     expenses_df = None
+    categories_df = None
     pie_chart = None
     bar_chart = None
 
@@ -33,9 +35,16 @@ def expenses(request):
 
         if len(expenses) > 0:
             expenses_df = pandas.DataFrame(expenses.values())
+            categories_df = pandas.DataFrame(categories.values())
+            print(expenses_df)
+            print(categories_df)
+            expenses_df['category_id_budgets_category'] = \
+                expenses_df['category_id_budgets_category_id'].map(categories_df.set_index('category_id')['category_name'])
             expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
-                                'expenditure_date': 'date', 'category_id_budgets_category_id': 'category'},
+                                'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
                                axis=1, inplace=True)
+            print(expenses.values())
+            print(expenses_df)
             pie_chart = get_pie_chart(expenses_df)
             bar_chart = get_bar_chart(expenses_df)
             expenses_df = expenses_df.to_html()
@@ -115,6 +124,7 @@ def periods(request):
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')
     balances = BudgetsBalance.objects.filter(owner=request.user).select_related('period_id_budgets_period').order_by(
         '-period_id_budgets_period')
+    print(balances.values())
 
     if request.method != 'POST':
         pform = PeriodForm()
