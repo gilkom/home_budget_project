@@ -34,19 +34,25 @@ def expenses(request):
         form = ExpenditureForm(request=request)
 
         if len(expenses) > 0:
+            days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
+            df2 = pandas.DataFrame(data=days, columns=['full_dates'])
+            df2['full_dates']=df2['full_dates'].astype('datetime64[ns]')
+            print(df2)
+
             expenses_df = pandas.DataFrame(expenses.values())
             categories_df = pandas.DataFrame(categories.values())
-            print(expenses_df)
-            print(categories_df)
             expenses_df['category_id_budgets_category'] = \
                 expenses_df['category_id_budgets_category_id'].map(categories_df.set_index('category_id')['category_name'])
             expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
                                 'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
                                axis=1, inplace=True)
-            print(expenses.values())
+            expenses_df['date']=expenses_df['date'].astype('datetime64[ns]')
+            with_days = pandas.merge(df2, expenses_df, left_on='full_dates', right_on='date', how='left')
+
             print(expenses_df)
+            print(with_days)
             pie_chart = get_pie_chart(expenses_df)
-            bar_chart = get_bar_chart(expenses_df)
+            bar_chart = get_bar_chart(with_days)
             expenses_df = expenses_df.to_html()
 
 

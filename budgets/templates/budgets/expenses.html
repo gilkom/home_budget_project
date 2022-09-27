@@ -2,10 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <p>Expenses:</p>
-    <p>--------------------------------------------------------------------</p>
-   <div class="grid-container">
-
-    <div class="grid-child purple">
+    <p>-----------------------------------</p>
+    <div style="display: flex;">
+        <div>
             <p>Add expense:</p>
 
             <form action="{% url 'budgets:expenses' %}" method='post'>
@@ -15,14 +14,15 @@
                 <button name="submit">Add expense</button>
             </form>
         </div>
-         <div class="grid-child green">
+
+        <div>
             <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="pie_chart_categories">
         </div>
     </div>
-    <p>--------------------------------------------------------------------</p>
-
-    <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1">
-
+    <p>------------------------------------</p>
+    <div>
+        <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1">
+    </div>
 
     <table>
         <tr>

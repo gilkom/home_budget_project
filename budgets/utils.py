@@ -43,18 +43,25 @@ def get_pie_chart(data):
     fig = pyplot.figure(figsize=(3, 3))
     key = 'category'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
-    pyplot.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 16})
+    pyplot.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11})
     pyplot.tight_layout()
+    pyplot.title('Category distribution:')
     pie_chart = get_graph()
     return pie_chart
 
 
 def get_bar_chart(data):
     pyplot.switch_backend('AGG')
-    fig = pyplot.figure(figsize=(10, 4))
-    key = 'date'
-    d = data.groupby(key, as_index=False)['category'].agg('sum')
-    pyplot.bar(d[key], d['category'])
+    fig = pyplot.figure(figsize=(6, 3))
+    key = 'full_dates'
+    d = data.groupby(key, as_index=False)['value'].agg('sum')
+    pyplot.bar(d[key], d['value'])
+    pyplot.title('Period expenses:', loc='left')
+    pyplot.xlabel("Date")
+    pyplot.xticks(rotation=90)
+    pyplot.ylabel("Value")
+    print(pyplot.style.available)
+    pyplot.style.use('seaborn-v0_8')
     pyplot.tight_layout()
     bar_chart = get_graph()
     return bar_chart
