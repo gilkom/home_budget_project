@@ -1,8 +1,10 @@
 import base64
+import pandas
 from datetime import date
 from io import BytesIO
 
 from matplotlib import pyplot
+import matplotlib.dates as mdates
 
 
 from dateutil.relativedelta import relativedelta
@@ -40,27 +42,40 @@ def get_graph():
 
 def get_pie_chart(data):
     pyplot.switch_backend('AGG')
+    pyplot.style.use('seaborn-v0_8')
     fig = pyplot.figure(figsize=(3, 3))
     key = 'category'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
     pyplot.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11})
-    pyplot.tight_layout()
     pyplot.title('Category distribution:')
+    pyplot.tight_layout()
     pie_chart = get_graph()
     return pie_chart
 
 
 def get_bar_chart(data):
+    data["full_dates"] = pandas.to_datetime(data["full_dates"]).dt.strftime('%m-%d')
+    data["date"] = pandas.to_datetime(data["date"]).dt.strftime('%d-%m-%Y')
+
+
     pyplot.switch_backend('AGG')
     fig = pyplot.figure(figsize=(6, 3))
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
+
+
     pyplot.bar(d[key], d['value'])
     pyplot.title('Period expenses:', loc='left')
     pyplot.xlabel("Date")
-    pyplot.xticks(rotation=90)
+    pyplot.xticks(rotation=65)
     pyplot.ylabel("Value")
-    print(pyplot.style.available)
+    dates = data.full_dates
+
+    pyplot.xticks(data.full_dates)
+    print(data)
+
+
+
     pyplot.style.use('seaborn-v0_8')
     pyplot.tight_layout()
     bar_chart = get_graph()
