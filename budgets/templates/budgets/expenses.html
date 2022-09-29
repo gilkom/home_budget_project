@@ -34,7 +34,7 @@
         </tr>
         {% for expense in expenses %}
         <tr>
-            <td> {{ expense.expenditure_date|date:"d, m, Y"}}</td>
+            <td> {{ expense.expenditure_date|date:"d.m.Y"}}</td>
             <td> {{ expense.expenditure_amount }}</td>
             <td> {{ expense.category_id_budgets_category }}</td>
             <td> {{ expense.description }}</td>

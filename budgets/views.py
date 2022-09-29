@@ -1,7 +1,10 @@
+from unicodedata import decimal
+
 import pandas
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -16,6 +19,20 @@ from .utils import *
 
 def index(request):
     """Main page for budgets app."""
+    period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
+    expenses = select_date_range(period, request)
+    categories = BudgetsCategory.objects.filter(owner=request.user)
+    balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
+
+    sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
+    money_saved = getattr(balance, 'amount') - sum_of_expenses
+
+    period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
+    days_passed = (date.today() - getattr(period, 'start_day')).days
+    print(days_passed)
+    print(period_length)
+
+
     return render(request, 'budgets/index.html')
 
 
@@ -25,8 +42,6 @@ def expenses(request):
     period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
     expenses = select_date_range(period, request)
     categories = BudgetsCategory.objects.filter(owner=request.user)
-    expenses_df = None
-    categories_df = None
     pie_chart = None
     bar_chart = None
 
@@ -34,10 +49,8 @@ def expenses(request):
         form = ExpenditureForm(request=request)
 
         if len(expenses) > 0:
-            days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
-            df2 = pandas.DataFrame(data=days, columns=['full_dates'])
-            df2['full_dates']=df2['full_dates'].astype('datetime64[ns]')
-            print(df2)
+            period_days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
+            pd_df = pandas.DataFrame(data=period_days, columns=['full_dates'])
 
             expenses_df = pandas.DataFrame(expenses.values())
             categories_df = pandas.DataFrame(categories.values())
@@ -46,15 +59,12 @@ def expenses(request):
             expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
                                 'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
                                axis=1, inplace=True)
-            expenses_df['date']=expenses_df['date'].astype('datetime64[ns]')
-            with_days = pandas.merge(df2, expenses_df, left_on='full_dates', right_on='date', how='left')
+            expenses_df['date'] = expenses_df['date'].astype('datetime64[ns]')
 
-            print(expenses_df)
-            print(with_days)
+            pd_expenses_df = pandas.merge(pd_df, expenses_df, left_on='full_dates', right_on='date', how='left')
+
             pie_chart = get_pie_chart(expenses_df)
-            bar_chart = get_bar_chart(with_days)
-            expenses_df = expenses_df.to_html()
-
+            bar_chart = get_bar_chart(pd_expenses_df)
 
     else:
         form = ExpenditureForm(data=request.POST, request=request)
@@ -64,8 +74,7 @@ def expenses(request):
             new_expense.save()
             return redirect('budgets:expenses')
 
-    context = {'form': form, 'expenses': expenses, 'pie_chart': pie_chart, 'bar_chart': bar_chart,
-                'expenses_df': expenses_df}
+    context = {'form': form, 'expenses': expenses, 'pie_chart': pie_chart, 'bar_chart': bar_chart}
     return render(request, 'budgets/expenses.html', context)
 
 
