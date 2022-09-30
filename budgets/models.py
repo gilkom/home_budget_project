@@ -1,6 +1,8 @@
+from datetime import date
+
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 # Create your models here.
@@ -47,7 +49,7 @@ class BudgetsCategory(models.Model):
 class BudgetsExpenditure(models.Model):
     expenditure_id = models.BigAutoField(primary_key=True)
     expenditure_amount = models.DecimalField(validators=[MinValueValidator(0)], max_digits=8, decimal_places=2)
-    expenditure_date = models.DateField()
+    expenditure_date = models.DateField(validators=[MaxValueValidator(limit_value=date.today)])
     description = models.CharField(max_length=300, blank=True, null=True)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')

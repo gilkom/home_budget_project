@@ -1,0 +1,8 @@
+{% extends "budgets/base.html" %}
+
+{% block content %}
+    <p>Info.</p>
+    {% for key, value in goals_dict.items %}
+        <li>{{ key }} : {{ value.name }}</li>
+    {% endfor %}
+{% endblock content %}

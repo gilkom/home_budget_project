@@ -11,7 +11,6 @@ class ExpenditureForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request") # store value of request
-        print(self.request.user)
         super().__init__(*args, **kwargs)
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
             owner=self.request.user)
