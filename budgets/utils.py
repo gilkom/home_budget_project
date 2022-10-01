@@ -76,3 +76,16 @@ def get_bar_chart(data):
     return bar_chart
 
 
+def create_goals_dict(monthly_goals, period_length, days_passed):
+    goals_dict = {}
+    for m_g in monthly_goals:
+        av_period_goal = round(m_g.goal / period_length, 2)
+        av_daily_goal = round(m_g.goal / days_passed, 2)
+        goals_d = {m_g.monthly_goal_id: {'name': m_g.category_id_budgets_category,
+                                         'goal': m_g.goal, 'av_period': av_period_goal,
+                                         'av_daily': av_daily_goal}}
+        goals_dict.update(goals_d)
+
+    return goals_dict
+
+

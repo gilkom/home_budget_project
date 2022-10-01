@@ -22,38 +22,21 @@ def index(request):
     if request.user.is_authenticated:
         period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
         expenses = select_date_range(period, request)
-        categories = BudgetsCategory.objects.filter(owner=request.user)
         monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
-        print(monthly_goals)
         balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
 
         sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
         money_saved = getattr(balance, 'amount') - sum_of_expenses
-
         period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
         days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
+        average_over_the_period = round(sum_of_expenses / days_passed, 2)
+        goals_dict = create_goals_dict(monthly_goals, period_length, days_passed)
+        sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
 
-        average_over_the_period = sum_of_expenses / days_passed
-
-        goals_dict = {}
-        for m_g in monthly_goals:
-            av_period_goal = m_g.goal / period_length
-            av_daily_goal = m_g.goal / days_passed
-
-            goals_dict[m_g.monthly_goal_id]: {'name': m_g.category_id_budgets_category,
-                                                'goal': m_g.goal,'av_period': av_period_goal,
-                                                'av_daily': av_daily_goal}
-
-        print(goals_dict)
-
-
-        print(f"Sum_of_expenses: {sum_of_expenses}")
-        print(f"Money_saved: {money_saved}")
-        print(f"Average_over_the_period: {average_over_the_period}")
-        print(f"Days_passed: {days_passed}")
-        print(f"Period_length: {period_length}")
-
-        context = {'goals_dict': goals_dict}
+        context = {'goals_dict': goals_dict, 'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
+                   'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
+                   'period_length': period_length, 'period': period, 'balance': balance,
+                   'sum_of_goals': sum_of_goals}
         return render(request, 'budgets/info.html', context)
     else:
         return render(request, 'budgets/index.html')
