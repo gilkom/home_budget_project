@@ -6,7 +6,6 @@ from io import BytesIO
 from matplotlib import pyplot
 import matplotlib.dates as mdates
 
-
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 
@@ -18,13 +17,15 @@ def select_date_range(period, request):
     if period.start_day <= date.today() <= period.end_day:
         expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
                                                      Q(expenditure_date__range=[period.start_day,
-                                                                                period.end_day])).select_related('category_id_budgets_category').order_by(
+                                                                                period.end_day])).select_related(
+            'category_id_budgets_category').order_by(
             '-expenditure_date')
     else:
         expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
                                                      Q(expenditure_date__range=[date.today(),
                                                                                 date.today() + relativedelta(
-                                                                                    months=1)])).select_related('category_id_budgets_category').order_by(
+                                                                                    months=1)])).select_related(
+            'category_id_budgets_category').order_by(
             '-expenditure_date')
     return expenses
 
@@ -57,7 +58,6 @@ def get_bar_chart(data):
     data["full_dates"] = pandas.to_datetime(data["full_dates"]).dt.strftime('%m-%d')
     data["date"] = pandas.to_datetime(data["date"]).dt.strftime('%d-%m-%Y')
 
-
     pyplot.switch_backend('AGG')
     fig = pyplot.figure(figsize=(6, 3))
     key = 'full_dates'
@@ -87,5 +87,3 @@ def create_goals_dict(monthly_goals, period_length, days_passed):
         goals_dict.update(goals_d)
 
     return goals_dict
-
-

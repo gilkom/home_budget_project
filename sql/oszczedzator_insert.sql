@@ -27,12 +27,12 @@ insert into budgets_balance(amount, period_id_budgets_period, owner) values(
 	
 --------------------------------------------
 
-insert into budgets_category(category_name, owner) values(
-	'Food', 1);
-insert into budgets_category(category_name, owner) values(
-	'Housing', 1);
-insert into budgets_category(category_name, owner) values(
-	'Other', 1);
+insert into budgets_category(category_name, category_active, owner) values(
+	'Food', TRUE, 1);
+insert into budgets_category(category_name, category_active,owner) values(
+	'Housing', TRUE,  1);
+insert into budgets_category(category_name, category_active,owner) values(
+	'Other', TRUE, 1);
 
 	
 	

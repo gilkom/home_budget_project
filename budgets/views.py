@@ -20,23 +20,45 @@ from .utils import *
 def index(request):
     """Main page for budgets app."""
     if request.user.is_authenticated:
-        period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
-        expenses = select_date_range(period, request)
-        monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
-        balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
+        period = BudgetsPeriod.objects.filter(Q(owner=request.user) & Q(start_day__lte=date.today())
+                                              & Q(end_day__gte=date.today())).order_by('-period_id').first()
 
-        sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
-        money_saved = getattr(balance, 'amount') - sum_of_expenses
-        period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
-        days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
-        average_over_the_period = round(sum_of_expenses / days_passed, 2)
-        goals_dict = create_goals_dict(monthly_goals, period_length, days_passed)
-        sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
+        # if there is no current period:
+        if period is None:
+            is_period = False
+            context = {'is_period': is_period}
+        # if there is current period:
+        else:
+            is_period = True
+            expenses = select_date_range(period, request)
+            sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
+            if sum_of_expenses is None:
+                sum_of_expenses = 0
+            balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
+            period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
+            days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
+            money_saved = getattr(balance, 'amount') - sum_of_expenses
+            average_over_the_period = round(sum_of_expenses / days_passed, 2)
 
-        context = {'goals_dict': goals_dict, 'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
-                   'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
-                   'period_length': period_length, 'period': period, 'balance': balance,
-                   'sum_of_goals': sum_of_goals}
+            monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
+            # if monthly goals for this period are empty
+            if not monthly_goals:
+                is_goal = False
+                goals_info = f"Create goals for this period to see more details..."
+                context1 = {'is_goal': is_goal, 'goals_info': goals_info}
+            # if monthly goals for this period are  not empty
+            else:
+                is_goal = True
+                goals_dict = create_goals_dict(monthly_goals, period_length, days_passed)
+                sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
+                context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'sum_of_goals': sum_of_goals}
+
+            context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
+                        'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
+                        'period_length': period_length, 'period': period, 'balance': balance,
+                        'is_period': is_period}
+            context.update(context1)
+
         return render(request, 'budgets/info.html', context)
     else:
         return render(request, 'budgets/index.html')
@@ -61,7 +83,8 @@ def expenses(request):
             expenses_df = pandas.DataFrame(expenses.values())
             categories_df = pandas.DataFrame(categories.values())
             expenses_df['category_id_budgets_category'] = \
-                expenses_df['category_id_budgets_category_id'].map(categories_df.set_index('category_id')['category_name'])
+                expenses_df['category_id_budgets_category_id'].map(
+                    categories_df.set_index('category_id')['category_name'])
             expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
                                 'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
                                axis=1, inplace=True)

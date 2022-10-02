@@ -15,7 +15,6 @@
 
 <table>
         <tr>
-            <td>Id</td>
             <td>Name</td>
             <td>Start_day</td>
             <td>End_day</td>
@@ -24,7 +23,6 @@
         </tr>
         {% for period in balances %}
         <tr>
-            <td> {{ period.period_id_budgets_period.period_id }}</td>
             <td> {{ period.period_id_budgets_period.name }}</td>
             <td> {{ period.period_id_budgets_period.start_day }}</td>
             <td> {{ period.period_id_budgets_period.end_day }}</td>

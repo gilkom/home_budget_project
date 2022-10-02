@@ -1,27 +1,36 @@
 {% extends "budgets/base.html" %}
 
 {% block content %}
-    <p>Info.</p>
-    <p>Current period: {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}, Time elapsed: {{ days_passed }} / {{ period_length }} days</p>
-    <p>Period balance: {{ balance.amount }}</p>
-    <p>Sum of expenses: {{ sum_of_expenses }}</p>
-    <p>Your daily average expenses: {{ average_over_the_period }}</p>
-    <p>Your daily average goal: {{ sum_of_goals }}</p>
-    <p>Money saved: {{ money_saved }} </p>
-    <table>
-        <tr>
-            <th>Category:</th>
-            <th>Period goal:</th>
-            <th>Average period goal:</th>
-            <th>Daily average:</th>
-        </tr>
-        {% for key, value in goals_dict.items %}
-        <tr>
-            <td> {{ value.name }} </td>
-            <td> {{ value.goal }} </td>
-            <td> {{ value.av_period }} </td>
-            <td> {{ value.av_daily }} </td>
-        </tr>
-    {% endfor %}
-    </table>
+    {% if is_period == False %}
+        <p>First you have to <a href="{% url 'budgets:periods' %}">create period</a>,
+            its goals and balance...</p>
+    {% else %}
+        <p>Info.</p>
+        <p>Current period: {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}, Time elapsed: {{ days_passed }} / {{ period_length }} days</p>
+        <p>Period balance: {{ balance.amount }}</p>
+        <p>Money saved: {{ money_saved }} </p>
+        <p>Sum of expenses: {{ sum_of_expenses }}</p>
+        <p>Your daily average expenses: {{ average_over_the_period }}</p>
+        {% if is_goal == False %}
+            <p>Create <a href="{% url 'budgets:periods' %}">goals</a> for this period to see more details...</p>
+        {% else %}
+            <p>Your daily average goal: {{ sum_of_goals }}</p>
+            <table>
+                <tr>
+                    <th>Category:</th>
+                    <th>Period goal:</th>
+                    <th>Average period goal:</th>
+                    <th>Daily average:</th>
+                </tr>
+                {% for key, value in goals_dict.items %}
+                <tr>
+                    <td> {{ value.name }} </td>
+                    <td> {{ value.goal }} </td>
+                    <td> {{ value.av_period }} </td>
+                    <td> {{ value.av_daily }} </td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
 {% endblock content %}
