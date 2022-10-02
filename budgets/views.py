@@ -39,6 +39,7 @@ def index(request):
             days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
+            progress = f"{round((days_passed * 100)/period_length)}"
 
             monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
             # if monthly goals for this period are empty
@@ -56,7 +57,7 @@ def index(request):
             context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
                         'period_length': period_length, 'period': period, 'balance': balance,
-                        'is_period': is_period}
+                        'is_period': is_period, 'progress': progress}
             context.update(context1)
 
         return render(request, 'budgets/info.html', context)
