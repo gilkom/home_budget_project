@@ -1,12 +1,14 @@
 -- when a new user is created, his category tables are populated with three basic categories
+drop trigger insert_user_categories_ai on auth_user
+drop function trigger_insert_user_categories()
 CREATE OR REPLACE FUNCTION trigger_insert_user_categories()
    RETURNS TRIGGER
    LANGUAGE PLPGSQL
 AS $$
 BEGIN
-   INSERT INTO budgets_category(category_name, owner) values('Food',NEW.id);
-   INSERT INTO budgets_category(category_name, owner) values('Housing', NEW.id);
-   INSERT INTO budgets_category(category_name, owner) values('Other', NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Food', TRUE, NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Housing', TRUE, NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Other', TRUE, NEW.id);
    RETURN NEW;
 END;
 $$

@@ -35,6 +35,7 @@ class BudgetsBalance(models.Model):
 class BudgetsCategory(models.Model):
     category_id = models.BigAutoField(primary_key=True)
     category_name = models.CharField(max_length=20)
+    category_active = models.BooleanField()
     owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
     def __str__(self):

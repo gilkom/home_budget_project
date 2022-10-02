@@ -67,7 +67,7 @@ def index(request):
 @login_required
 def expenses(request):
     """Displaying all expenses from current period."""
-    period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')[0]
+    period = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id').first()
     expenses = select_date_range(period, request)
     categories = BudgetsCategory.objects.filter(owner=request.user)
     pie_chart = None
@@ -137,7 +137,7 @@ def expenditure(request, expenditure_id):
 
 @login_required()
 def categories(request):
-    categories = BudgetsCategory.objects.filter(owner=request.user).order_by('category_id')
+    categories = BudgetsCategory.objects.filter(Q(owner=request.user) & Q(category_active=True)).order_by('category_id')
 
     if request.method != 'POST':
         form = CategoryForm()
@@ -146,6 +146,7 @@ def categories(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.owner = request.user
+            new_category.category_active = True
             new_category.save()
             return redirect('budgets:categories')
 
@@ -156,10 +157,12 @@ def categories(request):
 @login_required()
 def category_delete(request, category_id):
     category = BudgetsCategory.objects.get(category_id=category_id)
-    try:
-        category.delete()
-    except IntegrityError:
-        messages.error(request, 'This category is used. It cannot be removed.')
+    category.category_active = False
+    category.save()
+    # try:
+    #     category.delete()
+    # except IntegrityError:
+    #     messages.error(request, 'This category is used. It cannot be removed.')
     return redirect('budgets:categories')
 
 

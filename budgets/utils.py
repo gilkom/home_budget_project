@@ -14,12 +14,20 @@ from budgets.models import BudgetsExpenditure
 
 def select_date_range(period, request):
     """Selecting last period or next 30 days"""
-    if period.start_day <= date.today() <= period.end_day:
-        expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
-                                                     Q(expenditure_date__range=[period.start_day,
-                                                                                period.end_day])).select_related(
-            'category_id_budgets_category').order_by(
-            '-expenditure_date')
+    if period is not None:
+        if period.start_day <= date.today() <= period.end_day:
+            expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
+                                                         Q(expenditure_date__range=[period.start_day,
+                                                                                    period.end_day])).select_related(
+                'category_id_budgets_category').order_by(
+                '-expenditure_date')
+        else:
+            expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
+                                                         Q(expenditure_date__range=[date.today(),
+                                                                                    date.today() + relativedelta(
+                                                                                        months=1)])).select_related(
+                'category_id_budgets_category').order_by(
+                '-expenditure_date')
     else:
         expenses = BudgetsExpenditure.objects.filter(Q(owner=request.user) &
                                                      Q(expenditure_date__range=[date.today(),

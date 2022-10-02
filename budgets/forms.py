@@ -13,7 +13,7 @@ class ExpenditureForm(forms.ModelForm):
         self.request = kwargs.pop("request") # store value of request
         super().__init__(*args, **kwargs)
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
-            owner=self.request.user)
+            Q(owner=self.request.user) & Q(category_active=True))
 
     expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
                                        'value': date.today().strftime("%Y-%m-%d")}), label='Date')
@@ -31,7 +31,7 @@ class ExpenditureEditForm(forms.ModelForm):
         print(self.request.user)
         super().__init__(*args, **kwargs)
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
-            owner=self.request.user)
+            Q(owner=self.request.user) & Q(category_active=True))
 
     expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
                                        label='Date')
@@ -93,7 +93,7 @@ class MonthlyGoalForm(forms.ModelForm):
         self.request = kwargs.pop("request")  # store value of request
         super().__init__(*args, **kwargs)
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
-            owner=self.request.user)
+            Q(owner=self.request.user) & Q(category_active=True))
 
     class Meta:
         model = BudgetsMonthlyGoal
