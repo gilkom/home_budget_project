@@ -1,16 +1,26 @@
 {% extends "budgets/base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block page_header %}
+    <div>
+        <h2>List of periods:</h2>
+    </div>
+
+{% endblock page_header %}
 
 {% block content %}
-<p>Periods:</p>
-    <p>------------------------------------------------------------------------</p>
-    <p>Create a new period:</p>
+<div>
+    <div class="p-3 mb-2 bg-light rounded">
+    <h5>Create a new period:</h5>
 
     <form action="{% url 'budgets:periods' %}" method="post">
           {% csrf_token %}
-          {{ pform.as_p }}
-          {{ bform.as_p }}
-          <button name="submit">Add period</button>
+          {{ pform|crispy}}
+          {{ bform|crispy }}
+          <button name="submit" class="btn btn-success">Add period</button>
     </form>
+    </div>
  <p>------------------------------------------------------------------------</p>
 
 <table>
@@ -35,7 +45,7 @@
             <p>No periods yet. Add the first one...</p>
         {% endfor %}
     </table>
-
+</div>
 
 
 {% endblock content %}

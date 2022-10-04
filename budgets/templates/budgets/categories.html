@@ -10,42 +10,38 @@
 
 
 {% block content %}
-
-    <p>New category:</p>
+<div>
+    <div class="p-3 mb-2 bg-light rounded">
+    <h5>Create a new:</h5>
 
     <form action="{% url 'budgets:categories' %}" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-          <button name="submit" class="btn btn-dark">Add category</button>
+          <button name="submit" class="btn btn-success">Add</button>
         {% endbuttons %}
     </form>
+    </div>
+    <br>
+    <div class="p-3 mb-2  rounded">
+        <table class="table">
+            <tr>
+                <th>Name:</th>
+                <th class="text-right">Actions:</th>
+            </tr>
+            {% for category in categories %}
+            <tr>
+                <td> {{ category.category_name }}</td>
+                <td class="text-right">
+                    <a href="{% url 'budgets:category_settings' category.category_id %}"> <button type="button" class="btn btn-warning"> Edit</button></a>
+                    <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button" class="btn btn-danger">Delete</button></a>
+                </td>
+            </tr>
+            {% empty %}
+                <p>No categories yet. Add the first one...</p>
+            {% endfor %}
+        </table>
 
-    {% if messages %}
-    <ul class="alert alert-danger" style="list-style: none;">
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-    {% endif %}
-
-
-<table class="table">
-        <tr>
-            <td>Name:</td>
-            <td></td>
-        </tr>
-        {% for category in categories %}
-        <tr>
-            <td> {{ category.category_name }}</td>
-            <td> <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button">Delete</button></a></td>
-
-        </tr>
-        {% empty %}
-            <p>No categories yet. Add the first one...</p>
-        {% endfor %}
-    </table>
-
-
-
+    </div>
+</div>
 {% endblock content %}

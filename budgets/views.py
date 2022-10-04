@@ -180,6 +180,24 @@ def category_delete(request, category_id):
 
 
 @login_required()
+def category_settings(request, category_id):
+    """Settings view for editing category name."""
+    category = BudgetsCategory.objects.get(category_id=category_id)
+
+    if request.method != 'POST':
+        form = CategoryForm(instance=category)
+
+    else:
+        form = CategoryForm(instance=category, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('budgets:categories')
+
+    context = {'category': category, 'form': form}
+    return render(request, 'budgets/category_settings.html', context)
+
+
+@login_required()
 def periods(request):
     periods = BudgetsPeriod.objects.filter(owner=request.user).order_by('-period_id')
     balances = BudgetsBalance.objects.filter(owner=request.user).select_related('period_id_budgets_period').order_by(

@@ -48,6 +48,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = BudgetsCategory
         fields = ('category_name',)
+        labels = {'category_name': 'Category',}
 
 
 class PeriodForm(forms.ModelForm):
