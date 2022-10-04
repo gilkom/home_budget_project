@@ -12,16 +12,23 @@
 {% block content %}
 <div>
     <div class="p-3 mb-2 bg-light rounded">
-    <h5>Create a new:</h5>
-
-    <form action="{% url 'budgets:categories' %}" method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-          <button name="submit" class="btn btn-success">Add</button>
-        {% endbuttons %}
-    </form>
+         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Create a new category
+          </button>
+         </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+              <form action="{% url 'budgets:categories' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+              <button name="submit" class="btn btn-success">Add</button>
+            {% endbuttons %}
+        </form>
+      </div>
     </div>
+    </div>
+
     <br>
     <div class="p-3 mb-2  rounded">
         <table class="table">

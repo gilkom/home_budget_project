@@ -65,6 +65,7 @@ class PeriodForm(forms.ModelForm):
     class Meta:
         model = BudgetsPeriod
         fields = ('name', 'start_day', 'end_day',)
+        labels = {'start_day': 'Start day', 'end_day': 'End day', }
 
 
 class PeriodEditForm(forms.ModelForm):

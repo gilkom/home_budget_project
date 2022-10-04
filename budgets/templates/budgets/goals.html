@@ -1,16 +1,29 @@
 {% extends "budgets/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <div>
+        <h2>Create period goals:</h2>
+    </div>
+{% endblock page_header %}
 
 {% block content %}
-    <p>Period goals:</p>
-    <p>------------------------------------------------------------------------</p>
-    <p>Create a new goal:</p>
+<div class="p-3 mb-2 bg-light rounded">
+    <nav class="nav bg-light">
+        <li class="breadcrumb-item"><a href="{% url 'budgets:periods'%}">Periods</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create goals</li>
+    </nav>
+</div>
 
+<div class="p-3 mb-2 bg-light rounded">
     <form action="{% url 'budgets:goals' period.period_id %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Add category goal</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button name="submit" class="btn btn-success">Add category goal</button>
+        {% endbuttons %}
     </form>
-
+</div>
     {% if messages %}
     <ul class="alert alert-danger" style="list-style: none;">
     {% for message in messages %}
@@ -19,26 +32,27 @@
     </ul>
     {% endif %}
 
-    <p>------------------------------------------------------------------------</p>
-  <table>
+   <div class="p-3 mb-2 rounded">
+        <table class="table">
         <tr>
-            <td>Id</td>
-            <td>Goal</td>
-            <td>Category</td>
-            <td></td>
-            <td></td>
+            <th>Category</th>
+            <th>Goal</th>
+            <th class="text-right">Actions</th>
+
         </tr>
         {% for goal in goals %}
         <tr>
-            <td> {{ goal.monthly_goal_id }}</a></td>
-            <td> {{ goal.goal }}</td>
             <td> {{ goal.category_id_budgets_category }}</td>
-            <td> <a href="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}"> <button type="button"> Edit</button></a></td>
-            <td> <a href="{% url 'budgets:goal_delete' period.period_id goal.monthly_goal_id %}"> <button type="button"> Delete</button></a></td>
+            <td> {{ goal.goal }}</td>
+            <td class="text-right">
+                <a href="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}"> <button type="button " class="btn btn-warning"> Edit</button></a>
+                <a href="{% url 'budgets:goal_delete' period.period_id goal.monthly_goal_id %}"> <button type="button" class="btn btn-danger"> Delete</button></a>
+            </td>
         </tr>
         {% empty %}
             <p>No categories added yet. Add the first one...</p>
         {% endfor %}
     </table>
+   </div>
 
 {% endblock content %}

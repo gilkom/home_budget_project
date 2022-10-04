@@ -6,45 +6,54 @@
     <div>
         <h2>List of periods:</h2>
     </div>
-
 {% endblock page_header %}
 
 {% block content %}
 <div>
     <div class="p-3 mb-2 bg-light rounded">
-    <h5>Create a new period:</h5>
 
-    <form action="{% url 'budgets:periods' %}" method="post">
-          {% csrf_token %}
-          {{ pform|crispy}}
-          {{ bform|crispy }}
-          <button name="submit" class="btn btn-success">Add period</button>
-    </form>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Create a new period
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <form action="{% url 'budgets:periods' %}" method="post">
+              {% csrf_token %}
+              {{ pform|crispy}}
+              {{ bform|crispy }}
+              <button name="submit" class="btn btn-success">Add period</button>
+            </form>
+          </div>
+        </div>
     </div>
- <p>------------------------------------------------------------------------</p>
 
-<table>
-        <tr>
-            <td>Name</td>
-            <td>Start_day</td>
-            <td>End_day</td>
-            <td>Balance</td>
-            <td></td>
-        </tr>
-        {% for period in balances %}
-        <tr>
-            <td> {{ period.period_id_budgets_period.name }}</td>
-            <td> {{ period.period_id_budgets_period.start_day }}</td>
-            <td> {{ period.period_id_budgets_period.end_day }}</td>
-            <td> {{ period.amount }} </td>
-            <td> <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button"> Set Goals </button></a></td>
-            <td> <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button"> Edit</button></a></td>
-            <td> <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"> <button type="button">Delete</button></a></td>
-        </tr>
-        {% empty %}
-            <p>No periods yet. Add the first one...</p>
-        {% endfor %}
-    </table>
+    <div class="p-3 mb-2 rounded">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Start_day</th>
+                <th>End_day</th>
+                <th>Balance</th>
+                <th class="text-right">Actions</th>
+            </tr>
+            {% for period in balances %}
+            <tr>
+                <td> {{ period.period_id_budgets_period.name }}</td>
+                <td> {{ period.period_id_budgets_period.start_day }}</td>
+                <td> {{ period.period_id_budgets_period.end_day }}</td>
+                <td> {{ period.amount }} </td>
+                <td class="text-right">
+                    <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-primary"> Set Goals </button></a>
+                    <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-warning"> Edit</button></a>
+                    <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-danger">Delete</button></a>
+                </td>
+            </tr>
+            {% empty %}
+                <p>No periods yet. Add the first one...</p>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 
