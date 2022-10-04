@@ -29,6 +29,7 @@ def index(request):
             context = {'is_period': is_period}
         # if there is current period:
         else:
+            page_color = f"secondary"
             is_period = True
             expenses = select_date_range(period, request)
             sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
@@ -40,24 +41,35 @@ def index(request):
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
             progress = f"{round((days_passed * 100)/period_length)}"
+            estimated_savings = getattr(balance, 'amount') - (average_over_the_period * period_length)
+
 
             monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
+
             # if monthly goals for this period are empty
             if not monthly_goals:
                 is_goal = False
-                goals_info = f"Create goals for this period to see more details..."
-                context1 = {'is_goal': is_goal, 'goals_info': goals_info}
+                context1 = {'is_goal': is_goal, 'page_color': page_color}
+
             # if monthly goals for this period are  not empty
             else:
                 is_goal = True
                 goals_dict = create_goals_dict(monthly_goals, period_length, days_passed)
-                sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
-                context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'sum_of_goals': sum_of_goals}
+                daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
+                sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
+                planned_savings = getattr(balance, 'amount') - sum_of_goals
+                if average_over_the_period < daily_average_goal:
+                    page_color = f"success"
+                else:
+                    page_color = f'danger'
+                context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,
+                            'planned_savings': planned_savings, 'sum_of_goals': sum_of_goals,
+                            'page_color': page_color}
 
             context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
                         'period_length': period_length, 'period': period, 'balance': balance,
-                        'is_period': is_period, 'progress': progress}
+                        'is_period': is_period, 'progress': progress, 'estimated_savings': estimated_savings,}
             context.update(context1)
 
         return render(request, 'budgets/info.html', context)

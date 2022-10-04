@@ -1,17 +1,25 @@
 {% extends "budgets/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <div>
+        <h2>List of categories:</h2>
+    </div>
+
+{% endblock page_header %}
+
 
 {% block content %}
-<p>List of Categories:</p>
-    <p>------------------------------------------------------------------------</p>
-    <p>Add category:</p>
+
+    <p>New category:</p>
 
     <form action="{% url 'budgets:categories' %}" method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button name="submit">Add category</button>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+          <button name="submit" class="btn btn-dark">Add category</button>
+        {% endbuttons %}
     </form>
-
- <p>------------------------------------------------------------------------</p>
 
     {% if messages %}
     <ul class="alert alert-danger" style="list-style: none;">
@@ -22,7 +30,7 @@
     {% endif %}
 
 
-<table>
+<table class="table">
         <tr>
             <td>Name:</td>
             <td></td>
