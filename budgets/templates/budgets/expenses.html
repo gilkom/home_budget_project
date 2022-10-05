@@ -1,49 +1,72 @@
 {% extends "budgets/base.html" %}
+{% load bootstrap4 %}
 {% load crispy_forms_tags %}
-{% block content %}
-    <p>Expenses:</p>
-    <p>-----------------------------------</p>
-    <div style="display: flex;">
-        <div>
-            <p>Add expense:</p>
 
-            <form action="{% url 'budgets:expenses' %}" method='post'>
-                {% csrf_token %}
-                {{ form|crispy }}
-                <br>
-                <button name="submit">Add expense</button>
-            </form>
-        </div>
-
-        <div>
-            <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="pie_chart_categories">
-        </div>
-    </div>
-    <p>------------------------------------</p>
+{% block page_header %}
     <div>
-        <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1">
+        <h2>List of expenses:</h2>
     </div>
+{% endblock page_header %}
 
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-        {% for expense in expenses %}
-        <tr>
-            <td> {{ expense.expenditure_date|date:"d.m.Y"}}</td>
-            <td> {{ expense.expenditure_amount }}</td>
-            <td> {{ expense.category_id_budgets_category }}</td>
-            <td> {{ expense.description }}</td>
-            <td> <a href="{% url 'budgets:expenditure' expense.expenditure_id %}"> <button type="button"> Edit</button></a></td>
-            <td> <a href="{% url 'budgets:expense_delete' expense.expenditure_id %}"><button type="button">Delete</button></a></td>
-        </tr>
-        {% empty %}
-            <p>No expenses yet. Add the first one...</p>
-        {% endfor %}
-    </table>
-
+{% block content %}
+<br>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-start">
+            <div>
+                <form action="{% url 'budgets:expenses' %}" method='post'>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <br>
+                    <button name="submit" class="btn btn-outline-success">Add expense</button>
+                </form>
+            </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <div>
+                    <img src="data:image/png;base64, {{pie_chart|safe}}" alt="" id="pie_chart_categories" style="width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <div>
+            <img src="data:image/png;base64, {{bar_chart|safe}}" alt="" id="img1" style="width: 100%; height: auto;">
+        </div>
+    </div>
+  <div class="d-flex justify-content-center">
+      <div class="container">
+        <div class="table-responsive">
+        <table class="table table-hover table-sm">
+            <thead>
+            <tr>
+                <th class="th-sm">Date</th>
+                <th class="th-sm">Amount</th>
+                <th class="th-sm">Category</th>
+                <th class="text-truncate">Descr.</th>
+                <th class="th-sm">Actions</th>
+            </tr>
+            </thead>
+            {% for expense in expenses %}
+            <tbody>
+            <tr>
+                <td> {{ expense.expenditure_date|date:"d.m.y"}}</td>
+                <td> {{ expense.expenditure_amount }}</td>
+                <td> {{ expense.category_id_budgets_category }}</td>
+                <td> <span class="d-inline-block text-truncate" style="max-width: 70px;">{{ expense.description }}</span></td>
+                <td>
+                    <div class="d-flex flex-row">
+                    <a href="{% url 'budgets:expenditure' expense.expenditure_id %}"> <button type="button" class="btn btn-outline-warning btn-sm"> Edit</button></a>
+                    <a href="{% url 'budgets:expense_delete' expense.expenditure_id %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            {% empty %}
+                <p>No expenses yet. Add the first one...</p>
+            {% endfor %}
+        </table>
+      </div>
+      </div>
+  </div>
 {% endblock content %}

@@ -52,7 +52,7 @@ def get_graph():
 def get_pie_chart(data):
     pyplot.switch_backend('AGG')
     pyplot.style.use('seaborn-v0_8')
-    fig = pyplot.figure(figsize=(3, 3))
+    fig = pyplot.figure(figsize=(4, 4))
     key = 'category'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
     pyplot.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11}, shadow=True)
@@ -67,7 +67,7 @@ def get_bar_chart(data):
     data["date"] = pandas.to_datetime(data["date"]).dt.strftime('%d-%m-%Y')
 
     pyplot.switch_backend('AGG')
-    fig = pyplot.figure(figsize=(5, 3))
+    fig = pyplot.figure(figsize=(8, 4))
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
 

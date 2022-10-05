@@ -1,3 +1,4 @@
+from decimal import Decimal
 from unicodedata import decimal
 
 import pandas
@@ -41,7 +42,10 @@ def index(request):
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
             progress = f"{round((days_passed * 100)/period_length)}"
-            estimated_savings = getattr(balance, 'amount') - (average_over_the_period * period_length)
+            print(type(getattr(balance, 'amount')))
+            print(type(average_over_the_period))
+            print(type(period_length))
+            estimated_savings = getattr(balance, 'amount') - (Decimal(average_over_the_period) * period_length)
 
 
             monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)

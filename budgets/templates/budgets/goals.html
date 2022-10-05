@@ -20,7 +20,7 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button name="submit" class="btn btn-success">Add category goal</button>
+            <button name="submit" class="btn btn-outline-success">Add category goal</button>
         {% endbuttons %}
     </form>
 </div>
@@ -45,8 +45,8 @@
             <td> {{ goal.category_id_budgets_category }}</td>
             <td> {{ goal.goal }}</td>
             <td class="text-right">
-                <a href="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}"> <button type="button " class="btn btn-warning"> Edit</button></a>
-                <a href="{% url 'budgets:goal_delete' period.period_id goal.monthly_goal_id %}"> <button type="button" class="btn btn-danger"> Delete</button></a>
+                <a href="{% url 'budgets:goal_settings' period.period_id goal.monthly_goal_id %}"> <button type="button " class="btn btn-outline-warning"> Edit</button></a>
+                <a href="{% url 'budgets:goal_delete' period.period_id goal.monthly_goal_id %}"> <button type="button" class="btn btn-outline-danger"> Delete</button></a>
             </td>
         </tr>
         {% empty %}

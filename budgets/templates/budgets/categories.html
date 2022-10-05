@@ -12,7 +12,7 @@
 {% block content %}
 <div>
     <div class="p-3 mb-2 bg-light rounded">
-         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+         <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Create a new category
           </button>
          </p>
@@ -22,7 +22,7 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
-              <button name="submit" class="btn btn-success">Add</button>
+              <button name="submit" class="btn btn-outline-success">Add</button>
             {% endbuttons %}
         </form>
       </div>
@@ -40,8 +40,8 @@
             <tr>
                 <td> {{ category.category_name }}</td>
                 <td class="text-right">
-                    <a href="{% url 'budgets:category_settings' category.category_id %}"> <button type="button" class="btn btn-warning"> Edit</button></a>
-                    <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button" class="btn btn-danger">Delete</button></a>
+                    <a href="{% url 'budgets:category_settings' category.category_id %}"> <button type="button" class="btn btn-outline-warning"> Edit</button></a>
+                    <a href="{% url 'budgets:category_delete' category.category_id %}"> <button type="button" class="btn btn-outline-danger">Delete</button></a>
                 </td>
             </tr>
             {% empty %}

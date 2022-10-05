@@ -12,7 +12,7 @@
 <div>
     <div class="p-3 mb-2 bg-light rounded">
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Create a new period
           </button>
         </p>
@@ -29,24 +29,24 @@
     </div>
 
     <div class="p-3 mb-2 rounded">
-        <table class="table">
+        <table class="table table-sm">
             <tr>
                 <th>Name</th>
-                <th>Start_day</th>
-                <th>End_day</th>
+                <th>Start</th>
+                <th>End</th>
                 <th>Balance</th>
                 <th class="text-right">Actions</th>
             </tr>
             {% for period in balances %}
             <tr>
                 <td> {{ period.period_id_budgets_period.name }}</td>
-                <td> {{ period.period_id_budgets_period.start_day }}</td>
-                <td> {{ period.period_id_budgets_period.end_day }}</td>
+                <td> {{ period.period_id_budgets_period.start_day|date:"d.m.Y"}}</td>
+                <td> {{ period.period_id_budgets_period.end_day|date:"d.m.Y" }}</td>
                 <td> {{ period.amount }} </td>
                 <td class="text-right">
-                    <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-primary"> Set Goals </button></a>
-                    <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-warning"> Edit</button></a>
-                    <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-danger">Delete</button></a>
+                    <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-primary"> Set Goals </button></a>
+                    <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-warning"> Edit</button></a>
+                    <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-danger">Delete</button></a>
                 </td>
             </tr>
             {% empty %}
