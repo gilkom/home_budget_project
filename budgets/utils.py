@@ -70,14 +70,15 @@ def get_bar_chart(data):
     fig = pyplot.figure(figsize=(8, 4))
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
-
+    pyplot.style.use('ggplot')
     pyplot.bar(d[key], d['value'])
     pyplot.title('Period expenses:', loc='left')
     pyplot.xlabel("Date")
     pyplot.xticks(rotation=65)
     # pyplot.ylabel("Value")
-    pyplot.xticks(data.full_dates)
-    pyplot.style.use('seaborn-v0_8')
+    # pyplot.xticks(data.full_dates.unique())
+    print(pyplot.style.available)
+
     pyplot.tight_layout()
 
     bar_chart = get_graph()
