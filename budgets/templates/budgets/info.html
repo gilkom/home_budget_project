@@ -73,7 +73,9 @@
                 <br>
 
             </div>
-            
+
+<img src="data:image/png;base64, {{chart|safe}}" alt="" id="chart_categories" style="width: 100%; height: auto;">
+
             {% if is_goal == False %}
                 <p>Create <a href="{% url 'budgets:periods' %}">goals</a> for this period to see more details...</p>
             {% else %}

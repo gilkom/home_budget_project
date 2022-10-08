@@ -23,6 +23,8 @@ def index(request):
     if request.user.is_authenticated:
         period = BudgetsPeriod.objects.filter(Q(owner=request.user) & Q(start_day__lte=date.today())
                                               & Q(end_day__gte=date.today())).order_by('-period_id').first()
+        categories = BudgetsCategory.objects.filter(owner=request.user)
+        chart = None
 
         # if there is no current period:
         if period is None:
@@ -42,18 +44,30 @@ def index(request):
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
             progress = f"{round((days_passed * 100)/period_length)}"
-            print(type(getattr(balance, 'amount')))
-            print(type(average_over_the_period))
-            print(type(period_length))
             estimated_savings = getattr(balance, 'amount') - (Decimal(average_over_the_period) * period_length)
 
+            period_days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
+            pd_df = pandas.DataFrame(data=period_days, columns=['full_dates'])
+
+            expenses_df = pandas.DataFrame(expenses.values())
+            categories_df = pandas.DataFrame(categories.values())
+            expenses_df['category_id_budgets_category'] = \
+                expenses_df['category_id_budgets_category_id'].map(
+                    categories_df.set_index('category_id')['category_name'])
+            expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
+                                'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
+                               axis=1, inplace=True)
+            expenses_df['date'] = expenses_df['date'].astype('datetime64[ns]')
+
+            pd_expenses_df = pandas.merge(pd_df, expenses_df, left_on='full_dates', right_on='date', how='left')
 
             monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
 
             # if monthly goals for this period are empty
             if not monthly_goals:
                 is_goal = False
-                context1 = {'is_goal': is_goal, 'page_color': page_color}
+                chart = get_categories_bar_chart(pd_expenses_df)
+                context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart}
 
             # if monthly goals for this period are  not empty
             else:
@@ -62,18 +76,20 @@ def index(request):
                 daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
                 sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
                 planned_savings = getattr(balance, 'amount') - sum_of_goals
+                chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
                 if average_over_the_period < daily_average_goal:
                     page_color = f"success"
                 else:
                     page_color = f'danger'
                 context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,
                             'planned_savings': planned_savings, 'sum_of_goals': sum_of_goals,
-                            'page_color': page_color}
+                            'page_color': page_color, 'chart': chart}
 
             context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
                         'period_length': period_length, 'period': period, 'balance': balance,
-                        'is_period': is_period, 'progress': progress, 'estimated_savings': estimated_savings,}
+                        'is_period': is_period, 'progress': progress, 'estimated_savings': estimated_savings,
+                        'chart': chart}
             context.update(context1)
 
         return render(request, 'budgets/info.html', context)

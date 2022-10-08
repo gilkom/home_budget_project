@@ -1,9 +1,11 @@
 import base64
+
+import numpy as np
 import pandas
 from datetime import date
 from io import BytesIO
 
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 from dateutil.relativedelta import relativedelta
@@ -40,7 +42,7 @@ def select_date_range(period, request):
 
 def get_graph():
     buffer = BytesIO()
-    pyplot.savefig(buffer, format='png')
+    plt.savefig(buffer, format='png')
     buffer.seek(0)
     image_png = buffer.getvalue()
     graph = base64.b64encode(image_png)
@@ -50,14 +52,14 @@ def get_graph():
 
 
 def get_pie_chart(data):
-    pyplot.switch_backend('AGG')
-    pyplot.style.use('seaborn-v0_8')
-    fig = pyplot.figure(figsize=(4, 4))
+    plt.switch_backend('AGG')
+    plt.style.use('seaborn-v0_8')
+    fig = plt.figure(figsize=(4, 4))
     key = 'category'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
-    pyplot.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11}, shadow=True)
-    pyplot.title('Category distribution:')
-    pyplot.tight_layout()
+    plt.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11}, shadow=True)
+    plt.title('Category distribution:')
+    plt.tight_layout()
     pie_chart = get_graph()
     return pie_chart
 
@@ -66,23 +68,52 @@ def get_bar_chart(data):
     data["full_dates"] = pandas.to_datetime(data["full_dates"]).dt.strftime('%m-%d')
     data["date"] = pandas.to_datetime(data["date"]).dt.strftime('%d-%m-%Y')
 
-    pyplot.switch_backend('AGG')
-    fig = pyplot.figure(figsize=(8, 4))
+    plt.switch_backend('AGG')
+    fig = plt.figure(figsize=(8, 4))
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
-    pyplot.style.use('ggplot')
-    pyplot.bar(d[key], d['value'])
-    pyplot.title('Period expenses:', loc='left')
-    pyplot.xlabel("Date")
-    pyplot.xticks(rotation=65)
+    print(d)
+    print(type(d))
+    plt.style.use('seaborn-paper')
+    plt.bar(d[key], d['value'])
+    plt.title('Period expenses:', loc='left')
+    plt.xlabel("Date")
+    plt.xticks(rotation=65)
     # pyplot.ylabel("Value")
     # pyplot.xticks(data.full_dates.unique())
-    print(pyplot.style.available)
+    # print(plt.style.available)
 
-    pyplot.tight_layout()
+    plt.tight_layout()
 
     bar_chart = get_graph()
     return bar_chart
+
+
+def get_categories_bar_chart(data, daily_average_goal=None):
+    data["full_dates"] = pandas.to_datetime(data["full_dates"]).dt.strftime('%m-%d')
+    data["date"] = pandas.to_datetime(data["date"]).dt.strftime('%d-%m-%Y')
+    plt.switch_backend('AGG')
+    plt.style.use('seaborn-paper')
+    fig = plt.figure(figsize=(8, 4))
+    key = 'full_dates'
+    d = data.groupby(key, as_index=False)['value'].agg('sum')
+    plt.bar(d[key], d['value'])
+    plt.title('Period expenses:', loc='left')
+    plt.xlabel("Date")
+    plt.xticks(rotation=65)
+    if daily_average_goal is not None:
+        plt.axhline(y=daily_average_goal, color='r', linestyle='-')
+
+    x = [40, 32, 33, 34, 45, 48, 34, 45, 48]
+    plt.plot(x, c='red')
+    # pyplot.ylabel("Value")
+    # pyplot.xticks(data.full_dates.unique())
+    # print(plt.style.available)
+    #plt.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.15)
+    plt.tight_layout()
+
+    chart = get_graph()
+    return chart
 
 
 def create_goals_dict(monthly_goals, period_length, days_passed):
