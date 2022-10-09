@@ -106,11 +106,6 @@ def get_categories_bar_chart(data, daily_average_goal=None):
         averages = get_average_list(d)
         plt.plot(averages, c='red')
 
-
-    # pyplot.ylabel("Value")
-    # pyplot.xticks(data.full_dates.unique())
-    # print(plt.style.available)
-    # plt.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.15)
     plt.tight_layout()
 
     chart = get_graph()
