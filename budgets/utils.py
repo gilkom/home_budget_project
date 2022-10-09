@@ -72,8 +72,7 @@ def get_bar_chart(data):
     fig = plt.figure(figsize=(8, 4))
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
-    print(d)
-    print(type(d))
+
     plt.style.use('seaborn-paper')
     plt.bar(d[key], d['value'])
     plt.title('Period expenses:', loc='left')
@@ -101,15 +100,17 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     plt.title('Period expenses:', loc='left')
     plt.xlabel("Date")
     plt.xticks(rotation=65)
-    if daily_average_goal is not None:
-        plt.axhline(y=daily_average_goal, color='r', linestyle='-')
 
-    x = [40, 32, 33, 34, 45, 48, 34, 45, 48]
-    plt.plot(x, c='red')
+    if daily_average_goal is not None:
+        plt.axhline(y=daily_average_goal, color='r', linestyle='dashed')
+        averages = get_average_list(d)
+        plt.plot(averages, c='red')
+
+
     # pyplot.ylabel("Value")
     # pyplot.xticks(data.full_dates.unique())
     # print(plt.style.available)
-    #plt.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.15)
+    # plt.subplots_adjust(left=0.05, right=0.99, top=0.9, bottom=0.15)
     plt.tight_layout()
 
     chart = get_graph()
@@ -127,3 +128,17 @@ def create_goals_dict(monthly_goals, period_length, days_passed):
         goals_dict.update(goals_d)
 
     return goals_dict
+
+def get_average_list(d):
+    today = (date.today().strftime('%m-%d'))
+    counter = 0
+    sum = 0
+    average = []
+    for index, row in d.iterrows():
+        counter += 1
+        sum = sum + row['value']
+        average.append(round(sum / counter, 2))
+        if row['full_dates'] == today:
+            break
+
+    return average
