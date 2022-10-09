@@ -7,9 +7,9 @@
 
         <p class="lead"> {% trans 'WelcomeMessage' %}</p>
         <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-           role="button">Register &raquo;</a>
+           role="button">{% trans 'RegisterButton' %} &raquo;</a>
         <a class="btn btn-lg btn-primary" href="{% url 'users:login' %}"
-           role="button">Log in &raquo;</a>
+           role="button">{% trans 'LoginButton' %} &raquo;</a>
     </div>
 
 {% endblock page_header %}
