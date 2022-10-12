@@ -61,18 +61,21 @@
                     {% get_language_info_list for LANGUAGES as languages %}
                     <div class="languages">
 
-                        <ul class="languages">
                             {% for language in languages %}
-                                <li>
-                                    <a href="/{{ language.code }}/"
-                                       {% if language.code == LANGUAGE_CODE %}
-                                       class="selected"
-                                       {% endif %}>
-                                        {{ language.name_local }}
-                                    </a>
-                                </li>
+                                    {% if language.code == 'pl' %}
+                                        <a href="/{{ language.code }}/"
+                                        {% if language.code == LANGUAGE_CODE %}
+                                            class="selected"
+                                        {% endif %}
+                                        ><img style="height:15px;width:20px;" src="{% static 'pl.png' %}" alt=""></a>
+                                    {% elif language.code == 'en' %}
+                                        <a href="/{{ language.code }}/"
+                                        {% if language.code == LANGUAGE_CODE %}
+                                            class="selected"
+                                        {% endif %}
+                                        ><img style="height:15px;width:20px;" src="{% static 'en.png' %}" alt=""></a>
+                                    {% endif %}
                             {% endfor %}
-                        </ul>
                     </div>
                 </ul>
 
