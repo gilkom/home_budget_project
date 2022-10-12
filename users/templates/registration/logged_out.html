@@ -1,7 +1,9 @@
 {% extends "budgets/base.html" %}
+{% load i18n %}
+
 {% block page_header %}
-    <h2>Logged out</h2>
+    <h2><h2>{% trans 'LogoutHeader' %}</h2></h2>
 {% endblock page_header %}
 {% block content %}
-    <p>You have successfully been logged out. Thank you for using the website.</p>
+    <p>{% trans 'LogoutInfo' %}</p>
 {% endblock content %}
