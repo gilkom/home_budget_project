@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-09 15:07+0200\n"
+"POT-Creation-Date: 2022-10-12 18:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: budgets/templates/budgets/base.html:63
-msgid "Language"
-msgstr ""
+#: budgets/templates/budgets/base.html:51
+#: budgets/templates/budgets/index.html:10
+#: users/templates/registration/register.html:15
+msgid "RegisterButton"
+msgstr "Register"
+
+#: budgets/templates/budgets/base.html:54
+#: budgets/templates/budgets/index.html:12
+msgid "LoginButton"
+msgstr "Log in"
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -30,13 +37,9 @@ msgstr "Plan your expenses!"
 msgid "WelcomeMessage"
 msgstr "The home budget app helps you in monitoring your monthly expenses."
 
-#: budgets/templates/budgets/index.html:10
-msgid "RegisterButton"
-msgstr "Register"
-
-#: budgets/templates/budgets/index.html:12
-msgid "LoginButton"
-msgstr "Log in"
+#: users/templates/registration/register.html:6
+msgid "CreateAnAccountHeading"
+msgstr "Create An Account"
 
 #: venv/lib/python3.9/site-packages/bootstrap4/components.py:17
 #: venv/lib/python3.9/site-packages/bootstrap4/templates/bootstrap4/form_errors.html:3

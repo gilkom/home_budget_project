@@ -48,10 +48,10 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                            <a class="nav-link" href="{% url 'users:register' %}">{% trans 'RegisterButton' %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                            <a class="nav-link" href="{% url 'users:login' %}">{% trans 'LoginButton' %}</a>
                         </li>
                     {% endif %}
                 </ul>

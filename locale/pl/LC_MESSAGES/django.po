@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-09 15:07+0200\n"
+"POT-Creation-Date: 2022-10-12 18:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,16 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: budgets/templates/budgets/base.html:63
-msgid "Language"
-msgstr ""
+#: budgets/templates/budgets/base.html:51
+#: budgets/templates/budgets/index.html:10
+#: users/templates/registration/register.html:15
+msgid "RegisterButton"
+msgstr "Zarejestruj się"
+
+#: budgets/templates/budgets/base.html:54
+#: budgets/templates/budgets/index.html:12
+msgid "LoginButton"
+msgstr "Zaloguj się"
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -32,13 +39,9 @@ msgstr "Zaplanuj swoje wydatki!"
 msgid "WelcomeMessage"
 msgstr "Oszczędzanko pomoże Ci w monitorowaniu miesięcznych wydatków."
 
-#: budgets/templates/budgets/index.html:10
-msgid "RegisterButton"
-msgstr "Zarejestruj się"
-
-#: budgets/templates/budgets/index.html:12
-msgid "LoginButton"
-msgstr "Zaloguj się"
+#: users/templates/registration/register.html:6
+msgid "CreateAnAccountHeading"
+msgstr "Utwórz konto"
 
 #: venv/lib/python3.9/site-packages/bootstrap4/components.py:17
 #: venv/lib/python3.9/site-packages/bootstrap4/templates/bootstrap4/form_errors.html:3
