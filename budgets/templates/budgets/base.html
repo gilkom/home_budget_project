@@ -25,26 +25,26 @@
                 <ul class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'budgets:index'%}">Budgets</a>
+                        <a class="nav-link" href="{% url 'budgets:index'%}">{% trans 'StatisticsNav' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'budgets:expenses'%}">Expenses</a>
+                        <a class="nav-link" href="{% url 'budgets:expenses'%}">{% trans 'ExpensesNav' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'budgets:periods'%}">Periods</a>
+                        <a class="nav-link" href="{% url 'budgets:periods'%}">{% trans 'PeriodsNav' %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'budgets:categories'%}">Categories</a>
+                        <a class="nav-link" href="{% url 'budgets:categories'%}">{% trans 'CategoriesNav'%}</a>
                     </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <span class="navbar-text">Welcome, {{ user.username }}.</span>
+                            <span class="navbar-text">{% trans 'GreetingWelcome'%}, {{ user.username }}.</span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                            <a class="nav-link" href="{% url 'users:logout' %}">{% trans 'LogOutButton'%}</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -59,7 +59,8 @@
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
-                    <div class="languages">
+                    <div class="container">
+                        <div class="languages">
 
                             {% for language in languages %}
                                     {% if language.code == 'pl' %}
@@ -73,9 +74,10 @@
                                         {% if language.code == LANGUAGE_CODE %}
                                             class="selected"
                                         {% endif %}
-                                        ><img style="height:15px;width:20px;" src="{% static 'en.png' %}" alt=""></a>
+                                        ><img style="height:15px;width:20px;" src="{% static 'am.png' %}" alt=""></a>
                                     {% endif %}
                             {% endfor %}
+                        </div>
                     </div>
                 </ul>
 

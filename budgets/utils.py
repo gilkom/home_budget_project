@@ -58,7 +58,7 @@ def get_pie_chart(data):
     key = 'category'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
     plt.pie(data=d, x='value', labels=d[key], autopct='%1.0f%%', textprops={'fontsize': 11}, shadow=True)
-    plt.title('Category distribution:')
+    # plt.title('Category distribution:')
     plt.tight_layout()
     pie_chart = get_graph()
     return pie_chart
@@ -75,8 +75,8 @@ def get_bar_chart(data):
 
     plt.style.use('seaborn-paper')
     plt.bar(d[key], d['value'])
-    plt.title('Period expenses:', loc='left')
-    plt.xlabel("Date")
+    # plt.title('Period expenses:', loc='left')
+    # plt.xlabel("Date")
     plt.xticks(rotation=65)
     # pyplot.ylabel("Value")
     # pyplot.xticks(data.full_dates.unique())
@@ -97,8 +97,8 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     key = 'full_dates'
     d = data.groupby(key, as_index=False)['value'].agg('sum')
     plt.bar(d[key], d['value'])
-    plt.title('Period expenses:', loc='left')
-    plt.xlabel("Date")
+    # plt.title('Period expenses:', loc='left')
+    # plt.xlabel("Date")
     plt.xticks(rotation=65)
 
     if daily_average_goal is not None:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-12 19:45+0200\n"
+"POT-Creation-Date: 2022-10-13 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: budgets/models.py:39
+msgid "Category"
+msgstr "Category"
+
+#: budgets/models.py:54
+msgid "Amount"
+msgstr "Amount"
+
+#: budgets/models.py:55
+msgid "Date"
+msgstr "Date"
+
+#: budgets/models.py:56
+msgid "Description"
+msgstr "Description"
+
+#: budgets/templates/budgets/base.html:28
+msgid "StatisticsNav"
+msgstr "Statistics"
+
+#: budgets/templates/budgets/base.html:31
+msgid "ExpensesNav"
+msgstr "Expenses"
+
+#: budgets/templates/budgets/base.html:34
+msgid "PeriodsNav"
+msgstr "Periods"
+
+#: budgets/templates/budgets/base.html:37
+msgid "CategoriesNav"
+msgstr "Categories"
+
+#: budgets/templates/budgets/base.html:44
+msgid "GreetingWelcome"
+msgstr "Welcome"
+
+#: budgets/templates/budgets/base.html:47
+msgid "LogOutButton"
+msgstr "Log out"
+
 #: budgets/templates/budgets/base.html:51
 #: budgets/templates/budgets/index.html:10
 #: users/templates/registration/register.html:15
@@ -26,9 +66,13 @@ msgstr "Register"
 
 #: budgets/templates/budgets/base.html:54
 #: budgets/templates/budgets/index.html:12
-#: users/templates/registration/login.html:13
+#: users/templates/registration/login.html:14
 msgid "LoginButton"
 msgstr "Log in"
+
+#: budgets/templates/budgets/expenses.html:8
+msgid "ListofexpensesHeader"
+msgstr "List of expenses"
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -38,16 +82,106 @@ msgstr "Plan your expenses!"
 msgid "WelcomeMessage"
 msgstr "The home budget app helps you in monitoring your monthly expenses."
 
-#: users/templates/registration/logged_out.html:3
+#: budgets/templates/budgets/info.html:9 budgets/templates/budgets/info.html:20
+msgid "StatisticsHeader"
+msgstr "Details of the current period"
+
+#: budgets/templates/budgets/info.html:11
+msgid "StatisticsInfo"
+msgstr "First you need to create a period, its goals and balance..."
+
+#: budgets/templates/budgets/info.html:14
+msgid "CreatePeriodButton"
+msgstr "Create period"
+
+#: budgets/templates/budgets/info.html:33
+msgid "DaysCounter"
+msgstr "days"
+
+#: budgets/templates/budgets/info.html:49
+msgid "DailyavgexpensesHeader"
+msgstr "Avg. daily expenses"
+
+#: budgets/templates/budgets/info.html:50
+#: budgets/templates/budgets/info.html:55
+#: budgets/templates/budgets/info.html:63
+#: budgets/templates/budgets/info.html:66
+#: budgets/templates/budgets/info.html:69
+#: budgets/templates/budgets/info.html:88
+#: budgets/templates/budgets/info.html:89
+#: budgets/templates/budgets/info.html:90
+#: budgets/templates/budgets/info.html:103
+#: budgets/templates/budgets/info.html:104
+#: budgets/templates/budgets/info.html:105
+msgid "Currency"
+msgstr "$"
+
+#: budgets/templates/budgets/info.html:54
+msgid "EstimatedSavingsHeader"
+msgstr "Estimated savings"
+
+#: budgets/templates/budgets/info.html:63
+msgid "InitialBudgetHeader"
+msgstr "Initial budget"
+
+#: budgets/templates/budgets/info.html:66
+msgid "RemainingFundsHeader"
+msgstr "Remaining funds"
+
+#: budgets/templates/budgets/info.html:69
+msgid "SumOfExpensesHeader"
+msgstr "Planned expenses"
+
+#: budgets/templates/budgets/info.html:81
+msgid "SetGoalsInfo"
+msgstr "Create goals for this period to see more details..."
+
+#: budgets/templates/budgets/info.html:83
+msgid "SetGoalsButton"
+msgstr "Plan your goals"
+
+#: budgets/templates/budgets/info.html:87
+msgid "DetailsOfGoalsHeader"
+msgstr "Goals"
+
+#: budgets/templates/budgets/info.html:88
+msgid "DailyAvgGoalHeader"
+msgstr "Scheduled avg. daily expenses"
+
+#: budgets/templates/budgets/info.html:89
+msgid "SumOfGoalsHeader"
+msgstr "Planned expenses"
+
+#: budgets/templates/budgets/info.html:90
+msgid "PlannedSavingsHeader"
+msgstr "Planned savings"
+
+#: budgets/templates/budgets/info.html:95
+msgid "CategoryTableHeader"
+msgstr "Category"
+
+#: budgets/templates/budgets/info.html:96
+msgid "GoalTableHeader"
+msgstr "Goal"
+
+#: budgets/templates/budgets/info.html:97
+msgid "DailyGoalTableHeader"
+msgstr "Daily goal"
+
+#: budgets/templates/budgets/info.html:98
+msgid "DailySpendingsTableHeader"
+msgstr "Daily spendings"
+
+#: users/templates/registration/logged_out.html:5
 msgid "LogoutHeader"
 msgstr "Logged out"
 
-#: users/templates/registration/logged_out.html:6
+#: users/templates/registration/logged_out.html:8
 msgid "LogoutInfo"
 msgstr ""
 "You have successfully been logged out. Thank you for using the website."
 
-#: users/templates/registration/login.html:5
+#: users/templates/registration/login.html:6
 msgid "LoginHeader"
 msgstr "Log in to your account"
 

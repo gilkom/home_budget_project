@@ -1,23 +1,23 @@
 {% extends "budgets/base.html" %}
+{% load i18n %}
 
     {% block page_header %}
 
         {% if is_period == False %}
 
                 <div class="jumbotron">
-                    <h1 class="display-4">Current period details</h1>
+                    <h1 class="display-4">{% trans 'StatisticsHeader' %}</h1>
 
-                    <p class="lead">First you have to <a href="{% url 'budgets:periods' %}">create period</a>,
-                        its goals and balance...</p>
+                    <p class="lead">{% trans 'StatisticsInfo' %}</p>
 
                     <a class="btn btn-lg btn-primary" href="{% url 'budgets:periods' %}"
-                       role="button">Create period &raquo;</a>
+                       role="button">{% trans 'CreatePeriodButton' %} &raquo;</a>
                 </div>
 
         {% else %}
 
                 <div>
-                    <h2>Details of the current period:</h2>
+                    <h2>{% trans 'StatisticsHeader' %}:</h2>
                 </div>
         {% endif %}
 
@@ -30,7 +30,7 @@
             <div class="progress">
               <div class="progress-bar progress-bar-striped bg-{{page_color}}" role="progressbar" aria-valuenow={{progress}}
                 aria-valuemin="0" aria-valuemax={{period_length}} style="width:{{progress}}%">
-                  {{ days_passed }} / {{ period_length }} days
+                  {{ days_passed }} / {{ period_length }} {% trans 'DaysCounter' %}
                 <span class="sr-only"></span>
               </div>
             </div>
@@ -46,13 +46,13 @@
                 <div class="container">
                   <div class="row justify-content-center ">
                     <div class="col-5 border-0 text-dark rounded bg-white">
-                        <h6 class="font-weight-bold">Daily avg. expenses:</h6>
-                      <h1 class="font-weight-bold">{{ average_over_the_period }}</h1>
+                        <h6 class="font-weight-bold">{% trans 'DailyavgexpensesHeader'%}:</h6>
+                      <h3 class="font-weight-bold">{{ average_over_the_period }} {% trans 'Currency'%}</h3>
                     </div>
                       <div class="col-auto"></div>
                     <div class="col-5 border-0 text-dark rounded bg-white">
-                        <h6 class="font-weight-bold">Estimated savings:</h6>
-                      <h1 class="font-weight-bold">{{ estimated_savings }}</h1>
+                        <h6 class="font-weight-bold">{% trans 'EstimatedSavingsHeader'%}:</h6>
+                      <h3 class="font-weight-bold">{{ estimated_savings }} {% trans 'Currency'%}</h3>
                     </div>
                   </div>
                 </div>
@@ -60,13 +60,13 @@
                 <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-4">
-                      <p>Initial budget: {{ balance.amount }}</p>
+                      <p>{% trans 'InitialBudgetHeader'%}: {{ balance.amount }} {% trans 'Currency'%}</p>
                     </div>
                     <div class="col-4">
-                      <p>Remaining funds: {{ money_saved }} </p>
+                      <p>{% trans 'RemainingFundsHeader'%}: {{ money_saved }} {% trans 'Currency'%} </p>
                     </div>
                      <div class="col-4">
-                      <p>Sum of expenses: {{ sum_of_expenses }}</p>
+                      <p>{% trans 'SumOfExpensesHeader'%}: {{ sum_of_expenses }} {% trans 'Currency'%}</p>
                     </div>
                   </div>
                 </div>
@@ -74,31 +74,35 @@
 
             </div>
 
-<img src="data:image/png;base64, {{chart|safe}}" alt="" id="chart_categories" style="width: 100%; height: auto;">
+            <img src="data:image/png;base64, {{chart|safe}}" alt="" id="chart_categories" style="width: 100%; height: auto;">
+
 
             {% if is_goal == False %}
-                <p>Create <a href="{% url 'budgets:periods' %}">goals</a> for this period to see more details...</p>
+                <p>{% trans 'SetGoalsInfo' %}</p>
+                <a class="btn btn-lg btn-primary" href="{% url 'budgets:goals' period.period_id %}"
+                       role="button">{% trans 'SetGoalsButton' %} &raquo;</a>
             {% else %}
+
                 <div class="p-3 mb-2 bg-light text-dark rounded">
-                    <h4>Details of goals:</h4>
-                    <p>Daily avg. goal: {{ daily_average_goal }}</p>
-                    <p>Sum of goals: {{ sum_of_goals }}
-                    <p>Planned savings: {{ planned_savings }} </p>
+                    <h4>{% trans 'DetailsOfGoalsHeader'%}:</h4>
+                    <p>{% trans 'DailyAvgGoalHeader' %}: {{ daily_average_goal }} {% trans 'Currency'%}</p>
+                    <p>{% trans 'SumOfGoalsHeader' %}: {{ sum_of_goals }} {% trans 'Currency'%}</p>
+                    <p>{% trans 'PlannedSavingsHeader' %}: {{ planned_savings }} {% trans 'Currency'%} </p>
                 </div>
                 <div class="p-3 mb-2 rounded">
                     <table class="table table-sm">
                         <tr>
-                            <th>Category:</th>
-                            <th>Goal:</th>
-                            <th>Daily goal:</th>
-                            <th>Daily spendings:</th>
+                            <th>{% trans 'CategoryTableHeader'%}:</th>
+                            <th>{% trans 'GoalTableHeader'%}:</th>
+                            <th>{% trans 'DailyGoalTableHeader' %}:</th>
+                            <th>{% trans 'DailySpendingsTableHeader' %}:</th>
                         </tr>
                         {% for key, value in goals_dict.items %}
                         <tr>
                             <td> {{ value.name }} </td>
-                            <td> {{ value.goal }} </td>
-                            <td> {{ value.av_period }} </td>
-                            <td> {{ value.av_daily }} </td>
+                            <td> {{ value.goal }} {% trans 'Currency'%} </td>
+                            <td> {{ value.av_period }} {% trans 'Currency'%} </td>
+                            <td> {{ value.av_daily }} {% trans 'Currency'%} </td>
                         </tr>
                     {% endfor %}
                     </table>

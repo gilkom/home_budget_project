@@ -3,7 +3,9 @@ from datetime import date
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.translation import gettext_lazy as _
 from django.db import models
+
 
 # Create your models here.
 # This is an auto-generated Django model module.
@@ -34,7 +36,7 @@ class BudgetsBalance(models.Model):
 
 class BudgetsCategory(models.Model):
     category_id = models.BigAutoField(primary_key=True)
-    category_name = models.CharField(max_length=20)
+    category_name = models.CharField(_('Category'), max_length=20)
     category_active = models.BooleanField()
     owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')
 
@@ -49,9 +51,9 @@ class BudgetsCategory(models.Model):
 
 class BudgetsExpenditure(models.Model):
     expenditure_id = models.BigAutoField(primary_key=True)
-    expenditure_amount = models.DecimalField(validators=[MinValueValidator(0)], max_digits=8, decimal_places=2)
-    expenditure_date = models.DateField(validators=[MaxValueValidator(limit_value=date.today)])
-    description = models.CharField(max_length=300, blank=True, null=True)
+    expenditure_amount = models.DecimalField(_('Amount'), validators=[MinValueValidator(0)], max_digits=8, decimal_places=2)
+    expenditure_date = models.DateField(_('Date'), validators=[MaxValueValidator(limit_value=date.today)])
+    description = models.CharField(_('Description'), max_length=300, blank=True, null=True)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')
     owner = models.ForeignKey(User, models.DO_NOTHING, db_column='owner')

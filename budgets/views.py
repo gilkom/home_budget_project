@@ -34,10 +34,12 @@ def index(request):
         else:
             page_color = f"secondary"
             is_period = True
+
             expenses = select_date_range(period, request)
             sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
             if sum_of_expenses is None:
                 sum_of_expenses = 0
+
             balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
             period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
             days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
@@ -51,22 +53,31 @@ def index(request):
 
             expenses_df = pandas.DataFrame(expenses.values())
             categories_df = pandas.DataFrame(categories.values())
-            expenses_df['category_id_budgets_category'] = \
-                expenses_df['category_id_budgets_category_id'].map(
-                    categories_df.set_index('category_id')['category_name'])
-            expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
-                                'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
-                               axis=1, inplace=True)
-            expenses_df['date'] = expenses_df['date'].astype('datetime64[ns]')
+            print(categories_df)
+            print(expenses)
+            print(type(expenses))
+            print(expenses_df)
+            if expenses:
+                expenses_df['category_id_budgets_category'] = \
+                    expenses_df['category_id_budgets_category_id'].map(
+                        categories_df.set_index('category_id')['category_name'])
+                expenses_df.rename({'expenditure_id': 'expense', 'expenditure_amount': 'value',
+                                    'expenditure_date': 'date', 'category_id_budgets_category': 'category'},
+                                   axis=1, inplace=True)
+                expenses_df['date'] = expenses_df['date'].astype('datetime64[ns]')
 
-            pd_expenses_df = pandas.merge(pd_df, expenses_df, left_on='full_dates', right_on='date', how='left')
+                pd_expenses_df = pandas.merge(pd_df, expenses_df, left_on='full_dates', right_on='date', how='left')
+            else:
+                print(f"No expenses - no chart")
 
             monthly_goals = BudgetsMonthlyGoal.objects.filter(period_id_budgets_period=period)
 
             # if monthly goals for this period are empty
             if not monthly_goals:
                 is_goal = False
-                chart = get_categories_bar_chart(pd_expenses_df)
+                if expenses:
+                    chart = get_categories_bar_chart(pd_expenses_df)
+
                 context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart}
 
             # if monthly goals for this period are  not empty
@@ -76,7 +87,8 @@ def index(request):
                 daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
                 sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
                 planned_savings = getattr(balance, 'amount') - sum_of_goals
-                chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
+                if expenses:
+                    chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
                 if average_over_the_period < daily_average_goal:
                     page_color = f"success"
                 else:
