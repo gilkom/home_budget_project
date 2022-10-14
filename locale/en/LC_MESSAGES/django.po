@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-13 18:03+0200\n"
+"POT-Creation-Date: 2022-10-14 15:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: budgets/models.py:39
-msgid "Category"
-msgstr "Category"
+#: budgets/forms.py:20 budgets/models.py:55
+msgid "DateField"
+msgstr "Date"
 
-#: budgets/models.py:54
-msgid "Amount"
+#: budgets/forms.py:25 budgets/models.py:54
+msgid "AmountField"
 msgstr "Amount"
 
-#: budgets/models.py:55
-msgid "Date"
-msgstr "Date"
+#: budgets/forms.py:25 budgets/models.py:39
+msgid "Category"
+msgstr "Category"
 
 #: budgets/models.py:56
 msgid "Description"
@@ -73,6 +73,31 @@ msgstr "Log in"
 #: budgets/templates/budgets/expenses.html:8
 msgid "ListofexpensesHeader"
 msgstr "List of expenses"
+
+#: budgets/templates/budgets/expenses.html:21
+msgid "AddExpenseButton"
+msgstr "Add expense"
+
+#: budgets/templates/budgets/expenses.html:54
+msgid "EditButton"
+msgstr "Edit"
+
+#: budgets/templates/budgets/expenses.html:55
+#: budgets/templates/budgets/expenses.html:71
+msgid "DeleteButton"
+msgstr "Delete"
+
+#: budgets/templates/budgets/expenses.html:61
+msgid "DeleteexpenseHeading"
+msgstr "Delete expense?"
+
+#: budgets/templates/budgets/expenses.html:67
+msgid "DeleteInfo"
+msgstr "Are you sure you want to delete this expense?"
+
+#: budgets/templates/budgets/expenses.html:70
+msgid "CancelButton"
+msgstr "Cancel"
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"

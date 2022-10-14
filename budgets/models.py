@@ -51,8 +51,8 @@ class BudgetsCategory(models.Model):
 
 class BudgetsExpenditure(models.Model):
     expenditure_id = models.BigAutoField(primary_key=True)
-    expenditure_amount = models.DecimalField(_('Amount'), validators=[MinValueValidator(0)], max_digits=8, decimal_places=2)
-    expenditure_date = models.DateField(_('Date'), validators=[MaxValueValidator(limit_value=date.today)])
+    expenditure_amount = models.DecimalField(_('AmountField'), validators=[MinValueValidator(0)], max_digits=8, decimal_places=2)
+    expenditure_date = models.DateField(_('DateField'), validators=[MaxValueValidator(limit_value=date.today)])
     description = models.CharField(_('Description'), max_length=300, blank=True, null=True)
     category_id_budgets_category = models.ForeignKey(BudgetsCategory, models.DO_NOTHING,
                                                      db_column='category_id_budgets_category')

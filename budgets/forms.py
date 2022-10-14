@@ -3,6 +3,7 @@ from dateutil.relativedelta import relativedelta
 
 from django import forms
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from budgets.models import BudgetsExpenditure, BudgetsPeriod, BudgetsCategory, BudgetsBalance, BudgetsMonthlyGoal
 
@@ -16,12 +17,12 @@ class ExpenditureForm(forms.ModelForm):
             Q(owner=self.request.user) & Q(category_active=True))
 
     expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
-                                       'value': date.today().strftime("%Y-%m-%d")}), label='Date')
+                                       'value': date.today().strftime("%Y-%m-%d")}), label=_('DateField'))
 
     class Meta:
         model = BudgetsExpenditure
         fields = ('expenditure_amount', 'expenditure_date', 'description', 'category_id_budgets_category')
-        labels = {'expenditure_amount': 'Amount', 'category_id_budgets_category': 'Category'}
+        labels = {'expenditure_amount': _('AmountField'), 'category_id_budgets_category': _('Category')}
 
 
 class ExpenditureEditForm(forms.ModelForm):
