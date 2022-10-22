@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-14 15:13+0200\n"
+"POT-Creation-Date: 2022-10-22 10:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,17 +20,33 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: budgets/forms.py:20 budgets/models.py:55
+#: budgets/forms.py:20 budgets/forms.py:38 budgets/models.py:55
 msgid "DateField"
 msgstr "Data"
 
-#: budgets/forms.py:25 budgets/models.py:54
+#: budgets/forms.py:25 budgets/forms.py:43 budgets/models.py:54
 msgid "AmountField"
 msgstr "Kwota"
 
-#: budgets/forms.py:25 budgets/models.py:39
+#: budgets/forms.py:25 budgets/forms.py:43 budgets/models.py:39
 msgid "Category"
 msgstr "Kategoria"
+
+#: budgets/forms.py:57
+msgid "StartDateField"
+msgstr "Data początkowa"
+
+#: budgets/forms.py:63
+msgid "EndDateField"
+msgstr "Data końcowa"
+
+#: budgets/forms.py:68
+msgid "NameField"
+msgstr "Nazwa"
+
+#: budgets/forms.py:88
+msgid "PeriodBalanceField"
+msgstr "Budżet"
 
 #: budgets/models.py:56
 msgid "Description"
@@ -41,10 +57,12 @@ msgid "StatisticsNav"
 msgstr "Statystyki"
 
 #: budgets/templates/budgets/base.html:31
+#: budgets/templates/budgets/expenditure.html:15
 msgid "ExpensesNav"
 msgstr "Wydatki"
 
 #: budgets/templates/budgets/base.html:34
+#: budgets/templates/budgets/period_settings.html:14
 msgid "PeriodsNav"
 msgstr "Okresy"
 
@@ -72,6 +90,18 @@ msgstr "Zarejestruj się"
 msgid "LoginButton"
 msgstr "Zaloguj się"
 
+#: budgets/templates/budgets/expenditure.html:7
+msgid "EditexpenseHeader:"
+msgstr "Edytuj wydatek"
+
+#: budgets/templates/budgets/expenditure.html:16
+msgid "EditexpenseNav"
+msgstr "Edytuj wydatek"
+
+#: budgets/templates/budgets/expenditure.html:24
+msgid "SaveButton"
+msgstr "Zapisz"
+
 #: budgets/templates/budgets/expenses.html:8
 msgid "ListofexpensesHeader"
 msgstr "Lista wydatków"
@@ -81,25 +111,33 @@ msgid "AddExpenseButton"
 msgstr "Dodaj wydatek"
 
 #: budgets/templates/budgets/expenses.html:54
+#: budgets/templates/budgets/periods.html:49
 msgid "EditButton"
 msgstr "Edytuj"
 
 #: budgets/templates/budgets/expenses.html:55
-#: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/expenses.html:72
+#: budgets/templates/budgets/periods.html:50
+#: budgets/templates/budgets/periods.html:66
 msgid "DeleteButton"
 msgstr "Usuń"
 
-#: budgets/templates/budgets/expenses.html:61
+#: budgets/templates/budgets/expenses.html:62
 msgid "DeleteexpenseHeading"
 msgstr "Usunąć wydatek?"
 
-#: budgets/templates/budgets/expenses.html:67
+#: budgets/templates/budgets/expenses.html:68
 msgid "DeleteInfo"
 msgstr "Czy na pewno chcesz usunąć ten wydatek?"
 
-#: budgets/templates/budgets/expenses.html:70
+#: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/periods.html:65
 msgid "CancelButton"
 msgstr "Anuluj"
+
+#: budgets/templates/budgets/expenses.html:85
+msgid "NoexpensesInfo"
+msgstr "Brak wydatków. Dodaj pierwszy..."
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -164,6 +202,7 @@ msgid "SetGoalsInfo"
 msgstr "Utwórz cele dla tego okresu aby zobaczyć więcej szczegółów..."
 
 #: budgets/templates/budgets/info.html:83
+#: budgets/templates/budgets/periods.html:48
 msgid "SetGoalsButton"
 msgstr "Zaplanuj cele"
 
@@ -198,6 +237,62 @@ msgstr "Dzienny cel"
 #: budgets/templates/budgets/info.html:98
 msgid "DailySpendingsTableHeader"
 msgstr "Dzienny wydatek"
+
+#: budgets/templates/budgets/period_settings.html:7
+msgid "EditperiodHeader"
+msgstr "Edytuj okres:"
+
+#: budgets/templates/budgets/period_settings.html:15
+msgid "EditperiodNav"
+msgstr "Edytuj okres"
+
+#: budgets/templates/budgets/period_settings.html:24
+msgid "SaveperiodButton"
+msgstr "Zapisz okres"
+
+#: budgets/templates/budgets/periods.html:8
+msgid "ListofperiodsHeader:"
+msgstr "Lista okresów:"
+
+#: budgets/templates/budgets/periods.html:17
+msgid "CreateanewperiodButton"
+msgstr "Utwórz nowy okres"
+
+#: budgets/templates/budgets/periods.html:26
+msgid "AddperiodButton"
+msgstr "Dodaj okres"
+
+#: budgets/templates/budgets/periods.html:35
+msgid "NameTh"
+msgstr "Nazwa"
+
+#: budgets/templates/budgets/periods.html:36
+msgid "StartTh"
+msgstr "Początek"
+
+#: budgets/templates/budgets/periods.html:37
+msgid "EndTh"
+msgstr "Koniec"
+
+#: budgets/templates/budgets/periods.html:38
+msgid "BalanceTh"
+msgstr "Budżet"
+
+#: budgets/templates/budgets/periods.html:39
+msgid "ActionsTh"
+msgstr "Działania"
+
+#: budgets/templates/budgets/periods.html:56
+msgid "DeleteperiodModal?"
+msgstr "Usunąć okres?"
+
+#: budgets/templates/budgets/periods.html:62
+msgid "DeletePeriodInfo"
+msgstr "Czy na pewno chcesz usunąć ten okres?"
+
+#: budgets/templates/budgets/periods.html:76
+msgid "NoperiodsInfo"
+msgstr "Brak okresów. Dodaj pierwszy..."
 
 #: users/templates/registration/logged_out.html:5
 msgid "LogoutHeader"

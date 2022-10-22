@@ -16,7 +16,7 @@ class ExpenditureForm(forms.ModelForm):
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
             Q(owner=self.request.user) & Q(category_active=True))
 
-    expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
+    expenditure_date = forms.DateField(localize=True, widget=forms.DateInput(attrs={'type': 'date',
                                        'value': date.today().strftime("%Y-%m-%d")}), label=_('DateField'))
 
     class Meta:
@@ -35,13 +35,12 @@ class ExpenditureEditForm(forms.ModelForm):
             Q(owner=self.request.user) & Q(category_active=True))
 
     expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
-                                       label='Date')
+                                       label=_('DateField'))
 
     class Meta:
         model = BudgetsExpenditure
         fields = ('expenditure_amount', 'expenditure_date', 'description', 'category_id_budgets_category')
-        labels = {'expenditure_amount': 'Amount', 'expenditure_date': 'Date',
-                  'category_id_budgets_category': 'Category'}
+        labels = {'expenditure_amount': _('AmountField'), 'category_id_budgets_category': _('Category')}
 
 
 class CategoryForm(forms.ModelForm):
@@ -55,30 +54,31 @@ class CategoryForm(forms.ModelForm):
 class PeriodForm(forms.ModelForm):
 
     start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
-                                       'value': date.today().strftime("%Y-%m-%d")}), label='Date')
+                                       'value': date.today().strftime("%Y-%m-%d")}), label=_('StartDateField'))
 
     # setting default end date to a month from today
     end_date = date.today() + relativedelta(months=1)
     current_end_date = end_date.strftime('%Y-%m-%d')
     end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date',
-                                       'value': current_end_date}), label='Date')
+                                       'value': current_end_date}), label=_('EndDateField'))
 
     class Meta:
         model = BudgetsPeriod
         fields = ('name', 'start_day', 'end_day',)
-        labels = {'start_day': 'Start day', 'end_day': 'End day', }
+        labels = {'name': _('NameField'), }
 
 
 class PeriodEditForm(forms.ModelForm):
 
     start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
-                                       label='Date')
+                                       label=_('StartDateField'))
     end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
-                                       label='Date')
+                                       label=_('EndDateField'))
 
     class Meta:
         model = BudgetsPeriod
         fields = ('name', 'start_day', 'end_day',)
+        labels = {'name': _('NameField'), }
 
 
 class BalanceEditForm(forms.ModelForm):
@@ -86,7 +86,7 @@ class BalanceEditForm(forms.ModelForm):
     class Meta:
         model = BudgetsBalance
         fields = ('amount', )
-        labels = {'amount': 'Period Balance'}
+        labels = {'amount': _('PeriodBalanceField')}
 
 
 class MonthlyGoalForm(forms.ModelForm):

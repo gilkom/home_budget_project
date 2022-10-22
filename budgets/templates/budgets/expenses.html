@@ -54,6 +54,7 @@
                                 <a href="{% url 'budgets:expenditure' expense.expenditure_id %}"> <button type="button" class="btn btn-outline-warning btn-sm">{% trans 'EditButton'%}</button></a>
                                 <a><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#ex{{expense.expenditure_id}}">{% trans 'DeleteButton' %}</button></a>
 
+
                                 <div class="modal fade" id="ex{{expense.expenditure_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -81,7 +82,7 @@
             </div>
         </div>
             {% empty %}
-                <p>No expenses yet. Add the first one...</p>
+                <p>{% trans 'NoexpensesInfo'%}</p>
             {% endfor %}
     </div>
 </div>

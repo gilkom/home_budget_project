@@ -1,9 +1,10 @@
 {% extends 'budgets/base.html' %}
 {% load bootstrap4 %}
+{% load i18n %}
 
 {% block page_header %}
     <div>
-        <h2>Edit expense:</h2>
+        <h2>{% trans 'EditexpenseHeader:'%}</h2>
     </div>
 
 {% endblock page_header %}
@@ -11,8 +12,8 @@
 {% block content %}
 <div class="p-3 mb-2 bg-light rounded">
     <nav class="nav bg-light">
-        <li class="breadcrumb-item"><a href="{% url 'budgets:expenses'%}">Expenses</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Edit expense</li>
+        <li class="breadcrumb-item"><a href="{% url 'budgets:expenses'%}">{% trans 'ExpensesNav'%}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'EditexpenseNav'%}</li>
     </nav>
 </div>
 <div class="p-3 mb-2 bg-light rounded">
@@ -20,7 +21,7 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button name="submit" class="btn btn-outline-success">Save</button>
+            <button name="submit" class="btn btn-outline-success">{% trans 'SaveButton'%}</button>
         {% endbuttons %}
     </form>
 </div>

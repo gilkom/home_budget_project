@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-14 15:13+0200\n"
+"POT-Creation-Date: 2022-10-22 10:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: budgets/forms.py:20 budgets/models.py:55
+#: budgets/forms.py:20 budgets/forms.py:38 budgets/models.py:55
 msgid "DateField"
 msgstr "Date"
 
-#: budgets/forms.py:25 budgets/models.py:54
+#: budgets/forms.py:25 budgets/forms.py:43 budgets/models.py:54
 msgid "AmountField"
 msgstr "Amount"
 
-#: budgets/forms.py:25 budgets/models.py:39
+#: budgets/forms.py:25 budgets/forms.py:43 budgets/models.py:39
 msgid "Category"
 msgstr "Category"
+
+#: budgets/forms.py:57
+msgid "StartDateField"
+msgstr "Start Date"
+
+#: budgets/forms.py:63
+msgid "EndDateField"
+msgstr "End Date"
+
+#: budgets/forms.py:68
+msgid "NameField"
+msgstr "Name"
+
+#: budgets/forms.py:88
+msgid "PeriodBalanceField"
+msgstr "Budget"
 
 #: budgets/models.py:56
 msgid "Description"
@@ -39,10 +55,12 @@ msgid "StatisticsNav"
 msgstr "Statistics"
 
 #: budgets/templates/budgets/base.html:31
+#: budgets/templates/budgets/expenditure.html:15
 msgid "ExpensesNav"
 msgstr "Expenses"
 
 #: budgets/templates/budgets/base.html:34
+#: budgets/templates/budgets/period_settings.html:14
 msgid "PeriodsNav"
 msgstr "Periods"
 
@@ -70,6 +88,18 @@ msgstr "Register"
 msgid "LoginButton"
 msgstr "Log in"
 
+#: budgets/templates/budgets/expenditure.html:7
+msgid "EditexpenseHeader:"
+msgstr "Edit expense"
+
+#: budgets/templates/budgets/expenditure.html:16
+msgid "EditexpenseNav"
+msgstr "Edit expense"
+
+#: budgets/templates/budgets/expenditure.html:24
+msgid "SaveButton"
+msgstr "Save"
+
 #: budgets/templates/budgets/expenses.html:8
 msgid "ListofexpensesHeader"
 msgstr "List of expenses"
@@ -79,25 +109,33 @@ msgid "AddExpenseButton"
 msgstr "Add expense"
 
 #: budgets/templates/budgets/expenses.html:54
+#: budgets/templates/budgets/periods.html:49
 msgid "EditButton"
 msgstr "Edit"
 
 #: budgets/templates/budgets/expenses.html:55
-#: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/expenses.html:72
+#: budgets/templates/budgets/periods.html:50
+#: budgets/templates/budgets/periods.html:66
 msgid "DeleteButton"
 msgstr "Delete"
 
-#: budgets/templates/budgets/expenses.html:61
+#: budgets/templates/budgets/expenses.html:62
 msgid "DeleteexpenseHeading"
 msgstr "Delete expense?"
 
-#: budgets/templates/budgets/expenses.html:67
+#: budgets/templates/budgets/expenses.html:68
 msgid "DeleteInfo"
 msgstr "Are you sure you want to delete this expense?"
 
-#: budgets/templates/budgets/expenses.html:70
+#: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/periods.html:65
 msgid "CancelButton"
 msgstr "Cancel"
+
+#: budgets/templates/budgets/expenses.html:85
+msgid "NoexpensesInfo"
+msgstr "No expenses yet. Add the first one..."
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -162,6 +200,7 @@ msgid "SetGoalsInfo"
 msgstr "Create goals for this period to see more details..."
 
 #: budgets/templates/budgets/info.html:83
+#: budgets/templates/budgets/periods.html:48
 msgid "SetGoalsButton"
 msgstr "Plan your goals"
 
@@ -196,6 +235,62 @@ msgstr "Daily goal"
 #: budgets/templates/budgets/info.html:98
 msgid "DailySpendingsTableHeader"
 msgstr "Daily spendings"
+
+#: budgets/templates/budgets/period_settings.html:7
+msgid "EditperiodHeader"
+msgstr "Edit period:"
+
+#: budgets/templates/budgets/period_settings.html:15
+msgid "EditperiodNav"
+msgstr "Edit period"
+
+#: budgets/templates/budgets/period_settings.html:24
+msgid "SaveperiodButton"
+msgstr "Save period"
+
+#: budgets/templates/budgets/periods.html:8
+msgid "ListofperiodsHeader:"
+msgstr "List of periods:"
+
+#: budgets/templates/budgets/periods.html:17
+msgid "CreateanewperiodButton"
+msgstr "Create a new period"
+
+#: budgets/templates/budgets/periods.html:26
+msgid "AddperiodButton"
+msgstr "Add period"
+
+#: budgets/templates/budgets/periods.html:35
+msgid "NameTh"
+msgstr "Name"
+
+#: budgets/templates/budgets/periods.html:36
+msgid "StartTh"
+msgstr "Start"
+
+#: budgets/templates/budgets/periods.html:37
+msgid "EndTh"
+msgstr "End"
+
+#: budgets/templates/budgets/periods.html:38
+msgid "BalanceTh"
+msgstr "Budget"
+
+#: budgets/templates/budgets/periods.html:39
+msgid "ActionsTh"
+msgstr "Actions"
+
+#: budgets/templates/budgets/periods.html:56
+msgid "DeleteperiodModal?"
+msgstr "Delete period?"
+
+#: budgets/templates/budgets/periods.html:62
+msgid "DeletePeriodInfo"
+msgstr "Are you sure you want to delete this period?"
+
+#: budgets/templates/budgets/periods.html:76
+msgid "NoperiodsInfo"
+msgstr "No periods yet. Add the first one..."
 
 #: users/templates/registration/logged_out.html:5
 msgid "LogoutHeader"
@@ -935,155 +1030,155 @@ msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:7
 msgid "Monday"
-msgstr ""
+msgstr "Monday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:8
 msgid "Tuesday"
-msgstr ""
+msgstr "Tuesday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:9
 msgid "Wednesday"
-msgstr ""
+msgstr "Wednesday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:10
 msgid "Thursday"
-msgstr ""
+msgstr "Thursday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:11
 msgid "Friday"
-msgstr ""
+msgstr "Friday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:12
 msgid "Saturday"
-msgstr ""
+msgstr "Saturday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:13
 msgid "Sunday"
-msgstr ""
+msgstr "Sunday"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:16
 msgid "Mon"
-msgstr ""
+msgstr "Mon"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:17
 msgid "Tue"
-msgstr ""
+msgstr "Tue"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:18
 msgid "Wed"
-msgstr ""
+msgstr "Wed"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:19
 msgid "Thu"
-msgstr ""
+msgstr "Thu"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:20
 msgid "Fri"
-msgstr ""
+msgstr "Fri"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:21
 msgid "Sat"
-msgstr ""
+msgstr "Sat"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:22
 msgid "Sun"
-msgstr ""
+msgstr "Sun"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:25
 msgid "January"
-msgstr ""
+msgstr "January"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:26
 msgid "February"
-msgstr ""
+msgstr "February"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:27
 msgid "March"
-msgstr ""
+msgstr "March"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:28
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:29
 msgid "May"
-msgstr ""
+msgstr "May"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:30
 msgid "June"
-msgstr ""
+msgstr "June"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:31
 msgid "July"
-msgstr ""
+msgstr "July"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:32
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:33
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:34
 msgid "October"
-msgstr ""
+msgstr "October"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:35
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:36
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:39
 msgid "jan"
-msgstr ""
+msgstr "jan"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:40
 msgid "feb"
-msgstr ""
+msgstr "feb"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:41
 msgid "mar"
-msgstr ""
+msgstr "mar"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:42
 msgid "apr"
-msgstr ""
+msgstr "apr"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:43
 msgid "may"
-msgstr ""
+msgstr "may"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:44
 msgid "jun"
-msgstr ""
+msgstr "jun"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:45
 msgid "jul"
-msgstr ""
+msgstr "jul"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:46
 msgid "aug"
-msgstr ""
+msgstr "aug"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:47
 msgid "sep"
-msgstr ""
+msgstr "sep"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:48
 msgid "oct"
-msgstr ""
+msgstr "oct"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:49
 msgid "nov"
-msgstr ""
+msgstr "nov"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:50
 msgid "dec"
-msgstr ""
+msgstr "dec"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:53
 msgctxt "abbrev. month"
@@ -1148,12 +1243,12 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:67
 msgctxt "alt. month"
 msgid "January"
-msgstr ""
+msgstr "January"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:68
 msgctxt "alt. month"
 msgid "February"
-msgstr ""
+msgstr "February"
 
 #: venv/lib/python3.9/site-packages/django/utils/dates.py:69
 msgctxt "alt. month"

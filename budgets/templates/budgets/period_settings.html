@@ -1,18 +1,19 @@
 {% extends "budgets/base.html" %}
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block page_header %}
     <div>
-        <h2>Edit period:</h2>
+        <h2>{% trans 'EditperiodHeader'%}</h2>
     </div>
 {% endblock page_header %}
 
 {% block content %}
 <div class="p-3 mb-2 bg-light rounded">
     <nav class="nav bg-light">
-        <li class="breadcrumb-item"><a href="{% url 'budgets:periods'%}">Periods</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Edit period</li>
+        <li class="breadcrumb-item"><a href="{% url 'budgets:periods'%}">{% trans 'PeriodsNav'%}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'EditperiodNav'%}</li>
     </nav>
 </div>
 
@@ -21,7 +22,7 @@
           {% csrf_token %}
           {{ pform|crispy }}
           {{ bform|crispy }}
-          <button name="submit" class="btn btn-outline-success">Save period</button>
+          <button name="submit" class="btn btn-outline-success">{% trans 'SaveperiodButton'%}</button>
     </form>
 </div>
 
