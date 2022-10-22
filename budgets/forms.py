@@ -34,7 +34,7 @@ class ExpenditureEditForm(forms.ModelForm):
         self.fields['category_id_budgets_category'].queryset = BudgetsCategory.objects.filter(
             Q(owner=self.request.user) & Q(category_active=True))
 
-    expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
+    expenditure_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'BudgetsExpenditure'}),
                                        label=_('DateField'))
 
     class Meta:
@@ -70,9 +70,9 @@ class PeriodForm(forms.ModelForm):
 
 class PeriodEditForm(forms.ModelForm):
 
-    start_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
+    start_day = forms.DateField(widget=forms.DateInput(attrs={'class': 'BudgetsPeriod'}),
                                        label=_('StartDateField'))
-    end_day = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),
+    end_day = forms.DateField(widget=forms.DateInput(attrs={'class': 'BudgetsPeriod'}),
                                        label=_('EndDateField'))
 
     class Meta:
@@ -101,7 +101,7 @@ class MonthlyGoalForm(forms.ModelForm):
     class Meta:
         model = BudgetsMonthlyGoal
         fields = ('category_id_budgets_category', 'goal', )
-        labels = {'category_id_budgets_category': 'Category'}
+        labels = {'category_id_budgets_category': _('Category'), 'goal': _('Goal')}
 
 
 class MonthlyGoalEditForm(forms.ModelForm):

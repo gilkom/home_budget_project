@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-22 10:43+0200\n"
+"POT-Creation-Date: 2022-10-22 11:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,25 +28,30 @@ msgstr "Data"
 msgid "AmountField"
 msgstr "Kwota"
 
-#: budgets/forms.py:25 budgets/forms.py:43 budgets/models.py:39
+#: budgets/forms.py:25 budgets/forms.py:43 budgets/forms.py:104
+#: budgets/models.py:39
 msgid "Category"
 msgstr "Kategoria"
 
-#: budgets/forms.py:57
+#: budgets/forms.py:57 budgets/forms.py:74
 msgid "StartDateField"
 msgstr "Data początkowa"
 
-#: budgets/forms.py:63
+#: budgets/forms.py:63 budgets/forms.py:76
 msgid "EndDateField"
 msgstr "Data końcowa"
 
-#: budgets/forms.py:68
+#: budgets/forms.py:68 budgets/forms.py:81
 msgid "NameField"
 msgstr "Nazwa"
 
-#: budgets/forms.py:88
+#: budgets/forms.py:89
 msgid "PeriodBalanceField"
 msgstr "Budżet"
+
+#: budgets/forms.py:104
+msgid "Goal"
+msgstr "Cel"
 
 #: budgets/models.py:56
 msgid "Description"
@@ -62,7 +67,8 @@ msgid "ExpensesNav"
 msgstr "Wydatki"
 
 #: budgets/templates/budgets/base.html:34
-#: budgets/templates/budgets/period_settings.html:14
+#: budgets/templates/budgets/goals.html:14
+#: budgets/templates/budgets/period_settings.html:15
 msgid "PeriodsNav"
 msgstr "Okresy"
 
@@ -111,12 +117,14 @@ msgid "AddExpenseButton"
 msgstr "Dodaj wydatek"
 
 #: budgets/templates/budgets/expenses.html:54
+#: budgets/templates/budgets/goals.html:49
 #: budgets/templates/budgets/periods.html:49
 msgid "EditButton"
 msgstr "Edytuj"
 
 #: budgets/templates/budgets/expenses.html:55
 #: budgets/templates/budgets/expenses.html:72
+#: budgets/templates/budgets/goals.html:50
 #: budgets/templates/budgets/periods.html:50
 #: budgets/templates/budgets/periods.html:66
 msgid "DeleteButton"
@@ -131,6 +139,7 @@ msgid "DeleteInfo"
 msgstr "Czy na pewno chcesz usunąć ten wydatek?"
 
 #: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/goals.html:65
 #: budgets/templates/budgets/periods.html:65
 msgid "CancelButton"
 msgstr "Anuluj"
@@ -138,6 +147,47 @@ msgstr "Anuluj"
 #: budgets/templates/budgets/expenses.html:85
 msgid "NoexpensesInfo"
 msgstr "Brak wydatków. Dodaj pierwszy..."
+
+#: budgets/templates/budgets/goals.html:7
+msgid "CreateperiodgoalsHeader"
+msgstr "Zaplanuj cele dla poszczególnych kategorii okresu:"
+
+#: budgets/templates/budgets/goals.html:15
+msgid "CreategoalsNav"
+msgstr "Zaplanuj cele"
+
+#: budgets/templates/budgets/goals.html:24
+msgid "AddcategorygoalButton"
+msgstr "Dodaj cel kategorii"
+
+#: budgets/templates/budgets/goals.html:39
+msgid "CategoryTh"
+msgstr "Kategoria"
+
+#: budgets/templates/budgets/goals.html:40
+msgid "GoalTh"
+msgstr "Cel"
+
+#: budgets/templates/budgets/goals.html:41
+#: budgets/templates/budgets/periods.html:39
+msgid "ActionsTh"
+msgstr "Działania"
+
+#: budgets/templates/budgets/goals.html:56
+msgid "DeletegoalModal?"
+msgstr "Usunąć cel?"
+
+#: budgets/templates/budgets/goals.html:62
+msgid "DeleteGoalInfo"
+msgstr "Czy na pewno chcesz usunąć ten cel?"
+
+#: budgets/templates/budgets/goals.html:66
+msgid "DeletegoalButton"
+msgstr "Usuń cel"
+
+#: budgets/templates/budgets/goals.html:76
+msgid "NocategoriesInfo"
+msgstr "Brak celi w tym okresie. Dodaj pierwszy..."
 
 #: budgets/templates/budgets/index.html:6
 msgid "WelcomeHeading"
@@ -238,15 +288,15 @@ msgstr "Dzienny cel"
 msgid "DailySpendingsTableHeader"
 msgstr "Dzienny wydatek"
 
-#: budgets/templates/budgets/period_settings.html:7
+#: budgets/templates/budgets/period_settings.html:8
 msgid "EditperiodHeader"
 msgstr "Edytuj okres:"
 
-#: budgets/templates/budgets/period_settings.html:15
+#: budgets/templates/budgets/period_settings.html:16
 msgid "EditperiodNav"
 msgstr "Edytuj okres"
 
-#: budgets/templates/budgets/period_settings.html:24
+#: budgets/templates/budgets/period_settings.html:25
 msgid "SaveperiodButton"
 msgstr "Zapisz okres"
 
@@ -277,10 +327,6 @@ msgstr "Koniec"
 #: budgets/templates/budgets/periods.html:38
 msgid "BalanceTh"
 msgstr "Budżet"
-
-#: budgets/templates/budgets/periods.html:39
-msgid "ActionsTh"
-msgstr "Działania"
 
 #: budgets/templates/budgets/periods.html:56
 msgid "DeleteperiodModal?"
