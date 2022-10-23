@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     # other apps
     'crispy_forms',
     'bootstrap4',
-    'language_flags',
 
     'django.contrib.admin',
     'django.contrib.auth',
