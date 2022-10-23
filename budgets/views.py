@@ -53,10 +53,7 @@ def index(request):
 
             expenses_df = pandas.DataFrame(expenses.values())
             categories_df = pandas.DataFrame(categories.values())
-            print(categories_df)
-            print(expenses)
-            print(type(expenses))
-            print(expenses_df)
+
             if expenses:
                 expenses_df['category_id_budgets_category'] = \
                     expenses_df['category_id_budgets_category_id'].map(
@@ -297,7 +294,7 @@ def goals(request, period_id):
 
     if request.method != 'POST':
         form = MonthlyGoalForm(request=request)
-        form.fields['goal'].initial = 0
+        form.fields['amount'].initial = 0
     else:
         form = MonthlyGoalForm(data=request.POST, request=request)
         if form.is_valid():

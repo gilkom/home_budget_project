@@ -110,3 +110,4 @@ class MonthlyGoalEditForm(forms.ModelForm):
         model = BudgetsMonthlyGoal
         fields = ('goal',)
         labels = {'goal': _('Goal'),}
+
