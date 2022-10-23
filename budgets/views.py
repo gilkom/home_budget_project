@@ -294,7 +294,7 @@ def goals(request, period_id):
 
     if request.method != 'POST':
         form = MonthlyGoalForm(request=request)
-        form.fields['amount'].initial = 0
+        form.fields['goal'].initial = 0
     else:
         form = MonthlyGoalForm(data=request.POST, request=request)
         if form.is_valid():
