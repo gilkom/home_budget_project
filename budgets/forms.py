@@ -48,7 +48,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = BudgetsCategory
         fields = ('category_name',)
-        labels = {'category_name': 'Category',}
+        labels = {'category_name': _('Category'),}
 
 
 class PeriodForm(forms.ModelForm):
@@ -109,3 +109,4 @@ class MonthlyGoalEditForm(forms.ModelForm):
     class Meta:
         model = BudgetsMonthlyGoal
         fields = ('goal',)
+        labels = {'goal': _('Goal'),}

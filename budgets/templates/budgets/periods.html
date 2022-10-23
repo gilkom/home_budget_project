@@ -12,70 +12,71 @@
 {% block content %}
 <div>
     <div class="p-3 mb-2 bg-light rounded">
-
-        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            {% trans 'CreateanewperiodButton'%}
-          </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            <form action="{% url 'budgets:periods' %}" method="post">
-              {% csrf_token %}
-              {{ pform|crispy}}
-              {{ bform|crispy }}
-              <button name="submit" class="btn btn-success">{% trans 'AddperiodButton'%}</button>
-            </form>
-          </div>
-        </div>
+            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                {% trans 'CreateanewperiodButton'%}
+              </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <form action="{% url 'budgets:periods' %}" method="post">
+                  {% csrf_token %}
+                  {{ pform|crispy}}
+                  {{ bform|crispy }}
+                  <button name="submit" class="btn btn-success">{% trans 'AddperiodButton'%}</button>
+                </form>
+              </div>
+             </div>
     </div>
-
-    <div class="p-3 mb-2 rounded">
-        <table class="table table-sm">
-            <tr>
-                <th>{% trans 'NameTh'%}</th>
-                <th>{% trans 'StartTh'%}</th>
-                <th>{% trans 'EndTh'%}</th>
-                <th>{% trans 'BalanceTh'%}</th>
-                <th class="text-right">{% trans 'ActionsTh'%}</th>
-            </tr>
+    <div class="p-3 mb-2 bg-light rounded">
             {% for period in balances %}
-            <tr>
-                <td> {{ period.period_id_budgets_period.name }}</td>
-                <td> {{ period.period_id_budgets_period.start_day|date:"d.m.Y"}}</td>
-                <td> {{ period.period_id_budgets_period.end_day|date:"d.m.Y" }}</td>
-                <td> {{ period.amount }} </td>
-                <td class="text-right">
-                    <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-primary"> {% trans 'SetGoalsButton'%} </button></a>
-                    <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-warning"> {% trans 'EditButton'%}</button></a>
-                    <a> <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#per{{period.period_id_budgets_period.period_id}}">{% trans 'DeleteButton'%}</button></a>
+                <div class="d-flex justify-content-center">
+                    <div class="card w-100  mb-2">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                 <div class="d-flex justify-content-between">
+                                    {{ period.period_id_budgets_period.start_day|date:"d.m.Y"}} - {{ period.period_id_budgets_period.end_day|date:"d.m.Y" }}
+                                 </div>
+                            </h6>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title"> {{ period.period_id_budgets_period.name }}</h5>
+                            </div>
+                            <br>
+                            <div class="d-flex justify-content-between">
+                                <h6>{% trans 'BalanceTh'%}: {{ period.amount }}</h6>
+                                <div class="d-flex flex-row">
+                                    <a href="{% url 'budgets:goals' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-primary"> {% trans 'SetGoalsButton'%} </button></a>
+                                    <a href="{% url 'budgets:period_settings' period.period_id_budgets_period.period_id %}"> <button type="button" class="btn btn-outline-warning"> {% trans 'EditButton'%}</button></a>
+                                    <a> <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#per{{period.period_id_budgets_period.period_id}}">{% trans 'DeleteButton'%}</button></a>
 
-                    <div class="modal fade" id="per{{period.period_id_budgets_period.period_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">{% trans 'DeleteperiodModal?'%}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            {% trans 'DeletePeriodInfo'%}
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'CancelButton'%}</button>
-                              <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"><button type="button" class="btn btn-primary">{% trans 'DeleteButton'%}</button></a>
-                          </div>
+                                    <div class="modal fade" id="per{{period.period_id_budgets_period.period_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">{% trans 'DeleteperiodModal?'%}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            {% trans 'DeletePeriodInfo'%}
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'CancelButton'%}</button>
+                                              <a href="{% url 'budgets:period_delete' period.period_id_budgets_period.period_id %}"><button type="button" class="btn btn-primary">{% trans 'DeleteButton'%}</button></a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-
-
-                </td>
-            </tr>
+                </div>
             {% empty %}
                 <p>{% trans 'NoperiodsInfo'%}</p>
             {% endfor %}
-        </table>
+
     </div>
 </div>
 

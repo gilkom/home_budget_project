@@ -1,9 +1,10 @@
 {% extends "budgets/base.html" %}
 {% load bootstrap4 %}
+{% load i18n %}
 
 {% block page_header %}
     <div>
-        <h2>List of categories:</h2>
+        <h2>{% trans 'ListofcategoriesHeader'%}</h2>
     </div>
 
 {% endblock page_header %}
@@ -13,7 +14,7 @@
 <div>
     <div class="p-3 mb-2 bg-light rounded">
          <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Create a new category
+            {% trans 'CreateanewcategoryButton'%}
           </button>
          </p>
         <div class="collapse" id="collapseExample">
@@ -22,7 +23,7 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
-              <button name="submit" class="btn btn-outline-success">Add</button>
+              <button name="submit" class="btn btn-outline-success">{% trans 'AddButton'%}</button>
             {% endbuttons %}
         </form>
       </div>
@@ -33,31 +34,32 @@
     <div class="p-3 mb-2  rounded">
         <table class="table">
             <tr>
-                <th>Name:</th>
-                <th class="text-right">Actions:</th>
+                <th>{% trans 'NameTh'%}:</th>
+                <th class="text-right">{% trans 'ActionsTh'%}:</th>
             </tr>
             {% for category in categories %}
             <tr>
                 <td> {{ category.category_name }}</td>
                 <td class="text-right">
-                    <a href="{% url 'budgets:category_settings' category.category_id %}"> <button type="button" class="btn btn-outline-warning"> Edit</button></a>
-                    <a> <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cat{{category.category_id}}">Delete</button></a>
+                    <a href="{% url 'budgets:category_settings' category.category_id %}"> <button type="button" class="btn btn-outline-warning"> {% trans 'EditButton'%}</button></a>
+                    <a> <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cat{{category.category_id}}">{% trans 'DeleteButton'%}</button></a>
+
 
                     <div class="modal fade" id="cat{{category.category_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete category?</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">{% trans 'DeletecategoryModal'%}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            Are you sure you want to delete this category?
+                            {% trans 'DeleteCategoryInfo'%}
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                              <a href="{% url 'budgets:category_delete' category.category_id %}"><button type="button" class="btn btn-primary">Delete category</button></a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'CancelButton'%}</button>
+                              <a href="{% url 'budgets:category_delete' category.category_id %}"><button type="button" class="btn btn-primary">{% trans 'DeletecategoryButton'%}</button></a>
                           </div>
                         </div>
                       </div>
@@ -67,7 +69,7 @@
                 </td>
             </tr>
             {% empty %}
-                <p>No categories yet. Add the first one...</p>
+                <p>{% trans 'NocategoriesInfo'%}</p>
             {% endfor %}
         </table>
 

@@ -1,10 +1,11 @@
 {% extends 'budgets/base.html' %}
 
 {% load bootstrap4 %}
+{% load i18n %}
 
 {% block page_header %}
     <div>
-        <h2>Edit goal:</h2>
+        <h2>{% trans 'EditgoalHeader'%}</h2>
     </div>
 {% endblock page_header %}
 
@@ -12,9 +13,9 @@
 
 <div class="p-3 mb-2 bg-light rounded">
     <nav class="nav bg-light">
-        <li class="breadcrumb-item"><a href="{% url 'budgets:periods'%}">Periods</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'budgets:goals' period.period_id %}">Create goals</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Edit goal</li>
+        <li class="breadcrumb-item"><a href="{% url 'budgets:periods'%}">{% trans 'PeriodsNav'%}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'budgets:goals' period.period_id %}">{% trans 'CreategoalsNav'%}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'EditgoalNav'%}</li>
     </nav>
 </div>
 
@@ -23,7 +24,7 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button name="submit" class="btn btn-outline-success">Save</button>
+            <button name="submit" class="btn btn-outline-success">{% trans 'SaveButton'%}</button>
         {% endbuttons %}
     </form>
 </div>

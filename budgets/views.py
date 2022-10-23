@@ -239,6 +239,7 @@ def periods(request):
     if request.method != 'POST':
         pform = PeriodForm()
         bform = BalanceEditForm()
+        bform.fields['amount'].initial = 0
     else:
         pform = PeriodForm(request.POST)
         bform = BalanceEditForm(request.POST)
@@ -252,7 +253,8 @@ def periods(request):
             new_balance.period_id_budgets_period = new_period
             new_balance.save()
 
-            return redirect('budgets:periods')
+            # return redirect('budgets:periods')
+            return redirect('budgets:goals', period_id=new_period.period_id)
 
     context = {'pform': pform, 'bform': bform, 'periods': periods, 'balances': balances}
     return render(request, 'budgets/periods.html', context)
@@ -295,6 +297,7 @@ def goals(request, period_id):
 
     if request.method != 'POST':
         form = MonthlyGoalForm(request=request)
+        form.fields['goal'].initial = 0
     else:
         form = MonthlyGoalForm(data=request.POST, request=request)
         if form.is_valid():
