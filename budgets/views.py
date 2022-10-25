@@ -4,7 +4,7 @@ from unicodedata import decimal
 import pandas
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
+from django.db import IntegrityError, connection
 from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render, redirect
@@ -36,7 +36,11 @@ def index(request):
             is_period = True
 
             expenses = select_date_range(period, request)
+
+
+
             sum_of_expenses = expenses.aggregate(Sum('expenditure_amount'))['expenditure_amount__sum']
+
             if sum_of_expenses is None:
                 sum_of_expenses = 0
 
@@ -80,7 +84,10 @@ def index(request):
             # if monthly goals for this period are  not empty
             else:
                 is_goal = True
-                goals_dict = create_goals_dict(monthly_goals, period_length, days_passed)
+
+
+                goals_dict = create_goals_dict(monthly_goals, period_length, days_passed, expenses)
+                print(f"goals_dict: {goals_dict}")
                 daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
                 sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
                 planned_savings = getattr(balance, 'amount') - sum_of_goals

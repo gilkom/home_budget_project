@@ -94,6 +94,7 @@
                         <tr>
                             <th>{% trans 'CategoryTableHeader'%}:</th>
                             <th>{% trans 'GoalTableHeader'%}:</th>
+                            <th>{% trans 'CategorysumHeader'%}:</th>
                             <th>{% trans 'DailyGoalTableHeader' %}:</th>
                             <th>{% trans 'DailySpendingsTableHeader' %}:</th>
                         </tr>
@@ -101,6 +102,7 @@
                         <tr>
                             <td> {{ value.name }} </td>
                             <td> {{ value.goal }} {% trans 'Currency'%} </td>
+                            <td> {{ value.category_sum }} {% trans 'Currency'%}</td>
                             <td> {{ value.av_period }} {% trans 'Currency'%} </td>
                             <td> {{ value.av_daily }} {% trans 'Currency'%} </td>
                         </tr>

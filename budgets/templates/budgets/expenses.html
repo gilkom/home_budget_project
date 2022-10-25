@@ -37,9 +37,7 @@
     </div>
 <hr>
 <div class="p-3 mb-2 bg-light rounded">
-    <div class="container">
         {% for expense in expenses %}
-        <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="card w-100  mb-2">
                     <div class="card-body">
@@ -80,11 +78,9 @@
                     </div>
                 </div>
             </div>
-        </div>
         {% empty %}
             <p>{% trans 'NoexpensesInfo'%}</p>
         {% endfor %}
-    </div>
 </div>
 <hr>
 <br>

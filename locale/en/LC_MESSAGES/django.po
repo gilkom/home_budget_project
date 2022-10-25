@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-23 11:09+0200\n"
+"POT-Creation-Date: 2022-10-25 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -276,9 +276,10 @@ msgstr "Avg. daily expenses"
 #: budgets/templates/budgets/info.html:88
 #: budgets/templates/budgets/info.html:89
 #: budgets/templates/budgets/info.html:90
-#: budgets/templates/budgets/info.html:103
 #: budgets/templates/budgets/info.html:104
 #: budgets/templates/budgets/info.html:105
+#: budgets/templates/budgets/info.html:106
+#: budgets/templates/budgets/info.html:107
 msgid "Currency"
 msgstr "$"
 
@@ -332,10 +333,14 @@ msgid "GoalTableHeader"
 msgstr "Goal"
 
 #: budgets/templates/budgets/info.html:97
+msgid "CategorysumHeader"
+msgstr "Sum of expenses"
+
+#: budgets/templates/budgets/info.html:98
 msgid "DailyGoalTableHeader"
 msgstr "Daily goal"
 
-#: budgets/templates/budgets/info.html:98
+#: budgets/templates/budgets/info.html:99
 msgid "DailySpendingsTableHeader"
 msgstr "Daily spendings"
 
@@ -355,11 +360,11 @@ msgstr "Save period"
 msgid "ListofperiodsHeader:"
 msgstr "List of periods:"
 
-#: budgets/templates/budgets/periods.html:17
+#: budgets/templates/budgets/periods.html:16
 msgid "CreateanewperiodButton"
 msgstr "Create a new period"
 
-#: budgets/templates/budgets/periods.html:26
+#: budgets/templates/budgets/periods.html:25
 msgid "AddperiodButton"
 msgstr "Add period"
 
@@ -375,7 +380,7 @@ msgstr "Delete period?"
 msgid "DeletePeriodInfo"
 msgstr "Are you sure you want to delete this period?"
 
-#: budgets/templates/budgets/periods.html:78
+#: budgets/templates/budgets/periods.html:77
 msgid "NoperiodsInfo"
 msgstr "No periods yet. Add the first one..."
 

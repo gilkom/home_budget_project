@@ -6,9 +6,9 @@ CREATE OR REPLACE FUNCTION trigger_insert_user_categories()
    LANGUAGE PLPGSQL
 AS $$
 BEGIN
-   INSERT INTO budgets_category(category_name, category_active, owner) values('Food', TRUE, NEW.id);
-   INSERT INTO budgets_category(category_name, category_active, owner) values('Housing', TRUE, NEW.id);
-   INSERT INTO budgets_category(category_name, category_active, owner) values('Other', TRUE, NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Jedzenie', TRUE, NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Mieszkanie', TRUE, NEW.id);
+   INSERT INTO budgets_category(category_name, category_active, owner) values('Inne', TRUE, NEW.id);
    RETURN NEW;
 END;
 $$

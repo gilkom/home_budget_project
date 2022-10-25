@@ -1,4 +1,5 @@
 import base64
+from collections import namedtuple
 
 import numpy as np
 import pandas
@@ -9,7 +10,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import Q
+from django.db.models import Q, Sum
+from psycopg2._psycopg import cursor
 
 from budgets.models import BudgetsExpenditure
 
@@ -112,13 +114,31 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     return chart
 
 
-def create_goals_dict(monthly_goals, period_length, days_passed):
+def namedtuplefetchall(cursor):
+    "Return all rows from a cursor as a namedtuple"
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
+
+def create_goals_dict(monthly_goals, period_length, days_passed,expenses):
     goals_dict = {}
     for m_g in monthly_goals:
         av_period_goal = round(m_g.goal / period_length, 2)
-        av_daily_goal = round(m_g.goal / days_passed, 2)
+
+        val = m_g.category_id_budgets_category.category_id
+        if expenses.values('category_id_budgets_category').order_by('category_id_budgets_category').annotate(total_amount=Sum('expenditure_amount')).filter(category_id_budgets_category=val).exists():
+            category_sum = expenses.values('category_id_budgets_category').order_by('category_id_budgets_category').annotate(total_amount=Sum('expenditure_amount')).get(category_id_budgets_category=val)
+            cat_sum = category_sum['total_amount']
+        else:
+            cat_sum = 0
+
+        av_daily_goal = round(cat_sum / days_passed, 2)
+
         goals_d = {m_g.monthly_goal_id: {'name': m_g.category_id_budgets_category,
-                                         'goal': m_g.goal, 'av_period': av_period_goal,
+                                         'goal': m_g.goal,
+                                         'category_sum': cat_sum,
+                                         'av_period': av_period_goal,
                                          'av_daily': av_daily_goal}}
         goals_dict.update(goals_d)
 

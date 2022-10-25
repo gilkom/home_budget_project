@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-23 11:09+0200\n"
+"POT-Creation-Date: 2022-10-25 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -278,9 +278,10 @@ msgstr "Średnie dzienne wydatki"
 #: budgets/templates/budgets/info.html:88
 #: budgets/templates/budgets/info.html:89
 #: budgets/templates/budgets/info.html:90
-#: budgets/templates/budgets/info.html:103
 #: budgets/templates/budgets/info.html:104
 #: budgets/templates/budgets/info.html:105
+#: budgets/templates/budgets/info.html:106
+#: budgets/templates/budgets/info.html:107
 msgid "Currency"
 msgstr "zł"
 
@@ -334,10 +335,14 @@ msgid "GoalTableHeader"
 msgstr "Cel"
 
 #: budgets/templates/budgets/info.html:97
+msgid "CategorysumHeader"
+msgstr "Suma wydatków"
+
+#: budgets/templates/budgets/info.html:98
 msgid "DailyGoalTableHeader"
 msgstr "Dzienny cel"
 
-#: budgets/templates/budgets/info.html:98
+#: budgets/templates/budgets/info.html:99
 msgid "DailySpendingsTableHeader"
 msgstr "Dzienny wydatek"
 
@@ -357,11 +362,11 @@ msgstr "Zapisz okres"
 msgid "ListofperiodsHeader:"
 msgstr "Lista okresów:"
 
-#: budgets/templates/budgets/periods.html:17
+#: budgets/templates/budgets/periods.html:16
 msgid "CreateanewperiodButton"
 msgstr "Utwórz nowy okres"
 
-#: budgets/templates/budgets/periods.html:26
+#: budgets/templates/budgets/periods.html:25
 msgid "AddperiodButton"
 msgstr "Dodaj okres"
 
@@ -377,7 +382,7 @@ msgstr "Usunąć okres?"
 msgid "DeletePeriodInfo"
 msgstr "Czy na pewno chcesz usunąć ten okres?"
 
-#: budgets/templates/budgets/periods.html:78
+#: budgets/templates/budgets/periods.html:77
 msgid "NoperiodsInfo"
 msgstr "Brak okresów. Dodaj pierwszy..."
 
