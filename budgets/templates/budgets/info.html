@@ -16,9 +16,7 @@
 
         {% else %}
 
-                <div>
-                    <h2>{% trans 'StatisticsHeader' %}:</h2>
-                </div>
+
         {% endif %}
 
     {% endblock page_header %}
@@ -34,8 +32,13 @@
                 <span class="sr-only"></span>
               </div>
             </div>
-
-            <br>
+            <div class="container">
+                <div class="row justify-content-center ">
+                    {% autoescape off %}
+                        {{ gauge_chart }}
+                    {% endautoescape %}
+                </div>
+            </div>
             <div class="p-3 mb-2 alert-{{page_color}} text-dark rounded">
                 <div class="float-right">{{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}</div><br>
                 <div class="row justify-content-center ">
@@ -73,7 +76,6 @@
                 <br>
 
             </div>
-
             <img src="data:image/png;base64, {{chart|safe}}" alt="" id="chart_categories" style="width: 100%; height: auto;">
 
 

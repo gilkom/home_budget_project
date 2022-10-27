@@ -1,16 +1,21 @@
 import base64
+import io
 from collections import namedtuple
 
 import numpy as np
 import pandas
 from datetime import date
 from io import BytesIO
+import plotly.express as px
+import plotly.io as pio
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import plotly.graph_objects as go
 
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q, Sum
+from plotly.offline import plot
 from psycopg2._psycopg import cursor
 
 from budgets.models import BudgetsExpenditure
@@ -48,6 +53,18 @@ def get_graph():
     buffer.seek(0)
     image_png = buffer.getvalue()
     graph = base64.b64encode(image_png)
+    graph = graph.decode('utf-8')
+    buffer.close()
+    return graph
+
+
+def get_graph_plotly(fig):
+    buffer = io.BytesIO()
+    # plt.savefig(buffer, format='png')
+    fig_svg = fig.to_image(format="svg")
+    buffer.write(fig_svg)
+    buffer.seek(0)
+    graph = base64.b64encode(buffer.getvalue())
     graph = graph.decode('utf-8')
     buffer.close()
     return graph
@@ -112,6 +129,39 @@ def get_categories_bar_chart(data, daily_average_goal=None):
 
     chart = get_graph()
     return chart
+
+
+def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, sum_of_goals=None):
+
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=270,
+        domain={'x': [0, 1], 'y': [0, 1]},
+        title=dict(
+            text="Październik",
+            font=dict(
+                family="Arial",
+                size=35
+            )
+        ),
+        ))
+    fig.update_layout(
+        autosize=False,
+        width=370,
+        height=220,
+        margin=go.layout.Margin(
+            l=5,
+            r=5,
+            b=20,
+            t=80,
+            pad=4
+        )
+    )
+
+    # Getting HTML needed to render the plot.
+    gauge_chart = plot({'data': fig}, output_type='div')
+    return gauge_chart
+
 
 
 def namedtuplefetchall(cursor):
