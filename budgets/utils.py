@@ -2,21 +2,16 @@ import base64
 import io
 from collections import namedtuple
 
-import numpy as np
 import pandas
 from datetime import date
 from io import BytesIO
-import plotly.express as px
-import plotly.io as pio
 
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import plotly.graph_objects as go
 
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q, Sum
 from plotly.offline import plot
-from psycopg2._psycopg import cursor
 
 from budgets.models import BudgetsExpenditure
 
