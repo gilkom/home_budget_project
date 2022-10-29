@@ -26,6 +26,7 @@ def index(request):
         categories = BudgetsCategory.objects.filter(owner=request.user)
         chart = None
         gauge_chart = None
+        p_code = f"#e2e3e5"
 
         # if there is no current period:
         if period is None:
@@ -84,7 +85,7 @@ def index(request):
                     # chart with expenses
                     chart = get_categories_bar_chart(pd_expenses_df)
                     # chart with budget
-                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses)
+                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code)
 
                 context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart}
 
@@ -97,14 +98,18 @@ def index(request):
                 daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
                 sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
                 planned_savings = getattr(balance, 'amount') - sum_of_goals
-                if expenses:
-                    chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
-                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, sum_of_goals)
 
                 if average_over_the_period < daily_average_goal:
                     page_color = f"success"
+                    p_code = f"#d4edda"
                 else:
                     page_color = f'danger'
+                    p_code = f"#f8d7da"
+
+                if expenses:
+                    chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
+                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals)
+
 
                 context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,
                             'planned_savings': planned_savings, 'sum_of_goals': sum_of_goals,

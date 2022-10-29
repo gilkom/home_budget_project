@@ -126,35 +126,47 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     return chart
 
 
-def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, sum_of_goals=None):
+def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=None):
+    step = int(balance.amount) / 100
 
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
-        value=270,
+        value=sum_of_expenses,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title=dict(
-            text="Październik",
-            font=dict(
-                family="Arial",
-                size=35
-            )
-        ),
-        ))
+        gauge={
+            'axis': {'range': [None, int(balance.amount)], 'tickwidth': 1, 'tickcolor': "darkblue"},
+            'bar': {'color': "#2a3f5f"},
+            'bgcolor': "white",
+            'borderwidth': 2,
+            'bordercolor': "gray",
+            'steps': [
+                {'range': [sum_of_goals + (step * 6), int(balance.amount)], 'color': 'red'},
+                {'range': [sum_of_goals + (step * 5), sum_of_goals + (step * 7)], 'color': '#D43200'},
+                {'range': [sum_of_goals + (step * 4), sum_of_goals + (step * 6)], 'color': '#D47C00'},
+                {'range': [sum_of_goals + (step * 3), sum_of_goals + (step * 5)], 'color': '#D4CC00'},
+                {'range': [sum_of_goals + (step * 2), sum_of_goals + (step * 4)], 'color': '#747F00'},
+                {'range': [sum_of_goals + (step * 1), sum_of_goals + (step * 3)], 'color': '#1E9001'},
+                {'range': [0, sum_of_goals + (step * 2)], 'color': 'green'}],
+            'threshold': {
+                'line': {'color': "black", 'width': 4},
+                'thickness': 0.75,
+                'value': sum_of_goals}}))
     fig.update_layout(
+        paper_bgcolor=p_code,
         autosize=False,
-        width=370,
-        height=220,
+        width=300,
+        height=150,
         margin=go.layout.Margin(
             l=5,
             r=5,
             b=20,
-            t=80,
+            t=20,
             pad=4
         )
     )
 
     # Getting HTML needed to render the plot.
-    gauge_chart = plot({'data': fig}, output_type='div')
+    gauge_chart = plot({'data': fig}, config = {'displayModeBar': False}, output_type='div')
     return gauge_chart
 
 
