@@ -128,40 +128,49 @@ def get_categories_bar_chart(data, daily_average_goal=None):
 
 def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=None):
     step = int(balance.amount) / 100
-
+    print(sum_of_expenses)
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
         value=sum_of_expenses,
+        number={'valueformat': 'f'},
         domain={'x': [0, 1], 'y': [0, 1]},
         gauge={
-            'axis': {'range': [None, int(balance.amount)], 'tickwidth': 1, 'tickcolor': "darkblue"},
-            'bar': {'color': "#2a3f5f"},
+            'axis': {'range': [None, int(balance.amount)],
+                     'dtick': 100,
+                     'tickmode': 'linear',
+                     'ticklen': 5,
+                     'ticklabelstep': 3,
+                     'ticks': 'outside',
+                     'tickfont': {'size': 8},
+
+                     },
+            'bar': {'color': "black"},
             'bgcolor': "white",
             'borderwidth': 2,
             'bordercolor': "gray",
             'steps': [
-                {'range': [sum_of_goals + (step * 6), int(balance.amount)], 'color': 'red'},
-                {'range': [sum_of_goals + (step * 5), sum_of_goals + (step * 7)], 'color': '#D43200'},
-                {'range': [sum_of_goals + (step * 4), sum_of_goals + (step * 6)], 'color': '#D47C00'},
-                {'range': [sum_of_goals + (step * 3), sum_of_goals + (step * 5)], 'color': '#D4CC00'},
-                {'range': [sum_of_goals + (step * 2), sum_of_goals + (step * 4)], 'color': '#747F00'},
-                {'range': [sum_of_goals + (step * 1), sum_of_goals + (step * 3)], 'color': '#1E9001'},
-                {'range': [0, sum_of_goals + (step * 2)], 'color': 'green'}],
+                {'range': [sum_of_goals + (step * 9), int(balance.amount)], 'color': '#FF0000'},
+                {'range': [sum_of_goals + (step * 7), sum_of_goals + (step * 10)], 'color': '#FF5500'},
+                {'range': [sum_of_goals + (step * 5), sum_of_goals + (step * 8)], 'color': '#FF9900'},
+                {'range': [sum_of_goals + (step * 3), sum_of_goals + (step * 6)], 'color': '#FFFE00'},
+                {'range': [sum_of_goals + (step * 1), sum_of_goals + (step * 4)], 'color': '#C4FF00'},
+                {'range': [sum_of_goals, sum_of_goals + (step * 2)], 'color': '#84FF00'},
+                {'range': [0, sum_of_goals], 'color': '#09CE00'}],
             'threshold': {
-                'line': {'color': "black", 'width': 4},
+                'line': {'color': "black", 'width': 3},
                 'thickness': 0.75,
                 'value': sum_of_goals}}))
     fig.update_layout(
         paper_bgcolor=p_code,
         autosize=False,
-        width=300,
-        height=150,
+        width=280,
+        height=180,
         margin=go.layout.Margin(
-            l=5,
-            r=5,
-            b=20,
+            l=25,
+            r=25,
+            b=10,
             t=20,
-            pad=4
+            pad=5
         )
     )
 
