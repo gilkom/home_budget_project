@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-25 19:30+0200\n"
+"POT-Creation-Date: 2022-11-01 12:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,42 +55,42 @@ msgstr "Goal"
 msgid "Description"
 msgstr "Description"
 
-#: budgets/templates/budgets/base.html:28
+#: budgets/templates/budgets/base.html:29
 msgid "StatisticsNav"
 msgstr "Statistics"
 
-#: budgets/templates/budgets/base.html:31
+#: budgets/templates/budgets/base.html:32
 #: budgets/templates/budgets/expenditure.html:15
 msgid "ExpensesNav"
 msgstr "Expenses"
 
-#: budgets/templates/budgets/base.html:34
+#: budgets/templates/budgets/base.html:35
 #: budgets/templates/budgets/goal_settings.html:16
 #: budgets/templates/budgets/goals.html:14
 #: budgets/templates/budgets/period_settings.html:15
 msgid "PeriodsNav"
 msgstr "Periods"
 
-#: budgets/templates/budgets/base.html:37
+#: budgets/templates/budgets/base.html:38
 #: budgets/templates/budgets/category_settings.html:14
 msgid "CategoriesNav"
 msgstr "Categories"
 
-#: budgets/templates/budgets/base.html:44
+#: budgets/templates/budgets/base.html:45
 msgid "GreetingWelcome"
 msgstr "Welcome"
 
-#: budgets/templates/budgets/base.html:47
+#: budgets/templates/budgets/base.html:48
 msgid "LogOutButton"
 msgstr "Log out"
 
-#: budgets/templates/budgets/base.html:51
+#: budgets/templates/budgets/base.html:52
 #: budgets/templates/budgets/index.html:10
 #: users/templates/registration/register.html:15
 msgid "RegisterButton"
 msgstr "Register"
 
-#: budgets/templates/budgets/base.html:54
+#: budgets/templates/budgets/base.html:55
 #: budgets/templates/budgets/index.html:12
 #: users/templates/registration/login.html:14
 msgid "LoginButton"
@@ -118,15 +118,15 @@ msgid "ActionsTh"
 msgstr "Actions"
 
 #: budgets/templates/budgets/categories.html:44
-#: budgets/templates/budgets/expenses.html:54
+#: budgets/templates/budgets/expenses.html:52
 #: budgets/templates/budgets/goals.html:49
 #: budgets/templates/budgets/periods.html:48
 msgid "EditButton"
 msgstr "Edit"
 
 #: budgets/templates/budgets/categories.html:45
-#: budgets/templates/budgets/expenses.html:55
-#: budgets/templates/budgets/expenses.html:72
+#: budgets/templates/budgets/expenses.html:53
+#: budgets/templates/budgets/expenses.html:70
 #: budgets/templates/budgets/goals.html:50
 #: budgets/templates/budgets/periods.html:49
 #: budgets/templates/budgets/periods.html:65
@@ -142,7 +142,7 @@ msgid "DeleteCategoryInfo"
 msgstr "Are you sure you want to delete this category?"
 
 #: budgets/templates/budgets/categories.html:61
-#: budgets/templates/budgets/expenses.html:71
+#: budgets/templates/budgets/expenses.html:69
 #: budgets/templates/budgets/goals.html:65
 #: budgets/templates/budgets/periods.html:64
 msgid "CancelButton"
@@ -187,15 +187,15 @@ msgstr "List of expenses"
 msgid "AddExpenseButton"
 msgstr "Add expense"
 
-#: budgets/templates/budgets/expenses.html:62
+#: budgets/templates/budgets/expenses.html:60
 msgid "DeleteexpenseHeading"
 msgstr "Delete expense?"
 
-#: budgets/templates/budgets/expenses.html:68
+#: budgets/templates/budgets/expenses.html:66
 msgid "DeleteInfo"
 msgstr "Are you sure you want to delete this expense?"
 
-#: budgets/templates/budgets/expenses.html:85
+#: budgets/templates/budgets/expenses.html:82
 msgid "NoexpensesInfo"
 msgstr "No expenses yet. Add the first one..."
 
@@ -248,7 +248,7 @@ msgstr "Plan your expenses!"
 msgid "WelcomeMessage"
 msgstr "The home budget app helps you in monitoring your monthly expenses."
 
-#: budgets/templates/budgets/info.html:9 budgets/templates/budgets/info.html:20
+#: budgets/templates/budgets/info.html:9
 msgid "StatisticsHeader"
 msgstr "Details of the current period"
 
@@ -260,87 +260,87 @@ msgstr "First you need to create a period, its goals and balance..."
 msgid "CreatePeriodButton"
 msgstr "Create period"
 
-#: budgets/templates/budgets/info.html:33
+#: budgets/templates/budgets/info.html:31
 msgid "DaysCounter"
 msgstr "days"
 
-#: budgets/templates/budgets/info.html:49
+#: budgets/templates/budgets/info.html:53
 msgid "DailyavgexpensesHeader"
 msgstr "Avg. daily expenses"
 
-#: budgets/templates/budgets/info.html:50
-#: budgets/templates/budgets/info.html:55
-#: budgets/templates/budgets/info.html:63
-#: budgets/templates/budgets/info.html:66
-#: budgets/templates/budgets/info.html:69
-#: budgets/templates/budgets/info.html:88
-#: budgets/templates/budgets/info.html:89
-#: budgets/templates/budgets/info.html:90
-#: budgets/templates/budgets/info.html:104
-#: budgets/templates/budgets/info.html:105
-#: budgets/templates/budgets/info.html:106
+#: budgets/templates/budgets/info.html:54
+#: budgets/templates/budgets/info.html:59
+#: budgets/templates/budgets/info.html:67
+#: budgets/templates/budgets/info.html:70
+#: budgets/templates/budgets/info.html:73
+#: budgets/templates/budgets/info.html:91
+#: budgets/templates/budgets/info.html:92
+#: budgets/templates/budgets/info.html:93
 #: budgets/templates/budgets/info.html:107
+#: budgets/templates/budgets/info.html:108
+#: budgets/templates/budgets/info.html:109
+#: budgets/templates/budgets/info.html:110 budgets/utils.py:141
 msgid "Currency"
 msgstr "$"
 
-#: budgets/templates/budgets/info.html:54
+#: budgets/templates/budgets/info.html:58
 msgid "EstimatedSavingsHeader"
 msgstr "Estimated savings"
 
-#: budgets/templates/budgets/info.html:63
+#: budgets/templates/budgets/info.html:67
 msgid "InitialBudgetHeader"
 msgstr "Initial budget"
 
-#: budgets/templates/budgets/info.html:66
+#: budgets/templates/budgets/info.html:70
 msgid "RemainingFundsHeader"
 msgstr "Remaining funds"
 
-#: budgets/templates/budgets/info.html:69
+#: budgets/templates/budgets/info.html:73
 msgid "SumOfExpensesHeader"
 msgstr "Planned expenses"
 
-#: budgets/templates/budgets/info.html:81
+#: budgets/templates/budgets/info.html:84
 msgid "SetGoalsInfo"
 msgstr "Create goals for this period to see more details..."
 
-#: budgets/templates/budgets/info.html:83
+#: budgets/templates/budgets/info.html:86
 #: budgets/templates/budgets/periods.html:47
 msgid "SetGoalsButton"
 msgstr "Goals"
 
-#: budgets/templates/budgets/info.html:87
+#: budgets/templates/budgets/info.html:90
 msgid "DetailsOfGoalsHeader"
 msgstr "Goals"
 
-#: budgets/templates/budgets/info.html:88
+#: budgets/templates/budgets/info.html:91
 msgid "DailyAvgGoalHeader"
 msgstr "Scheduled avg. daily expenses"
 
-#: budgets/templates/budgets/info.html:89
+#: budgets/templates/budgets/info.html:92
 msgid "SumOfGoalsHeader"
 msgstr "Planned expenses"
 
-#: budgets/templates/budgets/info.html:90
+#: budgets/templates/budgets/info.html:93
 msgid "PlannedSavingsHeader"
 msgstr "Planned savings"
 
-#: budgets/templates/budgets/info.html:95
+#: budgets/templates/budgets/info.html:98
 msgid "CategoryTableHeader"
 msgstr "Category"
 
-#: budgets/templates/budgets/info.html:96
+#: budgets/templates/budgets/info.html:99
 msgid "GoalTableHeader"
 msgstr "Goal"
 
-#: budgets/templates/budgets/info.html:97
+#: budgets/templates/budgets/info.html:100
 msgid "CategorysumHeader"
 msgstr "Sum of expenses"
 
-#: budgets/templates/budgets/info.html:98
+#: budgets/templates/budgets/info.html:101
 msgid "DailyGoalTableHeader"
 msgstr "Daily goal"
 
-#: budgets/templates/budgets/info.html:99
+#: budgets/templates/budgets/info.html:102
 msgid "DailySpendingsTableHeader"
 msgstr "Daily spendings"
 
@@ -383,6 +383,14 @@ msgstr "Are you sure you want to delete this period?"
 #: budgets/templates/budgets/periods.html:77
 msgid "NoperiodsInfo"
 msgstr "No periods yet. Add the first one..."
+
+#: budgets/utils.py:143
+msgid "plotlyLeft"
+msgstr "Left: "
+
+#: budgets/utils.py:144
+msgid "plotlyExceeded"
+msgstr "Exceeded: "
 
 #: users/templates/registration/logged_out.html:5
 msgid "LogoutHeader"

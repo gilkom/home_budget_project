@@ -1,6 +1,7 @@
 import base64
 import io
 from collections import namedtuple
+from math import ceil
 
 import pandas
 from datetime import date
@@ -12,6 +13,7 @@ import plotly.graph_objects as go
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q, Sum
 from plotly.offline import plot
+from django.utils.translation import gettext_lazy as _
 
 from budgets.models import BudgetsExpenditure
 
@@ -126,20 +128,25 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     return chart
 
 
-def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=None):
+def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=0):
+
+    print(int(balance.amount))
+    print(ceil(int(balance.amount)))
     step = int(balance.amount) / 100
     print(sum_of_expenses)
     fig = go.Figure(go.Indicator(
-        mode="gauge+number",
+        title={'text': f"Limit: {sum_of_goals}", 'font': {'size': 12}},
+        mode="gauge+number+delta",
         value=sum_of_expenses,
-        number={'valueformat': 'f'},
+        number={'valueformat': 'f', 'suffix': str(' ' + _('Currency'))},
         domain={'x': [0, 1], 'y': [0, 1]},
+        delta={'reference': -(sum_of_goals - 2*(sum_of_expenses)), 'increasing': {'symbol': str(_('plotlyLeft'))},
+               'decreasing': {'symbol': str(_('plotlyExceeded'))}},
         gauge={
             'axis': {'range': [None, int(balance.amount)],
-                     'dtick': 100,
-                     'tickmode': 'linear',
+                     'nticks': 8,
+                     'tickmode': 'auto',
                      'ticklen': 5,
-                     'ticklabelstep': 3,
                      'ticks': 'outside',
                      'tickfont': {'size': 8},
 
@@ -149,15 +156,15 @@ def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of
             'borderwidth': 2,
             'bordercolor': "gray",
             'steps': [
-                {'range': [sum_of_goals + (step * 9), int(balance.amount)], 'color': '#FF0000'},
-                {'range': [sum_of_goals + (step * 7), sum_of_goals + (step * 10)], 'color': '#FF5500'},
-                {'range': [sum_of_goals + (step * 5), sum_of_goals + (step * 8)], 'color': '#FF9900'},
-                {'range': [sum_of_goals + (step * 3), sum_of_goals + (step * 6)], 'color': '#FFFE00'},
-                {'range': [sum_of_goals + (step * 1), sum_of_goals + (step * 4)], 'color': '#C4FF00'},
-                {'range': [sum_of_goals, sum_of_goals + (step * 2)], 'color': '#84FF00'},
-                {'range': [0, sum_of_goals], 'color': '#09CE00'}],
+                {'range': [sum_of_goals + (step * 4), int(balance.amount)], 'color': '#FF0000'},
+                {'range': [sum_of_goals + (step * 2), sum_of_goals + (step * 5)], 'color': '#FF5500'},
+                {'range': [sum_of_goals + (step * 1), sum_of_goals + (step * 3)], 'color': '#FF9900'},
+                {'range': [sum_of_goals - (step * 1), sum_of_goals + (step * 1)], 'color': '#FFFE00'},
+                {'range': [sum_of_goals - (step * 4), sum_of_goals - (step * 1)], 'color': '#ADEE00'},
+                {'range': [sum_of_goals - (step * 6), sum_of_goals - (step * 3)], 'color': '#5BDE00'},
+                {'range': [0, sum_of_goals - (step * 5)], 'color': '#09CE00'}],
             'threshold': {
-                'line': {'color': "black", 'width': 3},
+                'line': {'color': "black", 'width': 2},
                 'thickness': 0.75,
                 'value': sum_of_goals}}))
     fig.update_layout(
