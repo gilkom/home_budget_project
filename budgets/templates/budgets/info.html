@@ -34,7 +34,16 @@
             </div>
             <br>
             <div class="p-3 mb-2 alert-{{page_color}} text-dark rounded">
-                <div class="float-right">{{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}</div><br>
+
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                    dzisiejsza data
+                </div>
+               <div class="col-4">
+                    {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}
+                </div>
+                    </div>
+
                 <div class="row justify-content-center ">
                     <h1>{{ period.name }}</h1>
                 </div>
