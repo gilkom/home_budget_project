@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from decimal import Decimal
 from unicodedata import decimal
 
@@ -27,6 +29,7 @@ def index(request):
         chart = None
         gauge_chart = None
         p_code = f"#e2e3e5"
+        current_date = datetime.now().strftime('%d.%m.%Y')
 
         # if there is no current period:
         if period is None:
@@ -119,7 +122,7 @@ def index(request):
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,
                         'period_length': period_length, 'period': period, 'balance': balance,
                         'is_period': is_period, 'progress': progress, 'estimated_savings': estimated_savings,
-                        'chart': chart, 'gauge_chart': gauge_chart}
+                        'chart': chart, 'gauge_chart': gauge_chart, 'current_date': current_date}
             context.update(context1)
 
         return render(request, 'budgets/info.html', context)

@@ -37,10 +37,14 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-5">
-                            dzisiejsza data
+                            <p style="font-size:11px; ">
+                                Dzisiaj: {{ current_date }}
+                            </p>
                         </div>
                         <div class="col-7 text-right">
-                            {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}
+                            <p style="font-size:11px; ">
+                                Okres: {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -55,7 +59,37 @@
                 </div>
 
                 <br>
+                <div class="flex-parent-element" style="display: flex; width: 100%;">
+                  <div class="flex-child-element border border-secondary rounded" style="flex: 1; margin: 1px;">
+                       <div class="card">
+                           <div class="card-header">
+                               <p class="font-weight-bold" style="font-size:11px; text-align:center;">Pozostało / Dziennie</p>
+                           </div>
+                           <ul class="list-group list-group-flush">
+                               <li class="list-group-item py-2">
+                                   <h6 class="card-title mb-2 text-muted  font-weight-bold">Wszystko</h6>
+                                   <p class="font-weight-bold" style="font-size:12px; ">
+                                       {{ value.goal }} {% trans 'Currency'%} /
+                                       {{ value.category_sum }} {% trans 'Currency'%}
+                                   </p>
+                               </li>
+                               {% for key, value in goals_dict.items %}
+                               <li class="list-group-item py-1">
+                                   <h6 class="card-title mb-2 text-muted ">{{ value.name }}</h6>
+                                   <p style="font-size:12px; ">
+                                       {{ value.goal }} {% trans 'Currency'%} /
+                                       {{ value.category_sum }} {% trans 'Currency'%}
+                                   </p>
+                               </li>
+                               {% endfor %}
+                           </ul>
+                       </div>
+                  </div>
+                  <div class="flex-child-element" style="flex: 1;border-style: groove; margin: 1px;">Flex Column 2</div>
+                </div>
 
+
+                <br>
                 <div class="container">
                   <div class="row justify-content-center ">
                     <div class="col-5 border-0 text-dark rounded bg-white">
@@ -118,7 +152,7 @@
                             <td> {{ value.av_period }} {% trans 'Currency'%} </td>
                             <td> {{ value.av_daily }} {% trans 'Currency'%} </td>
                         </tr>
-                    {% endfor %}
+                        {% endfor %}
                     </table>
                 </div>
             {% endif %}
