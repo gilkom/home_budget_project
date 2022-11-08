@@ -129,7 +129,7 @@ def get_categories_bar_chart(data, daily_average_goal=None):
 
 
 def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=0):
-
+    sum_of_goals = int(sum_of_goals)
     step = int(balance.amount) / 100
     fig = go.Figure(go.Indicator(
         title={'text': f"Limit: {sum_of_goals}", 'font': {'size': 12}},
@@ -191,7 +191,7 @@ def namedtuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-def create_goals_dict(monthly_goals, period_length, days_passed,expenses):
+def create_goals_dict(monthly_goals, period_length, days_passed, expenses, days_left):
     goals_dict = {}
     for m_g in monthly_goals:
         av_period_goal = round(m_g.goal / period_length, 2)
@@ -204,12 +204,15 @@ def create_goals_dict(monthly_goals, period_length, days_passed,expenses):
             cat_sum = 0
 
         av_daily_goal = round(cat_sum / days_passed, 2)
-
+        money_goal_left = m_g.goal - cat_sum
+        money_per_category_per_day_left = round(money_goal_left / days_left, 2)
         goals_d = {m_g.monthly_goal_id: {'name': m_g.category_id_budgets_category,
                                          'goal': m_g.goal,
                                          'category_sum': cat_sum,
                                          'av_period': av_period_goal,
-                                         'av_daily': av_daily_goal}}
+                                         'av_daily': av_daily_goal,
+                                         'money_goal_left': money_goal_left,
+                                         'money_per_category_per_day_left': money_per_category_per_day_left}}
         goals_dict.update(goals_d)
 
     return goals_dict

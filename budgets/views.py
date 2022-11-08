@@ -52,6 +52,7 @@ def index(request):
             balance = BudgetsBalance.objects.get(period_id_budgets_period=period)
             period_length = (getattr(period, 'end_day') - getattr(period, 'start_day')).days
             days_passed = ((date.today() - getattr(period, 'start_day')).days) + 1
+            days_left = period_length - days_passed
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
             progress = f"{round((days_passed * 100)/period_length)}"
@@ -97,10 +98,12 @@ def index(request):
                 is_goal = True
 
 
-                goals_dict = create_goals_dict(monthly_goals, period_length, days_passed, expenses)
+                goals_dict = create_goals_dict(monthly_goals, period_length, days_passed, expenses, days_left)
                 daily_average_goal = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'] / period_length, 2)
-                sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'])
+                sum_of_goals = round(monthly_goals.aggregate(Sum('goal'))['goal__sum'], 2)
                 planned_savings = getattr(balance, 'amount') - sum_of_goals
+                money_left = sum_of_goals - sum_of_expenses
+                money_per_day_left = round(money_left / days_left, 2)
 
                 if average_over_the_period < daily_average_goal:
                     page_color = f"success"
@@ -116,7 +119,8 @@ def index(request):
 
                 context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,
                             'planned_savings': planned_savings, 'sum_of_goals': sum_of_goals,
-                            'page_color': page_color, 'chart': chart, 'gauge_chart': gauge_chart}
+                            'page_color': page_color, 'chart': chart, 'gauge_chart': gauge_chart,
+                            'money_left': money_left, 'money_per_day_left': money_per_day_left}
 
             context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,

@@ -69,16 +69,16 @@
                                <li class="list-group-item py-2">
                                    <h6 class="card-title mb-2 text-muted  font-weight-bold">Wszystko</h6>
                                    <p class="font-weight-bold" style="font-size:12px; ">
-                                       {{ value.goal }} {% trans 'Currency'%} /
-                                       {{ value.category_sum }} {% trans 'Currency'%}
+                                       {{ money_left }} {% trans 'Currency'%} /
+                                       {{ money_per_day_left }} {% trans 'Currency'%}
                                    </p>
                                </li>
                                {% for key, value in goals_dict.items %}
                                <li class="list-group-item py-1">
                                    <h6 class="card-title mb-2 text-muted ">{{ value.name }}</h6>
                                    <p style="font-size:12px; ">
-                                       {{ value.goal }} {% trans 'Currency'%} /
-                                       {{ value.category_sum }} {% trans 'Currency'%}
+                                       {{ value.money_goal_left }} {% trans 'Currency'%} /
+                                       {{ value.money_per_category_per_day_left }} {% trans 'Currency'%}
                                    </p>
                                </li>
                                {% endfor %}
