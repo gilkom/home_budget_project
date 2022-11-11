@@ -57,66 +57,115 @@
                         {{ gauge_chart }}
                     {% endautoescape %}
                 </div>
-
                 <br>
-                <div class="flex-parent-element" style="display: flex; width: 100%;">
-                  <div class="flex-child-element border border-secondary rounded" style="flex: 1; margin: 1px;">
-                       <div class="card">
-                           <div class="card-header">
-                               <p class="font-weight-bold" style="font-size:11px; text-align:center;">Pozostało / Dziennie</p>
-                           </div>
-                           <ul class="list-group list-group-flush">
-                               <li class="list-group-item py-2">
-                                   <h6 class="card-title mb-2 text-muted  font-weight-bold">Wszystko</h6>
-                                   <p class="font-weight-bold" style="font-size:12px; ">
-                                       {{ money_left }} {% trans 'Currency'%} /
-                                       {{ money_per_day_left }} {% trans 'Currency'%}
-                                   </p>
-                               </li>
-                               {% for key, value in goals_dict.items %}
-                               <li class="list-group-item py-1">
-                                   <h6 class="card-title mb-2 text-muted ">{{ value.name }}</h6>
-                                   <p style="font-size:12px; ">
-                                       {{ value.money_goal_left }} {% trans 'Currency'%} /
-                                       {{ value.money_per_category_per_day_left }} {% trans 'Currency'%}
-                                   </p>
-                               </li>
-                               {% endfor %}
-                           </ul>
-                       </div>
-                  </div>
-                  <div class="flex-child-element" style="flex: 1;border-style: groove; margin: 1px;">Flex Column 2</div>
+
+                <div class="flex-parent" style="display: flex; width: 100%; border-style:groove;">
+                    <div class="flex-child" style="flex:1;">
+                        <div class="flex-parent" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-secondary text-white  text-center m-1">
+                                    <div class="card-header my-1 p-0 font-weight-bold" style="font-size: 11px;">{% trans 'InitialBudgetHeader'%}:</div>
+                                    <div class="card-body my-1 p-0">
+                                        <p class="font-weight-bold" style="font-size: 12px;">{{ balance.amount }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-primary text-white text-center m-1">
+                                    <div class="card-header my-1 p-0 font-weight-bold" style="font-size: 11px;">{% trans 'RemainingFundsHeader'%}:</div>
+                                    <div class="card-body my-1 p-0">
+                                        <p style="font-size: 11px;">{{ money_saved }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-parent" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-secondary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'SumOfGoalsHeader' %}:</h5>
+                                        <p style="font-size: 11px;">{{ sum_of_goals }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="flex-child" style="flex:1;">
+                                <div class="card bg-primary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">Suma wydatków:</h5>
+                                        <p style="font-size: 11px;">{{ sum_of_goals }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-parent" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-secondary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'DailyAvgGoalHeader' %}:</h5>
+                                        <p style="font-size: 11px;"> {{ daily_average_goal }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-child" style="flex:1;">
+                                 <div class="card bg-primary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'DailyavgexpensesHeader'%}:</h5>
+                                        <p style="font-size: 11px;">{{ average_over_the_period }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-parent" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-secondary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'PlannedSavingsHeader' %}:</h5>
+                                        <p style="font-size: 11px;">{{ planned_savings }} {% trans 'Currency'%} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-primary text-white text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'EstimatedSavingsHeader'%}:</h5>
+                                        <p style="font-size: 11px;">{{ estimated_savings }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-child" style="flex:1;">
+                        <div class="flex-parent" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card m-1">
+                                   <div class="card-header">
+                                       <p class="font-weight-bold" style="font-size:10px; text-align:center;">Pozostało / Dziennie</p>
+                                   </div>
+                                   <ul class="list-group list-group-flush">
+                                       <li class="list-group-item py-2">
+                                           <h6 class="card-title mb-2 text-muted  font-weight-bold">Wszystko</h6>
+                                           <p class="font-weight-bold" style="font-size:12px; ">
+                                               {{ money_left }} {% trans 'Currency'%} /
+                                               {{ money_per_day_left }} {% trans 'Currency'%}
+                                           </p>
+                                       </li>
+                                       {% for key, value in goals_dict.items %}
+                                       <li class="list-group-item py-1">
+                                           <h6 class="card-title mb-2 text-muted ">{{ value.name }}</h6>
+                                           <p style="font-size:12px; ">
+                                               {{ value.money_goal_left }} {% trans 'Currency'%} /
+                                               {{ value.money_per_category_per_day_left }} {% trans 'Currency'%}
+                                           </p>
+                                       </li>
+                                       {% endfor %}
+                                   </ul>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
-                <br>
-                <div class="container">
-                  <div class="row justify-content-center ">
-                    <div class="col-5 border-0 text-dark rounded bg-white">
-                        <h6 class="font-weight-bold">{% trans 'DailyavgexpensesHeader'%}:</h6>
-                      <h3 class="font-weight-bold">{{ average_over_the_period }} {% trans 'Currency'%}</h3>
-                    </div>
-                      <div class="col-auto"></div>
-                    <div class="col-5 border-0 text-dark rounded bg-white">
-                        <h6 class="font-weight-bold">{% trans 'EstimatedSavingsHeader'%}:</h6>
-                      <h3 class="font-weight-bold">{{ estimated_savings }} {% trans 'Currency'%}</h3>
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <div class="container">
-                  <div class="row justify-content-center">
-                    <div class="col-4">
-                      <p>{% trans 'InitialBudgetHeader'%}: {{ balance.amount }} {% trans 'Currency'%}</p>
-                    </div>
-                    <div class="col-4">
-                      <p>{% trans 'RemainingFundsHeader'%}: {{ money_saved }} {% trans 'Currency'%} </p>
-                    </div>
-                     <div class="col-4">
-                      <p>{% trans 'SumOfExpensesHeader'%}: {{ sum_of_expenses }} {% trans 'Currency'%}</p>
-                    </div>
-                  </div>
-                </div>
                 <br>
 
             </div>
