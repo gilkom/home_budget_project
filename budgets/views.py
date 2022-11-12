@@ -112,6 +112,12 @@ def index(request):
                     page_color = f'danger'
                     p_code = f"#f8d7da"
 
+                money_saved_color = create_colors(money_saved)
+                average_over_the_period_color = create_colors(average_over_the_period, daily_average_goal)
+                sum_of_expenses_color = create_colors(sum_of_expenses, sum_of_goals)
+                estimated_savings_color = create_colors(estimated_savings, 0, planned_savings)
+                money_left_color = create_colors_category(money_left, money_per_day_left, daily_average_goal)
+
                 if expenses:
                     chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
                     gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals)
@@ -120,7 +126,12 @@ def index(request):
                 context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,
                             'planned_savings': planned_savings, 'sum_of_goals': sum_of_goals,
                             'page_color': page_color, 'chart': chart, 'gauge_chart': gauge_chart,
-                            'money_left': money_left, 'money_per_day_left': money_per_day_left}
+                            'money_left': money_left, 'money_per_day_left': money_per_day_left,
+                            'money_saved_color': money_saved_color,
+                            'average_over_the_period_color': average_over_the_period_color,
+                            'sum_of_expenses_color': sum_of_expenses_color,
+                            'estimated_savings_color': estimated_savings_color,
+                            'money_left_color': money_left_color, }
 
             context = {'sum_of_expenses': sum_of_expenses, 'money_saved': money_saved,
                         'average_over_the_period': average_over_the_period, 'days_passed': days_passed,

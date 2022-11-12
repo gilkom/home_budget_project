@@ -59,100 +59,100 @@
                 </div>
                 <br>
 
-                <div class="flex-parent" style="display: flex; width: 100%; border-style:groove;">
+                <div class="flex-parent bg-white" style="display: flex; width: 100%;">
                     <div class="flex-child" style="flex:1;">
-                        <div class="flex-parent" style="display: flex; width: 100%;">
+                        <div class="flex-parent  border round " style="display: flex; width: 100%;">
                             <div class="flex-child" style="flex:1;">
-                                <div class="card bg-secondary text-white  text-center m-1">
-                                    <div class="card-header my-1 p-0 font-weight-bold" style="font-size: 11px;">{% trans 'InitialBudgetHeader'%}:</div>
+                                <div class="card bg-light text-center m-1">
+                                    <div class="card-header my-1 p-0" style="font-size: 3vw;">{% trans 'InitialBudgetHeader'%}:</div>
                                     <div class="card-body my-1 p-0">
-                                        <p class="font-weight-bold" style="font-size: 12px;">{{ balance.amount }} {% trans 'Currency'%}</p>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ balance.amount }} {% trans 'Currency'%}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex-child" style="flex:1;">
-                                <div class="card bg-primary text-white text-center m-1">
-                                    <div class="card-header my-1 p-0 font-weight-bold" style="font-size: 11px;">{% trans 'RemainingFundsHeader'%}:</div>
-                                    <div class="card-body my-1 p-0">
-                                        <p style="font-size: 11px;">{{ money_saved }} {% trans 'Currency'%}</p>
+                                <div class="card  text-center m-1" style="background-color:{{ money_saved_color }};">
+                                    <div class="card-header my-1 p-0" style="font-size: 3vw;">{% trans 'RemainingFundsHeader'%}:</div>
+                                    <div class="card-body my-1 p-0 font-weight-bold">
+                                        <p style="font-size: 3.5vw; ">{{ money_saved }} {% trans 'Currency'%}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-parent" style="display: flex; width: 100%;">
+                        <div class="flex-parent border round" style="display: flex; width: 100%;">
                             <div class="flex-child" style="flex:1;">
-                                <div class="card bg-secondary text-white text-center m-1">
+                                <div class="card bg-light text-center m-1">
                                     <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'SumOfGoalsHeader' %}:</h5>
-                                        <p style="font-size: 11px;">{{ sum_of_goals }} {% trans 'Currency'%}</p>
+                                        <h5 class="card-title" style="font-size: 3vw;">{% trans 'DailyAvgGoalHeader' %}:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;"> {{ daily_average_goal }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-child" style="flex:1;">
+                                 <div class="card text-center m-1" style="background-color:{{ average_over_the_period_color }};">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title" style="font-size: 3vw;">{% trans 'DailyavgexpensesHeader'%}:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ average_over_the_period }} {% trans 'Currency'%}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="flex-parent border round" style="display: flex; width: 100%;">
+                            <div class="flex-child" style="flex:1;">
+                                <div class="card bg-light text-center m-1">
+                                    <div class="card-body my-1 p-0">
+                                        <h5 class="card-title" style="font-size: 3vw;">{% trans 'SumOfGoalsHeader' %}:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ sum_of_goals }} {% trans 'Currency'%}</p>
                                     </div>
                                 </div>
                             </div>
                              <div class="flex-child" style="flex:1;">
-                                <div class="card bg-primary text-white text-center m-1">
+                                <div class="card text-center m-1" style="background-color:{{ sum_of_expenses_color }};">
                                     <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">Suma wydatków:</h5>
-                                        <p style="font-size: 11px;">{{ sum_of_goals }} {% trans 'Currency'%}</p>
+                                        <h5 class="card-title" style="font-size: 3vw;">Suma wydatków:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ sum_of_expenses }} {% trans 'Currency'%}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex-parent" style="display: flex; width: 100%;">
+                        <div class="flex-parent border round" style="display: flex; width: 100%;">
                             <div class="flex-child" style="flex:1;">
-                                <div class="card bg-secondary text-white text-center m-1">
+                                <div class="card bg-light text-center m-1">
                                     <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'DailyAvgGoalHeader' %}:</h5>
-                                        <p style="font-size: 11px;"> {{ daily_average_goal }} {% trans 'Currency'%}</p>
+                                        <h5 class="card-title" style="font-size: 3vw;">{% trans 'PlannedSavingsHeader' %}:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ planned_savings }} {% trans 'Currency'%} </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex-child" style="flex:1;">
-                                 <div class="card bg-primary text-white text-center m-1">
+                                <div class="card text-center m-1 " style="background-color:{{ estimated_savings_color }};">
                                     <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'DailyavgexpensesHeader'%}:</h5>
-                                        <p style="font-size: 11px;">{{ average_over_the_period }} {% trans 'Currency'%}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex-parent" style="display: flex; width: 100%;">
-                            <div class="flex-child" style="flex:1;">
-                                <div class="card bg-secondary text-white text-center m-1">
-                                    <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'PlannedSavingsHeader' %}:</h5>
-                                        <p style="font-size: 11px;">{{ planned_savings }} {% trans 'Currency'%} </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-child" style="flex:1;">
-                                <div class="card bg-primary text-white text-center m-1">
-                                    <div class="card-body my-1 p-0">
-                                        <h5 class="card-title font-weight-bold" style="font-size: 11px;">{% trans 'EstimatedSavingsHeader'%}:</h5>
-                                        <p style="font-size: 11px;">{{ estimated_savings }} {% trans 'Currency'%}</p>
+                                        <h5 class="card-title" style="font-size: 3vw;">{% trans 'EstimatedSavingsHeader'%}:</h5>
+                                        <p class="font-weight-bold" style="font-size: 3.5vw;">{{ estimated_savings }} {% trans 'Currency'%}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-child" style="flex:1;">
+                    <div class="flex-child border round" style="flex:1;">
                         <div class="flex-parent" style="display: flex; width: 100%;">
                             <div class="flex-child" style="flex:1;">
                                 <div class="card m-1">
                                    <div class="card-header">
-                                       <p class="font-weight-bold" style="font-size:10px; text-align:center;">Pozostało / Dziennie</p>
+                                       <p class="font-weight-bold" style="font-size:3vw; text-align:center;">Pozostało / Dziennie</p>
                                    </div>
                                    <ul class="list-group list-group-flush">
-                                       <li class="list-group-item py-2">
-                                           <h6 class="card-title mb-2 text-muted  font-weight-bold">Wszystko</h6>
-                                           <p class="font-weight-bold" style="font-size:12px; ">
+                                       <li class="list-group-item py-2" style="background-color:{{ money_left_color }};">
+                                           <h6 class="card-title mb-2  font-weight-bold " style="font-size:3vw;">Wszystko</h6>
+                                           <p class="font-weight-bold" style="font-size:3vw; ">
                                                {{ money_left }} {% trans 'Currency'%} /
                                                {{ money_per_day_left }} {% trans 'Currency'%}
                                            </p>
                                        </li>
                                        {% for key, value in goals_dict.items %}
                                        <li class="list-group-item py-1">
-                                           <h6 class="card-title mb-2 text-muted ">{{ value.name }}</h6>
-                                           <p style="font-size:12px; ">
+                                           <h6 class="card-title mb-2 text-muted " style="font-size:3vw">{{ value.name }}</h6>
+                                           <p style="font-size:3vw; ">
                                                {{ value.money_goal_left }} {% trans 'Currency'%} /
                                                {{ value.money_per_category_per_day_left }} {% trans 'Currency'%}
                                            </p>

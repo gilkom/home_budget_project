@@ -217,6 +217,40 @@ def create_goals_dict(monthly_goals, period_length, days_passed, expenses, days_
 
     return goals_dict
 
+def create_colors(item, lower=0, greater=0):
+    color = "#f8f9fa"
+
+    if lower is 0 and greater is 0:
+        if item >= 0:
+            color = "#d4edda"
+        else:
+            color = "#f8d7da"
+    elif lower is not 0 and greater is 0:
+        if item <= lower:
+            color = "#d4edda"
+        else:
+            color = "#f8d7da"
+    else:
+        if item >= greater:
+            color = "#d4edda"
+        else:
+            color = "#f8d7da"
+
+    return color
+
+def create_colors_category(money_left, money_per_day_left, daily_average_goal):
+    color = "#f8f9fa"
+
+    if money_left < 0:
+        color = "#dc3545"
+    else:
+        if money_per_day_left >= daily_average_goal:
+            color = "#d4edda"
+        else:
+            color = "#f8d7da"
+
+    return color
+
 def get_average_list(d):
     today = (date.today().strftime('%m-%d'))
     counter = 0
