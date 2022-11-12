@@ -56,7 +56,14 @@ def index(request):
             money_saved = getattr(balance, 'amount') - sum_of_expenses
             average_over_the_period = round(sum_of_expenses / days_passed, 2)
             progress = f"{round((days_passed * 100)/period_length)}"
-            estimated_savings = getattr(balance, 'amount') - (Decimal(average_over_the_period) * period_length)
+            if getattr(balance, 'amount') > 0 or getattr(balance, 'amount') < 0:
+                estimated_savings = getattr(balance, 'amount') - (Decimal(average_over_the_period) * period_length)
+
+            else:
+                estimated_savings = 0
+            print(estimated_savings)
+            print(getattr(balance, 'amount'))
+            print(average_over_the_period)
 
             period_days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
             pd_df = pandas.DataFrame(data=period_days, columns=['full_dates'])
@@ -85,13 +92,20 @@ def index(request):
             # if monthly goals for this period are empty
             if not monthly_goals:
                 is_goal = False
+                daily_average_goal = 0
+                sum_of_goals = 0
+                planned_savings = 0
+                money_left = 0
+                money_per_day_left = 0
                 if expenses:
                     # chart with expenses
                     chart = get_categories_bar_chart(pd_expenses_df)
                     # chart with budget
                     gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code)
 
-                context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart}
+                context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart, 'daily_average_goal':
+                            daily_average_goal, 'sum_of_goals': sum_of_goals, 'planned_savings': planned_savings,
+                            'money_left': money_left, 'money_per_day_left': money_per_day_left, }
 
             # if monthly goals for this period exists
             else:
@@ -153,12 +167,18 @@ def expenses(request):
     categories = BudgetsCategory.objects.filter(owner=request.user)
     pie_chart = None
     bar_chart = None
+    if period is not None:
+        start_date = getattr(period, 'start_day')
+        end_date = getattr(period, 'end_day')
+    else:
+        start_date = date.today()
+        end_date = date.today() + relativedelta(months=1)
 
     if request.method != 'POST':
         form = ExpenditureForm(request=request)
 
         if len(expenses) > 0:
-            period_days = pandas.date_range(start=getattr(period, 'start_day'), end=getattr(period, 'end_day'))
+            period_days = pandas.date_range(start=start_date, end=end_date)
             pd_df = pandas.DataFrame(data=period_days, columns=['full_dates'])
 
             expenses_df = pandas.DataFrame(expenses.values())

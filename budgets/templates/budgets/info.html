@@ -150,8 +150,8 @@
                                            </p>
                                        </li>
                                        {% for key, value in goals_dict.items %}
-                                       <li class="list-group-item py-1">
-                                           <h6 class="card-title mb-2 text-muted " style="font-size:3vw">{{ value.name }}</h6>
+                                       <li class="list-group-item py-1" style="background-color:{{ value.category_color }};">
+                                           <h6 class="card-title mb-2 " style="font-size:3vw">{{ value.name }}</h6>
                                            <p style="font-size:3vw; ">
                                                {{ value.money_goal_left }} {% trans 'Currency'%} /
                                                {{ value.money_per_category_per_day_left }} {% trans 'Currency'%}

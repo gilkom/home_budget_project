@@ -206,13 +206,17 @@ def create_goals_dict(monthly_goals, period_length, days_passed, expenses, days_
         av_daily_goal = round(cat_sum / days_passed, 2)
         money_goal_left = m_g.goal - cat_sum
         money_per_category_per_day_left = round(money_goal_left / days_left, 2)
+
+        category_color = create_colors_category(money_goal_left, money_per_category_per_day_left, av_daily_goal)
+
         goals_d = {m_g.monthly_goal_id: {'name': m_g.category_id_budgets_category,
                                          'goal': m_g.goal,
                                          'category_sum': cat_sum,
                                          'av_period': av_period_goal,
                                          'av_daily': av_daily_goal,
                                          'money_goal_left': money_goal_left,
-                                         'money_per_category_per_day_left': money_per_category_per_day_left}}
+                                         'money_per_category_per_day_left': money_per_category_per_day_left,
+                                         'category_color': category_color}}
         goals_dict.update(goals_d)
 
     return goals_dict
