@@ -35,15 +35,10 @@
             <br>
             <div class="p-3 mb-2 alert-{{page_color}} text-dark rounded">
                 <div class="container">
-                    <div class="row justify-content-end">
+                    <div class="row">
                         <div class="col-5">
                             <p style="font-size:11px; ">
                                 Dzisiaj: {{ current_date }}
-                            </p>
-                        </div>
-                        <div class="col-7 text-right">
-                            <p style="font-size:11px; ">
-                                Okres: {{ period.start_day|date:"d.m.Y" }} - {{ period.end_day|date:"d.m.Y" }}
                             </p>
                         </div>
                     </div>
@@ -139,7 +134,7 @@
                             <div class="flex-child" style="flex:1;">
                                 <div class="card m-1">
                                    <div class="card-header">
-                                       <p class="font-weight-bold" style="font-size:3vw; text-align:center;">Pozostało / Dziennie</p>
+                                       <p class="font-weight-bold" style="font-size:3vw; text-align:center;">Wydatki:</p>
                                    </div>
                                    <ul class="list-group list-group-flush">
                                        <li class="list-group-item py-2" style="background-color:{{ money_left_color }};">

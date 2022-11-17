@@ -101,7 +101,7 @@ def index(request):
                     # chart with expenses
                     chart = get_categories_bar_chart(pd_expenses_df)
                     # chart with budget
-                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code)
+                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, period)
 
                 context1 = {'is_goal': is_goal, 'page_color': page_color, 'chart': chart, 'daily_average_goal':
                             daily_average_goal, 'sum_of_goals': sum_of_goals, 'planned_savings': planned_savings,
@@ -134,7 +134,7 @@ def index(request):
 
                 if expenses:
                     chart = get_categories_bar_chart(pd_expenses_df, daily_average_goal)
-                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals)
+                    gauge_chart = get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, period, sum_of_goals)
 
 
                 context1 = {'is_goal': is_goal, 'goals_dict': goals_dict, 'daily_average_goal': daily_average_goal,

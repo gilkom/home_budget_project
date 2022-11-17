@@ -128,11 +128,12 @@ def get_categories_bar_chart(data, daily_average_goal=None):
     return chart
 
 
-def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, sum_of_goals=0):
+def get_budget_gauge_chart(balance, money_saved, sum_of_expenses, p_code, period, sum_of_goals=0):
     sum_of_goals = int(sum_of_goals)
     step = int(balance.amount) / 100
+    start = period.start_day.strftime('%d.%m.%Y')
     fig = go.Figure(go.Indicator(
-        title={'text': f"Limit: {sum_of_goals}", 'font': {'size': 12}},
+        title={'text': f"Okres: { period.start_day.strftime('%d.%m.%Y') } - { period.end_day.strftime('%d.%m.%Y')}", 'font': {'size': 12}},
         mode="gauge+number+delta",
         value=sum_of_expenses,
         number={'valueformat': 'f', 'suffix': str(' ' + _('Currency'))},

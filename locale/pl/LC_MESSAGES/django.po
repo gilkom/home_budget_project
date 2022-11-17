@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-01 12:44+0100\n"
+"POT-Creation-Date: 2022-11-17 18:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,83 +266,89 @@ msgstr "Utwórz okres"
 msgid "DaysCounter"
 msgstr "dni"
 
-#: budgets/templates/budgets/info.html:53
-msgid "DailyavgexpensesHeader"
-msgstr "Średnie dzienne wydatki"
-
-#: budgets/templates/budgets/info.html:54
-#: budgets/templates/budgets/info.html:59
-#: budgets/templates/budgets/info.html:67
-#: budgets/templates/budgets/info.html:70
-#: budgets/templates/budgets/info.html:73
-#: budgets/templates/budgets/info.html:91
-#: budgets/templates/budgets/info.html:92
-#: budgets/templates/budgets/info.html:93
-#: budgets/templates/budgets/info.html:107
-#: budgets/templates/budgets/info.html:108
-#: budgets/templates/budgets/info.html:109
-#: budgets/templates/budgets/info.html:110 budgets/utils.py:141
-msgid "Currency"
-msgstr "zł"
-
-#: budgets/templates/budgets/info.html:58
-msgid "EstimatedSavingsHeader"
-msgstr "Szacunkowe oszczędności"
-
 #: budgets/templates/budgets/info.html:67
 msgid "InitialBudgetHeader"
 msgstr "Budżet początkowy"
 
-#: budgets/templates/budgets/info.html:70
+#: budgets/templates/budgets/info.html:69
+#: budgets/templates/budgets/info.html:77
+#: budgets/templates/budgets/info.html:87
+#: budgets/templates/budgets/info.html:95
+#: budgets/templates/budgets/info.html:105
+#: budgets/templates/budgets/info.html:113
+#: budgets/templates/budgets/info.html:123
+#: budgets/templates/budgets/info.html:131
+#: budgets/templates/budgets/info.html:148
+#: budgets/templates/budgets/info.html:149
+#: budgets/templates/budgets/info.html:156
+#: budgets/templates/budgets/info.html:157
+#: budgets/templates/budgets/info.html:183
+#: budgets/templates/budgets/info.html:184
+#: budgets/templates/budgets/info.html:185
+#: budgets/templates/budgets/info.html:199
+#: budgets/templates/budgets/info.html:200
+#: budgets/templates/budgets/info.html:201
+#: budgets/templates/budgets/info.html:202 budgets/utils.py:138
+msgid "Currency"
+msgstr "zł"
+
+#: budgets/templates/budgets/info.html:75
 msgid "RemainingFundsHeader"
-msgstr "Pozostałe środki"
+msgstr "Aktualne saldo"
 
-#: budgets/templates/budgets/info.html:73
-msgid "SumOfExpensesHeader"
-msgstr "Suma wydatków"
+#: budgets/templates/budgets/info.html:86
+#: budgets/templates/budgets/info.html:183
+msgid "DailyAvgGoalHeader"
+msgstr "Planowe śr. dzienne wydatki"
 
-#: budgets/templates/budgets/info.html:84
+#: budgets/templates/budgets/info.html:94
+msgid "DailyavgexpensesHeader"
+msgstr "Średnie dzienne wydatki"
+
+#: budgets/templates/budgets/info.html:104
+#: budgets/templates/budgets/info.html:184
+msgid "SumOfGoalsHeader"
+msgstr "Planowe wydatki"
+
+#: budgets/templates/budgets/info.html:122
+#: budgets/templates/budgets/info.html:185
+msgid "PlannedSavingsHeader"
+msgstr "Planowe oszczędności"
+
+#: budgets/templates/budgets/info.html:130
+msgid "EstimatedSavingsHeader"
+msgstr "Szacunkowe oszczędności"
+
+#: budgets/templates/budgets/info.html:176
 msgid "SetGoalsInfo"
 msgstr "Utwórz cele dla tego okresu aby zobaczyć więcej szczegółów..."
 
-#: budgets/templates/budgets/info.html:86
+#: budgets/templates/budgets/info.html:178
 #: budgets/templates/budgets/periods.html:47
 msgid "SetGoalsButton"
 msgstr "Cele"
 
-#: budgets/templates/budgets/info.html:90
+#: budgets/templates/budgets/info.html:182
 msgid "DetailsOfGoalsHeader"
 msgstr "Cele"
 
-#: budgets/templates/budgets/info.html:91
-msgid "DailyAvgGoalHeader"
-msgstr "Zaplanowane średnie dzienne wydatki"
-
-#: budgets/templates/budgets/info.html:92
-msgid "SumOfGoalsHeader"
-msgstr "Zaplanowane wydatki"
-
-#: budgets/templates/budgets/info.html:93
-msgid "PlannedSavingsHeader"
-msgstr "Zaplanowane oszczędności"
-
-#: budgets/templates/budgets/info.html:98
+#: budgets/templates/budgets/info.html:190
 msgid "CategoryTableHeader"
 msgstr "Kategoria"
 
-#: budgets/templates/budgets/info.html:99
+#: budgets/templates/budgets/info.html:191
 msgid "GoalTableHeader"
 msgstr "Cel"
 
-#: budgets/templates/budgets/info.html:100
+#: budgets/templates/budgets/info.html:192
 msgid "CategorysumHeader"
 msgstr "Suma wydatków"
 
-#: budgets/templates/budgets/info.html:101
+#: budgets/templates/budgets/info.html:193
 msgid "DailyGoalTableHeader"
 msgstr "Dzienny cel"
 
-#: budgets/templates/budgets/info.html:102
+#: budgets/templates/budgets/info.html:194
 msgid "DailySpendingsTableHeader"
 msgstr "Dzienny wydatek"
 
@@ -386,11 +392,11 @@ msgstr "Czy na pewno chcesz usunąć ten okres?"
 msgid "NoperiodsInfo"
 msgstr "Brak okresów. Dodaj pierwszy..."
 
-#: budgets/utils.py:143
+#: budgets/utils.py:140
 msgid "plotlyLeft"
 msgstr "Pozostało: "
 
-#: budgets/utils.py:144
+#: budgets/utils.py:141
 msgid "plotlyExceeded"
 msgstr "Przekroczono: "
 
@@ -1629,6 +1635,9 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/views/templates/default_urlconf.html:249
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "SumOfExpensesHeader"
+#~ msgstr "Suma wydatków"
 
 #~ msgid "StartTh"
 #~ msgstr "Początek"
