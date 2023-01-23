@@ -23,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-SECRET_KEY = 'django-insecure-mq0jfrgx-wsn7evk0(9yv2*qjeuch#gzmzmu4(imeh0%bm_28x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
 
+    'render.apps.RenderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
