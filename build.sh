@@ -3,6 +3,7 @@
 set -o errexit
 
 poetry install
+poetry add gunicorn
 
 python manage.py collectstatic --no-input
 python manage.py migrate
